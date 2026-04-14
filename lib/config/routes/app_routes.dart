@@ -1,11 +1,18 @@
+import 'package:go_router/go_router.dart';
+
 import '../../features/first_feature/presentation/screens/feature_screen.dart';
 
 class AppRoutes {
-  static String homeScreenRoute = 'homeScreen';
+  static const String home = '/';
 
-  static get routes {
-    return {
-      AppRoutes.homeScreenRoute: (context) => const HomeScreen(),
-    };
-  }
+  static final GoRouter router = GoRouter(
+    initialLocation: AppRoutes.home,
+    routes: [
+      GoRoute(
+        path: AppRoutes.home,
+        name: 'home',
+        builder: (context, state) => const HomeScreen(),
+      ),
+    ],
+  );
 }

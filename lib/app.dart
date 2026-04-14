@@ -12,11 +12,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (_, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Task',
-          initialRoute: AppRoutes.homeScreenRoute,
-          routes: AppRoutes.routes,
+          routerConfig: AppRoutes.router,
         );
       },
     );
