@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_helper/core/services/permission_service.dart';
-import 'package:flutter_helper/features/first_feature/data/data_sources/first_feature_remote_data_source.dart';
-import 'package:flutter_helper/features/first_feature/data/repositories/first_feature_repo_impl.dart';
-import 'package:flutter_helper/features/first_feature/domain/repositories/first_feature_repo.dart';
-import 'package:flutter_helper/features/first_feature/domain/use_cases/first_feature_uc.dart';
-import 'package:flutter_helper/features/first_feature/presentation/manager/cat_fact_cubit.dart';
+import 'package:chat_app/core/services/permission_service.dart';
+import 'package:chat_app/features/first_feature/data/data_sources/first_feature_remote_data_source.dart';
+import 'package:chat_app/features/first_feature/data/repositories/first_feature_repo_impl.dart';
+import 'package:chat_app/features/first_feature/domain/repositories/first_feature_repo.dart';
+import 'package:chat_app/features/first_feature/domain/use_cases/first_feature_uc.dart';
+import 'package:chat_app/features/first_feature/presentation/manager/cat_fact_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

@@ -1,4 +1,4 @@
-package com.example.flutter_helper
+package com.igentech.chatapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,4 @@
-import 'package:flutter_helper/features/first_feature/domain/entities/cat_fact_entity.dart';
+import 'package:chat_app/features/first_feature/domain/entities/cat_fact_entity.dart';
 
 class CatFactModel extends CatFactEntity {
   CatFactModel({

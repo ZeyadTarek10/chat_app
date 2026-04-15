@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_helper/core/error/failures.dart';
-import 'package:flutter_helper/core/network/netwok_info.dart';
-import 'package:flutter_helper/features/first_feature/data/data_sources/first_feature_remote_data_source.dart';
-import 'package:flutter_helper/features/first_feature/domain/entities/cat_fact_entity.dart';
-import 'package:flutter_helper/features/first_feature/domain/repositories/first_feature_repo.dart';
+import 'package:chat_app/core/error/failures.dart';
+import 'package:chat_app/core/network/netwok_info.dart';
+import 'package:chat_app/features/first_feature/data/data_sources/first_feature_remote_data_source.dart';
+import 'package:chat_app/features/first_feature/domain/entities/cat_fact_entity.dart';
+import 'package:chat_app/features/first_feature/domain/repositories/first_feature_repo.dart';
 
 class FirstFeatureRepositoryImpl implements FirstFeatureRepository {
   final NetworkInfo networkInfo;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "72690865509",
+    "project_id": "chat-app-fddbf",
+    "storage_bucket": "chat-app-fddbf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72690865509:android:8db2f959d94fe53a25fd8c",
+        "android_client_info": {
+          "package_name": "com.igentech.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2b2k4WppMI3fEMJ4yni8_ddeaLvTt8_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

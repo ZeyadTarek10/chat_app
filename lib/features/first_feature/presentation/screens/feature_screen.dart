@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_helper/features/first_feature/presentation/manager/cat_fact_cubit.dart';
+import 'package:chat_app/features/first_feature/presentation/manager/cat_fact_cubit.dart';
 import '../../../../injection_container.dart';
 
 class HomeScreen extends StatelessWidget {
