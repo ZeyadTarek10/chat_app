@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
 
 class CustomLinearButton extends StatelessWidget {
   const CustomLinearButton({

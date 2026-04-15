@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 
 class KeepMeSignIn extends StatelessWidget {
   const KeepMeSignIn({super.key, required this.value, this.onChanged});

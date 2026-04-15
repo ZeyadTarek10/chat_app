@@ -1,8 +1,8 @@
-import 'package:flutter_helper/features/forget_password/screens/forget_password_screen.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/login_screen.dart';
-import 'package:flutter_helper/features/sign_up/presentation/screens/sign_up_screen.dart';
-import 'package:flutter_helper/features/splash/presentation/views/onbording_screen.dart';
-import 'package:flutter_helper/features/splash/presentation/views/splash_screen.dart';
+import 'package:chat_app/features/forget_password/screens/forget_password_screen.dart';
+import 'package:chat_app/features/Login/presentation/screens/login_screen.dart';
+import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
+import 'package:chat_app/features/splash/presentation/views/onbording_screen.dart';
+import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/first_feature/presentation/screens/feature_screen.dart';

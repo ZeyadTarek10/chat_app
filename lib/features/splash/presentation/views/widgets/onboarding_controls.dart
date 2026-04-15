@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/features/splash/presentation/views/widgets/bottom_wave_clipper.dart';
-import 'package:flutter_helper/features/splash/presentation/views/widgets/build_dot_onbording.dart';
-import 'package:flutter_helper/shared_widgets/buttons/custom_linear_btn.dart';
-import 'package:flutter_helper/shared_widgets/buttons/custom_text_btn.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/features/splash/presentation/views/widgets/bottom_wave_clipper.dart';
+import 'package:chat_app/features/splash/presentation/views/widgets/build_dot_onbording.dart';
+import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
+import 'package:chat_app/shared_widgets/buttons/custom_text_btn.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 
 class OnboardingControls extends StatelessWidget {
   final int currentPage;

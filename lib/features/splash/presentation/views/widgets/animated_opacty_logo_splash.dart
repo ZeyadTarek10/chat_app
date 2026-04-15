@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/features/splash/presentation/views/widgets/center_image_with_text.dart';
+import 'package:chat_app/features/splash/presentation/views/widgets/center_image_with_text.dart';
 
 class AnimatedOpactyLogoSplash extends StatelessWidget {
   const AnimatedOpactyLogoSplash({super.key, required this.showDetails});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/config/routes/app_routes.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:go_router/go_router.dart';
 
 class DontHaveAnAcount extends StatelessWidget {

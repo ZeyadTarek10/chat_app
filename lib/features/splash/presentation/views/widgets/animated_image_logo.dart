@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_images.dart';
+import 'package:chat_app/core/utils/app_images.dart';
 
 class AnimatedImageLogo extends StatelessWidget {
   const AnimatedImageLogo({super.key, required this.fillFraction});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/config/routes/app_routes.dart';
-import 'package:flutter_helper/features/splash/presentation/views/widgets/animated_align_logo_splash.dart';
-import 'package:flutter_helper/features/splash/presentation/views/widgets/animated_opacty_logo_splash.dart';
+import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/features/splash/presentation/views/widgets/animated_align_logo_splash.dart';
+import 'package:chat_app/features/splash/presentation/views/widgets/animated_opacty_logo_splash.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {

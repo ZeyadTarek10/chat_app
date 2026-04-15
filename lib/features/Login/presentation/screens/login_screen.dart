@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/config/routes/app_routes.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/widgets/button_sign_in_with_google.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/widgets/divider_sign_in.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/widgets/dont_have_an_acount.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/widgets/form_login.dart';
-import 'package:flutter_helper/features/Login/presentation/screens/widgets/kee_me_sign_in.dart';
-import 'package:flutter_helper/shared_widgets/buttons/custom_linear_btn.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/features/Login/presentation/screens/widgets/button_sign_in_with_google.dart';
+import 'package:chat_app/features/Login/presentation/screens/widgets/divider_sign_in.dart';
+import 'package:chat_app/features/Login/presentation/screens/widgets/dont_have_an_acount.dart';
+import 'package:chat_app/features/Login/presentation/screens/widgets/form_login.dart';
+import 'package:chat_app/features/Login/presentation/screens/widgets/kee_me_sign_in.dart';
+import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {

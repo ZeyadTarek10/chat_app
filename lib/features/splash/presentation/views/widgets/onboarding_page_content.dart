@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/core/utils/app_images.dart';
-import 'package:flutter_helper/features/splash/data/onboarding_model.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_images.dart';
+import 'package:chat_app/features/splash/data/onboarding_model.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 
 class OnboardingPageContent extends StatelessWidget {
   final OnboardingModel model;

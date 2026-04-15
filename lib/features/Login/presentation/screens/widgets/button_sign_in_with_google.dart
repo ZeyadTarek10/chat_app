@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/core/utils/app_images.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_images.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({super.key});

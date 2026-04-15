@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/core/validations/app_validation.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
-import 'package:flutter_helper/shared_widgets/custom_text_form_field.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/validations/app_validation.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 
 class FormSignUp extends StatelessWidget {
   const FormSignUp(

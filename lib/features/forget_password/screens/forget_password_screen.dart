@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_helper/core/utils/app_colors.dart';
-import 'package:flutter_helper/core/validations/app_validation.dart';
-import 'package:flutter_helper/features/forget_password/screens/widgets/remembered_password.dart';
-import 'package:flutter_helper/shared_widgets/buttons/custom_linear_btn.dart';
-import 'package:flutter_helper/shared_widgets/custom_app_bar.dart';
-import 'package:flutter_helper/shared_widgets/custom_text.dart';
-import 'package:flutter_helper/shared_widgets/custom_text_form_field.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/validations/app_validation.dart';
+import 'package:chat_app/features/forget_password/screens/widgets/remembered_password.dart';
+import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
+import 'package:chat_app/shared_widgets/custom_app_bar.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
