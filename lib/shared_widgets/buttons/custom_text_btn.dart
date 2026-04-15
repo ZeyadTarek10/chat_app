@@ -4,8 +4,8 @@ import '../custom_text.dart';
 class CustomTextButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
-  final double btnWidth;
-  final double btnHeight;
+  final double? btnWidth;
+  final double? btnHeight;
   final ButtonStyle? style;
   final TextStyle? textStyle;
   final TextAlign? textAlign;
@@ -13,8 +13,8 @@ class CustomTextButtonWidget extends StatelessWidget {
   const CustomTextButtonWidget({
     super.key,
     required this.text,
-    required this.btnWidth,
-    required this.btnHeight,
+    this.btnWidth,
+    this.btnHeight,
     this.style,
     this.textStyle,
     required this.onPressed,

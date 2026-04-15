@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_helper/core/utils/app_colors.dart';
+import 'package:flutter_helper/shared_widgets/custom_text.dart';
+import 'package:go_router/go_router.dart';
+
+class RememberedPassword extends StatelessWidget {
+  const RememberedPassword({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CustomTextWidget(
+          text: "Remembered password? ",
+          textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14),
+        ),
+        GestureDetector(
+          onTap: () {
+            GoRouter.of(context).pop();
+          },
+          child: Text(
+            'Login to your account',
+            style: TextStyle(
+                color: AppColors.mainColor,
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
+    );
+  }
+}

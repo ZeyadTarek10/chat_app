@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_helper/core/utils/app_colors.dart';
+import 'package:flutter_helper/features/splash/presentation/views/widgets/bottom_wave_clipper.dart';
+import 'package:flutter_helper/features/splash/presentation/views/widgets/build_dot_onbording.dart';
+import 'package:flutter_helper/shared_widgets/buttons/custom_linear_btn.dart';
+import 'package:flutter_helper/shared_widgets/buttons/custom_text_btn.dart';
+import 'package:flutter_helper/shared_widgets/custom_text.dart';
+
+class OnboardingControls extends StatelessWidget {
+  final int currentPage;
+  final int totalPages;
+  final VoidCallback onSkip;
+  final VoidCallback onNext;
+  final VoidCallback onGetStarted;
+
+  const OnboardingControls({
+    super.key,
+    required this.currentPage,
+    required this.totalPages,
+    required this.onSkip,
+    required this.onNext,
+    required this.onGetStarted,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ClipPath(
+          clipper: BottomWaveClipper(),
+          child: Container(
+            color: const Color(0xFFF0F9FF),
+            width: double.infinity,
+            height: double.infinity,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 40.0),
+          child: ClipPath(
+            clipper: BottomWaveClipper(),
+            child: Container(
+              color: const Color(0xFFDDF3FF),
+              width: double.infinity,
+              height: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                children: [
+                  const Spacer(flex: 2),
+                  CustomLinearButton(
+                      onPressed: onGetStarted,
+                      height: 60,
+                      width: double.infinity,
+                      child: CustomTextWidget(
+                          text: 'Get started',
+                          textStyle: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold))),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomTextButtonWidget(
+                        onPressed: onSkip,
+                        text: 'Skip',
+                        textStyle: TextStyle(
+                            color: AppColors.backgroundColorbuttonblue2,
+                            fontSize: 14),
+                      ),
+                      Row(
+                        children: List.generate(
+                          totalPages,
+                          (index) => BuildDotOnbording(
+                              index: index, currentPage: currentPage),
+                        ),
+                      ),
+                      CustomTextButtonWidget(
+                          text: 'Next',
+                          onPressed: onNext,
+                          style: TextButton.styleFrom(
+                            backgroundColor: AppColors.backgroundColorCircleButtonblue3,
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(16),
+                          ),
+                          textStyle: TextStyle(
+                              color: AppColors.mainColor, fontSize: 12)),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
