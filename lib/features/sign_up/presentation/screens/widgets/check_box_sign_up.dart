@@ -21,7 +21,7 @@ class CheckBoxSignUp extends StatelessWidget {
             activeColor: const Color(0xFF4ADE80),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            side: BorderSide(color: AppColors.mainColor, width: 1.5),
+            side: BorderSide(color: AppColors.mainTextColor, width: 1.5),
           ),
         ),
         const SizedBox(width: 8),

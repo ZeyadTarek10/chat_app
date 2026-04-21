@@ -40,7 +40,7 @@ class FormSignUp extends StatelessWidget {
             textStyle:
                 TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
        
-        const SizedBox(height: 20),
+        const SizedBox(height: 8),
         CustomTextFormFieldWidget(
           controller: passwordController,
           hint: '********',

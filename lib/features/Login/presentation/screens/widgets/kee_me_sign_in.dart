@@ -20,7 +20,7 @@ class KeepMeSignIn extends StatelessWidget {
             activeColor: const Color(0xFF4ADE80),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            side: const BorderSide(color: Colors.grey),
+            side: BorderSide(color: AppColors.mainTextColor, width: 1.5),
           ),
         ),
         const SizedBox(width: 8),

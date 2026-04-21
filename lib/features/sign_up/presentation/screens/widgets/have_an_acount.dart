@@ -20,7 +20,7 @@ class HaveAnAcount extends StatelessWidget {
           child: Text(
             'Sign in here',
             style: TextStyle(
-                color: AppColors.mainColor,
+                color: AppColors.backgroundColorbuttonblue2,
                 fontSize: 14,
                 fontWeight: FontWeight.bold),
           ),
