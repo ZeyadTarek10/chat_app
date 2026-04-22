@@ -22,7 +22,7 @@ class RememberedPassword extends StatelessWidget {
           child: Text(
             'Login to your account',
             style: TextStyle(
-                color: AppColors.mainColor,
+                color: AppColors.backgroundColorbuttonblue2,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
           ),

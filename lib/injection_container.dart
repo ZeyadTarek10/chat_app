@@ -1,3 +1,18 @@
+import 'package:chat_app/features/Login/data/data_sources/login_remote_data_source.dart';
+import 'package:chat_app/features/Login/data/repositories/login_repository_impl.dart';
+import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
+import 'package:chat_app/features/Login/domain/use_cases/login_use_case.dart';
+import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:chat_app/features/forget_password/data/data_sources/forget_password_remote_data_source.dart';
+import 'package:chat_app/features/forget_password/data/repositories/forget_password_repository_impl.dart';
+import 'package:chat_app/features/forget_password/domain/repositories/forget_password_repository.dart';
+import 'package:chat_app/features/forget_password/domain/use_cases/forget_password_use_case.dart';
+import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
+import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_source.dart';
+import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_impl.dart';
+import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
+import 'package:chat_app/features/sign_up/domain/use_cases/sign_up_use_case.dart';
+import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:chat_app/core/services/permission_service.dart';
@@ -25,21 +40,45 @@ Future<void> getItInit() async {
 
   /// Blocs
   getIt.registerFactory<CatFactCubit>(() => CatFactCubit(featureUc: getIt()));
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: getIt()));
+  getIt.registerFactory<ForgetPasswordCubit>(
+      () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
+  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUseCase: getIt()));
 
   /// Use cases
-  getIt
-      .registerLazySingleton<FirstFeatureUc>(() => FirstFeatureUc(firstFeatureRepository: getIt()));
+  getIt.registerLazySingleton<FirstFeatureUc>(
+      () => FirstFeatureUc(firstFeatureRepository: getIt()));
+  getIt.registerLazySingleton<LoginUseCase>(
+      () => LoginUseCase(repository: getIt()));
+  getIt.registerLazySingleton<ForgetPasswordUseCase>(
+      () => ForgetPasswordUseCase(repository: getIt()));
+  getIt.registerLazySingleton<SignUpUseCase>(
+      () => SignUpUseCase(repository: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>
-      FirstFeatureRepositoryImpl(networkInfo: getIt(), firstFeatureRemoteDataSource: getIt()));
+      FirstFeatureRepositoryImpl(
+          networkInfo: getIt(), firstFeatureRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<LoginRepository>(() =>
+      LoginRepositoryImpl(remoteDataSource: getIt(), cacheHelper: getIt()));
+  getIt.registerLazySingleton<ForgetPasswordRepository>(
+      () => ForgetPasswordRepositoryImpl(remoteDataSource: getIt()));
+  getIt.registerLazySingleton<SignUpRepository>(
+      () => SignUpRepositoryImpl(remoteDataSource: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(
       () => FirstFeatureRemoteDataSourceImpl(client: getIt()));
+  getIt.registerLazySingleton<LoginRemoteDataSource>(
+      () => LoginRemoteDataSourceImpl());
+  getIt.registerLazySingleton<ForgetPasswordRemoteDataSource>(
+      () => ForgetPasswordRemoteDataSourceImpl());
+  getIt.registerLazySingleton<SignUpRemoteDataSource>(
+      () => SignUpRemoteDataSourceImpl());
 
   /// Core
-  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: getIt()));
+  getIt.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(connectionChecker: getIt()));
   getIt.registerLazySingleton<ApiConsumer>(() => DioConsumer(client: getIt()));
 
   /// External

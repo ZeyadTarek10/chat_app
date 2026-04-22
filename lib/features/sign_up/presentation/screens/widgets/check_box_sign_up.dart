@@ -21,13 +21,15 @@ class CheckBoxSignUp extends StatelessWidget {
             activeColor: const Color(0xFF4ADE80),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            side: BorderSide(color: AppColors.mainColor, width: 1.5),
+            side: BorderSide(color: AppColors.mainTextColor, width: 1.5),
           ),
         ),
         const SizedBox(width: 8),
-        CustomTextWidget(
-            text: 'By Creating an Account, I accept \n Hiring Hub terms of Use and Privacy Policy',
-            textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+        Expanded(
+          child: CustomTextWidget(
+              text: 'By Creating an Account, I accept Hiring Hub terms of Use and Privacy Policy',
+              textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+        ),
       ],
     );
   }
