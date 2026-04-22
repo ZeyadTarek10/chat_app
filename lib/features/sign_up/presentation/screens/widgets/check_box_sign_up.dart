@@ -25,9 +25,11 @@ class CheckBoxSignUp extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        CustomTextWidget(
-            text: 'By Creating an Account, I accept \n Hiring Hub terms of Use and Privacy Policy',
-            textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+        Expanded(
+          child: CustomTextWidget(
+              text: 'By Creating an Account, I accept Hiring Hub terms of Use and Privacy Policy',
+              textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+        ),
       ],
     );
   }

@@ -9,6 +9,20 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit({required this.loginUseCase}) : super(LoginInitial());
 
+  bool isPasswordVisible = false;
+  bool isKeepMeSignedIn = false;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    emit(LoginFormUpdated()); 
+  }
+
+  void toggleKeepMeSignedIn(bool? value) {
+    isKeepMeSignedIn = value ?? false;
+    emit(LoginFormUpdated()); 
+  }
+
+
   Future<void> signInUser({
     required String email, 
     required String password, 

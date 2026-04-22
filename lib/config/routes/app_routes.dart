@@ -2,6 +2,7 @@ import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_c
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/features/forget_password/presentation/screens/forget_password_screen.dart';
 import 'package:chat_app/features/Login/presentation/screens/login_screen.dart';
+import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/onbording_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
@@ -49,7 +50,10 @@ class AppRoutes {
       GoRoute(
           path: AppRoutes.signUp,
           name: 'signUp',
-          builder: (context, state) => const SignupScreen()),
+          builder: (context, state) => BlocProvider(
+                create: (context) => getIt<SignUpCubit>(),
+                child: const SignupScreen(),
+              )),
       GoRoute(
         path: AppRoutes.home,
         name: 'home',

@@ -1,3 +1,4 @@
+import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,22 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-  bool isPasswordVisible = false;
-  bool isKeepMeSignedIn = false;
-  bool isLoading = false;
-
-  void togglePasswordVisibility() {
-    setState(() {
-      isPasswordVisible = !isPasswordVisible;
-    });
-  }
-
-  void toggleKeepMeSignedIn(bool? value) {
-    setState(() {
-      isKeepMeSignedIn = value ?? false;
-    });
-  }
 
   @override
   void dispose() {
@@ -69,8 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //     if (user != null && (user.displayName == null || user.displayName!.isEmpty)) {
 //       await user.updateDisplayName(googleUser.displayName ?? "New User");
-//       await user.reload(); 
-//       user = FirebaseAuth.instance.currentUser; 
+//       await user.reload();
+//       user = FirebaseAuth.instance.currentUser;
 //     }
 
 //     Navigator.pushReplacementNamed(context, '/home');
@@ -79,80 +63,85 @@ class _LoginScreenState extends State<LoginScreen> {
 //   }
 // }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
-          isLoading = true;
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const CustomLoading(),
+          );
         } else if (state is LoginSuccess) {
+          GoRouter.of(context).pop();
           showSnackBar(context,
               text: 'Signed In Successfuly!.', color: Colors.green);
           GoRouter.of(context).push(AppRoutes.home);
         } else if (state is LoginFailure) {
+          if (ModalRoute.of(context)?.isCurrent != true) {
+            GoRouter.of(context).pop();
+          }
           showSnackBar(context,
               text: state.errorMessage, color: Colors.redAccent);
-          isLoading = false;
         }
       },
       builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: isLoading,
-          child: Scaffold(
-            backgroundColor: AppColors.white,
-            body: SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 100),
-                      const CustomTextWidget(
-                        text: 'Login',
-                        textAlign: TextAlign.center,
-                        textStyle: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 40),
-                      const GoogleSignInButton(),
-                      const SizedBox(height: 30),
-                      const DividerSignIn(),
-                      const SizedBox(height: 30),
-                      FormLogin(
-                          emailController: emailController,
-                          passwordController: passwordController,
-                          isPasswordVisible: isPasswordVisible,
-                          togglePasswordVisibility: togglePasswordVisibility),
-                      const SizedBox(height: 10),
-                      KeepMeSignIn(
-                        value: isKeepMeSignedIn,
-                        onChanged: toggleKeepMeSignedIn,
-                      ),
-                      const SizedBox(height: 20),
-                      CustomLinearButton(
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              BlocProvider.of<LoginCubit>(context).signInUser(
-                                  email: emailController.text,
-                                  password: passwordController.text, isKeepMeSignedIn: isKeepMeSignedIn);
-                            }
-                          },
-                          height: 50,
-                          width: double.infinity,
-                          child: CustomTextWidget(
-                              text: 'Login',
-                              textStyle: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.bold))),
-                      const SizedBox(height: 30),
-                      const DontHaveAnAcount(),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+        final cubit = BlocProvider.of<LoginCubit>(context);
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 100),
+                    const CustomTextWidget(
+                      text: 'Login',
+                      textAlign: TextAlign.center,
+                      textStyle:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 40),
+                    const GoogleSignInButton(),
+                    const SizedBox(height: 30),
+                    const DividerSignIn(),
+                    const SizedBox(height: 30),
+                    FormLogin(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        isPasswordVisible: cubit.isPasswordVisible,
+                        togglePasswordVisibility: cubit.togglePasswordVisibility),
+                    const SizedBox(height: 10),
+                    KeepMeSignIn(
+                      value: cubit.isKeepMeSignedIn,
+                      onChanged: cubit.toggleKeepMeSignedIn,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomLinearButton(
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            cubit.signInUser(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                                isKeepMeSignedIn: cubit.isKeepMeSignedIn);
+                          }
+                        },
+                        height: 50,
+                        width: double.infinity,
+                        child: CustomTextWidget(
+                            text: 'Login',
+                            textStyle: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold))),
+                    const SizedBox(height: 30),
+                    const DontHaveAnAcount(),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
             ),
