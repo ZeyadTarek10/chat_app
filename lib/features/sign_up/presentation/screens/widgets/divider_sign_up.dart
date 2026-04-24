@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 
@@ -11,7 +12,7 @@ class DividerSignUp extends StatelessWidget {
         Expanded(child: Divider(color: AppColors.mainTextColor, thickness: 0.5)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text('or sign up with',
+          child: Text('or_sign_up_with'.tr(),
               style: TextStyle(color: AppColors.mainTextColor, fontSize: 12)),
         ),
         Expanded(child: Divider(color: AppColors.mainTextColor, thickness: 0.5)),

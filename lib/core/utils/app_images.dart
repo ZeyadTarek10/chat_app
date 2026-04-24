@@ -3,13 +3,14 @@ import 'package:flutter_svg/svg.dart';
 
 class AppImages {
   static const String path = 'assets/images';
-  static const String appLogoImg = '$path/';
-  static const String googleLogoImg = '$path/';
-  static const String chatRoundImg = '$path/';
-  static const String onboundingImg = '$path/';
-  static const String onboundingImg2 = '$path/';
-  static const String onboundingImg3 = '$path/';
-
+  static const String appLogoImg = '$path/Logo.png';
+  static const String appLogoImgHome = '$path/Logo E-Chat.png';
+  static const String googleLogoImg = '$path/google_logo.png';
+  static const String chatRoundImg = '$path/Chat Round.png';
+  static const String onboundingImg = '$path/onbording.png';
+  static const String onboundingImg1 = '$path/onbording1.png';
+  static const String onboundingImg2 = '$path/onbording2.png';
+  static const String onboundingImg3 = '$path/onbording3.png';
 
   static Widget showImg({
     required String imgPath,

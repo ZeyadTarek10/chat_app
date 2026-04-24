@@ -1,3 +1,5 @@
+import 'package:chat_app/core/utils/app_images.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/features/splash/data/onboarding_model.dart';
@@ -18,24 +20,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingModel> _pages = [
     OnboardingModel(
-      title: 'Group Chatting',
-      description: 'Connect with multiple members in group chats.',
-      imagePath: 'onbording.png',
+      title: 'group_chatting'.tr(),
+      description: 'connect_with_multiple_members_in_group_chats'.tr(),
+      imagePath: AppImages.onboundingImg,
     ),
     OnboardingModel(
-      title: 'Video And Voice Calls',
-      description: 'Instantly connect via video and voice calls.',
-      imagePath: 'onbording1.png',
+      title: 'video_and_voice_calls'.tr(),
+      description: 'instantly_connect_via_video_and_voice_calls'.tr(),
+      imagePath: AppImages.onboundingImg1,
     ),
     OnboardingModel(
-      title: 'Message Encryption',
-      description: 'Ensure privacy with encrypted messages.',
-      imagePath: 'onbording2.png',
+      title: 'message_encryption'.tr(),
+      description: 'ensure_privacy_with_encrypted_messages'.tr(),
+      imagePath: AppImages.onboundingImg2,
     ),
     OnboardingModel(
-      title: 'Cross-Platform\nCompatibility',
-      description: 'Access chats on any device seamlessly.',
-      imagePath: 'onbording3.png',
+      title: 'cross_platform_compatibility'.tr(),
+      description: 'access_chats_on_any_device_seamlessly'.tr(),
+      imagePath: AppImages.onboundingImg3,
     ),
   ];
 

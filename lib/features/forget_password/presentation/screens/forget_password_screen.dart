@@ -1,6 +1,7 @@
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/validations/app_validation.dart';
@@ -45,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           showSnackBar(
             context,
             color: Colors.green,
-            text: 'Password reset email sent successfully.',
+            text: 'password_reset_email_sent_successfully'.tr(),
           );
           GoRouter.of(context).pop();
         } else if (state is ForgetPasswordFailure) {
@@ -72,18 +73,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    const CustomTextWidget(
-                      text: 'Forgot Password',
-                      textStyle: TextStyle(
+                    CustomTextWidget(
+                      text: 'forgot_password'.tr(),
+                      textStyle: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87),
                     ),
                     const SizedBox(height: 12),
-                    const CustomTextWidget(
+                    CustomTextWidget(
                       text:
-                          "Enter the email address registered with your account. We'll send you a link to reset your password.",
-                      textStyle: TextStyle(
+                          "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password".tr(),
+                      textStyle: const TextStyle(
                           fontSize: 14, color: Colors.grey, height: 1.5),
                     ),
                     const SizedBox(height: 40),
@@ -108,7 +109,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         height: 50,
                         width: double.infinity,
                         child: CustomTextWidget(
-                            text: 'Submit',
+                            text: 'submit'.tr(),
                             textStyle: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.white,

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/sign_up/domain/use_cases/sign_up_use_case.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 
 part 'sign_up_state.dart';
@@ -28,7 +29,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String phone,
   }) async {
     if (!isTermsAccepted) {
-      emit(SignUpFailure(errorMessage: 'Please accept the Terms of Use.'));
+      emit(SignUpFailure(errorMessage: 'please_accept_the_terms_of_use'.tr()));
       return;
     }
 

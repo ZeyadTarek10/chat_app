@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -25,7 +26,7 @@ class KeepMeSignIn extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         CustomTextWidget(
-            text: 'Keep me signed in',
+            text: 'keep_me_signed_in'.tr(),
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
       ],
     );

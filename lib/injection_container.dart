@@ -8,6 +8,8 @@ import 'package:chat_app/features/forget_password/data/repositories/forget_passw
 import 'package:chat_app/features/forget_password/domain/repositories/forget_password_repository.dart';
 import 'package:chat_app/features/forget_password/domain/use_cases/forget_password_use_case.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
+import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
+import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_source.dart';
 import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_impl.dart';
 import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
@@ -44,6 +46,8 @@ Future<void> getItInit() async {
   getIt.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUseCase: getIt()));
+  getIt.registerFactory<MainCubit>(() => MainCubit());
+  getIt.registerFactory<MoreCubit>(() => MoreCubit(cacheHelper: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(

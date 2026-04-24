@@ -25,14 +25,14 @@ class CustomLinearButton extends StatelessWidget {
         height: height ?? 44,
         width: width ?? 44,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.backgroundColorbuttonblue1,
-              AppColors.backgroundColorbuttonblue2,
-            ],
-            begin: const Alignment(0.46, -0.89),
-            end: const Alignment(-0.46, 0.89),
-          ),
+         gradient: LinearGradient(
+          colors: [
+            AppColors.backgroundColorbuttonblue1,
+            AppColors.backgroundColorbuttonblue2,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(child: child),

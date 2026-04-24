@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/splash/presentation/views/widgets/bottom_wave_clipper.dart';
@@ -51,7 +52,7 @@ class OnboardingControls extends StatelessWidget {
                       height: 60,
                       width: double.infinity,
                       child: CustomTextWidget(
-                          text: 'Get started',
+                          text: "get_started".tr(),
                           textStyle: TextStyle(
                               fontSize: 16,
                               color: AppColors.white,
@@ -62,7 +63,7 @@ class OnboardingControls extends StatelessWidget {
                     children: [
                       CustomTextButtonWidget(
                         onPressed: onSkip,
-                        text: 'Skip',
+                        text: 'skip'.tr(),
                         textStyle: TextStyle(
                             color: AppColors.backgroundColorbuttonblue2,
                             fontSize: 14),
@@ -75,7 +76,7 @@ class OnboardingControls extends StatelessWidget {
                         ),
                       ),
                       CustomTextButtonWidget(
-                          text: 'Next',
+                          text: 'next'.tr(),
                           onPressed: onNext,
                           style: TextButton.styleFrom(
                             backgroundColor: AppColors.backgroundColorCircleButtonblue3,

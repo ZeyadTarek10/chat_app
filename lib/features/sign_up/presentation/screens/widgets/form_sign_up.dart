@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/validations/app_validation.dart';
@@ -31,7 +32,7 @@ class FormSignUp extends StatelessWidget {
       children: [
         CustomTextWidget(
             textAlign: TextAlign.left,
-            text: 'Full Name',
+            text: 'full_name'.tr(),
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
         CustomTextFormFieldWidget(
@@ -45,7 +46,7 @@ class FormSignUp extends StatelessWidget {
 
         CustomTextWidget(
             textAlign: TextAlign.left,
-            text: 'Phone Number',
+            text: 'phone_number'.tr(),
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
         CustomTextFormFieldWidget(
@@ -59,7 +60,7 @@ class FormSignUp extends StatelessWidget {
 
         CustomTextWidget(
             textAlign: TextAlign.left,
-            text: 'Email Address',
+            text: 'email_address'.tr(),
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
         CustomTextFormFieldWidget(
@@ -72,7 +73,7 @@ class FormSignUp extends StatelessWidget {
         const SizedBox(height: 20),
         
         CustomTextWidget(
-            text: 'Password',
+            text: 'password'.tr(),
             textAlign: TextAlign.left,
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
@@ -93,7 +94,7 @@ class FormSignUp extends StatelessWidget {
         const SizedBox(height: 20),
         
         CustomTextWidget(
-            text: 'Confirm Password',
+            text: 'confirm_password'.tr(),
             textAlign: TextAlign.left,
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
@@ -111,7 +112,7 @@ class FormSignUp extends StatelessWidget {
           ),
           validator: (value) {
             if (value != passwordController.text) {
-              return 'Passwords do not match';
+              return 'passwords_do_not_match'.tr();
             }
             return AppValidator.passwordValidation(value);
           },
