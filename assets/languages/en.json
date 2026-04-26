@@ -49,5 +49,7 @@
     "enter_phone_number": "Enter your phone number",
     "enter_valid_number": "Enter valid number",
     "name_required": "Name Required",
-    "language": "Language"
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic"
 }

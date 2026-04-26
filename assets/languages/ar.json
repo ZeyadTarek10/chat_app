@@ -49,5 +49,7 @@
     "enter_phone_number": "أدخل رقم هاتفك",
     "enter_valid_number": "أدخل رقماً صحيحاً",
     "name_required": "الاسم مطلوب",
-    "language" : "الترجمه"
+    "language" : "الترجمه",
+    "english": "الإنجليزية",
+    "arabic": "العربية"
 }
