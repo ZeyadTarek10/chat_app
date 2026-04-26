@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
@@ -13,7 +14,7 @@ class CenterImageWithText extends StatelessWidget {
         height: 280,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('${AppImages.chatRoundImg}Chat Round.png'), 
+            image: AssetImage(AppImages.chatRoundImg), 
             fit: BoxFit.contain, 
           ),
         ),
@@ -21,7 +22,7 @@ class CenterImageWithText extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0), 
             child: Text(
-              'Stay Connected\nStay Chatting',
+              'stay_connected_stay_chatting'.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,

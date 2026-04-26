@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class AppValidator {
   static noValidation() {
     return null;
@@ -5,37 +7,37 @@ class AppValidator {
 
   static String? emailValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return 'LocaleKeys.enterYourEmail.tr()';
+      return 'enter_your_email'.tr();
     }
     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-      return 'LocaleKeys.enterValidEmail.tr()';
+      return 'enter_valid_email'.tr();
     }
     return null;
   }
 
   static String? passwordValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return 'LocaleKeys.enterYourPassword.tr()';
+      return 'enter_your_password'.tr();
     }
     if (value.length < 6) {
-      return 'LocaleKeys.passwordAtLeast6.tr()';
+      return 'password_at_least6'.tr();
     }
     return null;
   }
 
   static String? phoneValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return 'LocaleKeys.enterPhoneNumber.tr()';
+      return 'enter_phone_number'.tr();
     }
-    // if (!RegExp(r'^\(\d{3}\) \d{3}-\d{4}$').hasMatch(value)) {
-    //   return LocaleKeys.enterValidNumber.tr();
-    // }
+    if (!RegExp(r'^\(\d{3}\) \d{3}-\d{4}$').hasMatch(value)) {
+      return "enter_valid_number".tr();
+    }
     return null;
   }
 
   static String? nameValidation(String? name) {
     if (name == null || name.isEmpty) {
-      return 'LocaleKeys.nameRequired.tr()';
+      return 'name_required'.tr();
     }
     return null;
   }

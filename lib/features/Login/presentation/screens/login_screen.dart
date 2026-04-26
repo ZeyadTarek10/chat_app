@@ -1,6 +1,7 @@
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -76,8 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is LoginSuccess) {
           GoRouter.of(context).pop();
           showSnackBar(context,
-              text: 'Signed In Successfuly!.', color: Colors.green);
-          GoRouter.of(context).push(AppRoutes.home);
+              text: 'signed_in_successfuly'.tr(), color: Colors.green);
+          GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is LoginFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
             GoRouter.of(context).pop();
@@ -99,11 +100,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 100),
-                    const CustomTextWidget(
-                      text: 'Login',
+                    CustomTextWidget(
+                      text: 'login'.tr(),
                       textAlign: TextAlign.center,
                       textStyle:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 40),
                     const GoogleSignInButton(),
@@ -133,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                         width: double.infinity,
                         child: CustomTextWidget(
-                            text: 'Login',
+                            text: 'login'.tr(),
                             textStyle: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.white,

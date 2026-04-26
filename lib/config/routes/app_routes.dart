@@ -1,7 +1,11 @@
+import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/features/forget_password/presentation/screens/forget_password_screen.dart';
 import 'package:chat_app/features/Login/presentation/screens/login_screen.dart';
+import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
+import 'package:chat_app/features/main/presentation/screens/main_screen.dart';
+import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/onbording_screen.dart';
@@ -9,8 +13,6 @@ import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../features/first_feature/presentation/screens/feature_screen.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -21,7 +23,7 @@ class AppRoutes {
   static const String home = '/home';
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.splash,
+    initialLocation: (getIt<CacheHelper>().getData(key: 'isLoggedIn')?? false) ? AppRoutes.home : AppRoutes.splash,
     routes: [
       GoRoute(
           path: AppRoutes.splash,
@@ -57,7 +59,16 @@ class AppRoutes {
       GoRoute(
         path: AppRoutes.home,
         name: 'home',
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt<MainCubit>(),),
+            BlocProvider(
+              create: (context) => getIt<MoreCubit>(), 
+            ),
+          ],
+          
+          child: const MainScreen(),
+        ),
       ),
     ],
   );

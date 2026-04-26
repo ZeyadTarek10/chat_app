@@ -3,6 +3,7 @@ import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/features/Login/data/data_sources/login_remote_data_source.dart';
 import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRepositoryImpl extends LoginRepository {
@@ -30,9 +31,9 @@ class LoginRepositoryImpl extends LoginRepository {
       if (e.code == 'invalid-credential' ||
           e.code == 'user-not-found' ||
           e.code == 'wrong-password') {
-        return left(const ServerFailure('Incorrect email or password. Please try again.'));
+        return left(ServerFailure('incorrect_email_or_password_Please_try_again'.tr()));
       }
-      return left(ServerFailure('There was an error: ${e.message}'));
+      return left(ServerFailure('there_was_an_error ${e.message}'.tr()));
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

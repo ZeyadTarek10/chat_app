@@ -3,6 +3,7 @@ import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpRepositoryImpl extends SignUpRepository {
@@ -27,11 +28,11 @@ class SignUpRepositoryImpl extends SignUpRepository {
       return right(userModel);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        return left(const ServerFailure('The password provided is too weak.'));
+        return left(ServerFailure('the_password_provided_is_too_weak'.tr()));
       } else if (e.code == 'email-already-in-use') {
-        return left(const ServerFailure('The account already exists for that email.'));
+        return left(ServerFailure('the_account_already_exists_for_that_email'.tr()));
       }
-      return left(ServerFailure('There was an error: ${e.message}'));
+      return left(ServerFailure('there_was_an_error ${e.message}'.tr()));
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

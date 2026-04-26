@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -27,7 +28,7 @@ class CheckBoxSignUp extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
           child: CustomTextWidget(
-              text: 'By Creating an Account, I accept Hiring Hub terms of Use and Privacy Policy',
+              text: 'by_creating_an_account_i_accept_hiring_hub_terms_of_use_and_privacy_policy'.tr(),
               textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         ),
       ],

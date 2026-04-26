@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -23,7 +24,7 @@ class FormLogin extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        CustomTextWidget(text: 'Email Address', textAlign: TextAlign.start,
+        CustomTextWidget(text: 'email_address'.tr(), textAlign: TextAlign.start,
             textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
         const SizedBox(height: 8),
         CustomTextFormFieldWidget(
@@ -37,14 +38,14 @@ class FormLogin extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTextWidget(text: 'Password',
+            CustomTextWidget(text: 'password'.tr(),
                 textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
             GestureDetector(
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.forgotPassword);
               },
               child: CustomTextWidget(
-                text: 'Forgot Password',
+                text: 'forgot_password'.tr(),
                 textStyle: TextStyle(
                     color: AppColors.backgroundColorbuttonblue2,
                     fontSize: 12,

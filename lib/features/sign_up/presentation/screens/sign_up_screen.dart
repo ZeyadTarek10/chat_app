@@ -1,6 +1,7 @@
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -53,8 +54,8 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         } else if (state is SignUpSuccess) {
           GoRouter.of(context).pop(); 
-          showSnackBar(context, text: 'Signed Up Successfully!', color: Colors.green);
-          GoRouter.of(context).push(AppRoutes.home);
+          showSnackBar(context, text: 'signed_up_successfully'.tr(), color: Colors.green);
+          GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is SignUpFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
           GoRouter.of(context).pop();
@@ -76,10 +77,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 10),
-                    const CustomTextWidget(
-                      text: 'Signup',
+                    CustomTextWidget(
+                      text: 'signup'.tr(),
                       textAlign: TextAlign.center,
-                      textStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      textStyle: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 30),
                     const GoogleSignInButton(),
@@ -118,9 +119,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       },
                       height: 50,
                       width: double.infinity,
-                      child: const CustomTextWidget(
-                        text: 'Signup',
-                        textStyle: TextStyle(
+                      child: CustomTextWidget(
+                        text: 'signup'.tr(),
+                        textStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

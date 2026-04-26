@@ -13,7 +13,7 @@ class AnimatedImageLogo extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Image.asset(
-          '${AppImages.appLogoImg}Logo.png',
+          AppImages.appLogoImg,
           width: logSize,
           height: logSize,
           fit: BoxFit.contain,
@@ -30,7 +30,7 @@ class AnimatedImageLogo extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 heightFactor: value,
                 child: Image.asset(
-                  '${AppImages.appLogoImg}Logo.png',
+                  AppImages.appLogoImg,
                   width: logSize,
                   height: logSize,
                   fit: BoxFit.contain,

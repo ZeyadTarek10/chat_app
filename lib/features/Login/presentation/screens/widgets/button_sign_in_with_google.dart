@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
@@ -11,11 +12,11 @@ class GoogleSignInButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: () {},
       icon: Image.asset(
-        '${AppImages.googleLogoImg}google_logo.png',
+        AppImages.googleLogoImg,
         height: 24,
       ),
       label: CustomTextWidget(
-       text:  'Sign in with Google',
+       text:  'sign_in_with_google'.tr(),
         textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 16, fontWeight: FontWeight.w500),
       ),
       style: OutlinedButton.styleFrom(

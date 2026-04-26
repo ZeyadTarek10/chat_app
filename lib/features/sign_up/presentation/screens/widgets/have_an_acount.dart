@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -11,14 +12,14 @@ class HaveAnAcount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Have an Account? ",
+        Text("have_an_account".tr(),
             style: TextStyle(color: AppColors.mainTextColor, fontSize: 14)),
         GestureDetector(
           onTap: () {
             GoRouter.of(context).pushReplacement(AppRoutes.login);
           },
           child: Text(
-            'Sign in here',
+            'sign_in_here'.tr(),
             style: TextStyle(
                 color: AppColors.backgroundColorbuttonblue2,
                 fontSize: 14,

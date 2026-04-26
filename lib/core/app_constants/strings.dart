@@ -1,3 +1,4 @@
 class AppStrings {
   static const String appName = 'AppName';
+
 }
