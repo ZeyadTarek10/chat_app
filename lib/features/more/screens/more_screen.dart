@@ -1,4 +1,5 @@
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
 import 'package:chat_app/features/more/screens/widgets/dark_mode_more_screen.dart';
@@ -7,9 +8,12 @@ import 'package:chat_app/features/more/screens/widgets/language_more_screen.dart
 import 'package:chat_app/features/more/screens/widgets/log_out_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/mute_ntification_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/security_more_screen.dart';
+import 'package:chat_app/shared_widgets/show_snack_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -30,10 +34,7 @@ class MoreScreen extends StatelessWidget {
           GoRouter.of(context).pushReplacement(AppRoutes.login);
         } else if (state is LogoutFailure) {
           GoRouter.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text(state.errorMessage), backgroundColor: Colors.red),
-          );
+          showSnackBar(context, text: state.errorMessage, color: AppColors.red);
         }
       },
       builder: (context, state) {
@@ -42,50 +43,49 @@ class MoreScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               const LanguageMoreScreen(),
               DarkModeMoreScreen(cubit: cubit),
               MuteNtificationMoreScreen(cubit: cubit),
               CustomMoreTile(
                 icon: CupertinoIcons.bell,
-                title: 'Custom Notification',
+                title: 'custom_notification'.tr(),
                 onTap: () {},
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                child: Divider(color: Colors.grey.shade200, thickness: 1),
+                    EdgeInsets.symmetric(horizontal: 24.w),
+                child: Divider(color: Colors.grey.shade400, thickness: 0.5),
               ),
               CustomMoreTile(
                 icon: CupertinoIcons.person_add,
-                title: 'Invite Friends',
+                title: 'invite_friends'.tr(),
                 onTap: () {},
               ),
               CustomMoreTile(
                 icon: CupertinoIcons.group,
-                title: 'Joined Groups',
+                title: 'joined_groups'.tr(),
                 onTap: () {},
               ),
               HideChatHistoryMoreScreen(cubit: cubit),
               SecurityMoreScreen(cubit: cubit),
               CustomMoreTile(
                 icon: CupertinoIcons.doc_text,
-                title: 'Term of Service',
+                title: 'term_of_service'.tr(),
                 onTap: () {},
               ),
               CustomMoreTile(
                 icon: CupertinoIcons.square_stack_3d_down_right,
-                title: 'About App',
+                title: 'about_app'.tr(),
                 onTap: () {},
               ),
               CustomMoreTile(
                 icon: CupertinoIcons.question_circle,
-                title: 'Help Center',
+                title: 'help_center'.tr(),
                 onTap: () {},
               ),
-              const SizedBox(height: 10),
               LogOutMoreScreen(cubit: cubit),
-              const SizedBox(height: 30),
+              SizedBox(height: 20.h),
             ],
           ),
         );

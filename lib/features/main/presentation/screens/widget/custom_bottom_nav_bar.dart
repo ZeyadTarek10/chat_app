@@ -1,7 +1,9 @@
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/nav_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentScreen;
@@ -19,9 +21,9 @@ class CustomBottomNavBar extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
         ),
         boxShadow: [
           BoxShadow(
@@ -38,28 +40,28 @@ class CustomBottomNavBar extends StatelessWidget {
             NavItem(
               index: 0,
               icon: CupertinoIcons.chat_bubble_text_fill,
-              label: 'Chats',
+              label: 'chats'.tr(),
               currentScreen: currentScreen,
               onTap: () => onTabTapped(0),
             ),
             NavItem(
               index: 1,
               icon: CupertinoIcons.group,
-              label: 'Groups',
+              label: 'groups'.tr(),
               currentScreen: currentScreen,
               onTap: () => onTabTapped(1),
             ),
             NavItem(
               index: 2,
               icon: Icons.account_circle_outlined,
-              label: 'Profile',
+              label: 'profile'.tr(),
               currentScreen: currentScreen,
               onTap: () => onTabTapped(2),
             ),
             NavItem(
               index: 3,
               icon: Icons.menu,
-              label: 'More',
+              label: 'more'.tr(),
               currentScreen: currentScreen,
               onTap: () => onTabTapped(3),
             ),

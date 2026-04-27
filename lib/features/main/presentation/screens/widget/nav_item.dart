@@ -1,5 +1,8 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NavItem extends StatelessWidget {
   final int index;
@@ -28,8 +31,8 @@ class NavItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          margin: EdgeInsets.symmetric(horizontal: 5.w),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
           gradient:   isSelected
       ? LinearGradient(
@@ -46,7 +49,7 @@ class NavItem extends StatelessWidget {
             Colors.transparent,
           ],
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -54,15 +57,15 @@ class NavItem extends StatelessWidget {
               Icon(
                 icon,
                 color: isSelected ? AppColors.white : AppColors.mainTextColor,
-                size: 24,
+                size: 24.sp,
               ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
+              SizedBox(height: 4.h),
+              CustomTextWidget(
+                text: label,
+                textStyle: TextStyle(
                   color: isSelected ? AppColors.white : AppColors.mainTextColor,
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  fontSize: FontDetails.fontSizeXS,
+                  fontWeight: isSelected ? FontDetails.semiBoldFontWeight : FontDetails.mediumFontWeight,
                 ),
               ),
             ],

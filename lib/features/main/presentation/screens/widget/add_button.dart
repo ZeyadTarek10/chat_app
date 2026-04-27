@@ -1,7 +1,11 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({
@@ -28,10 +32,10 @@ class AddButton extends StatelessWidget {
                 ),
                 child: Icon(Icons.close, color: AppColors.white),
               )
-            : Icon(Icons.add, color: AppColors.white, size: 28),
+            : Icon(Icons.add, color: AppColors.white, size: 28.sp),
         offset: const Offset(0, 50),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         color: AppColors.white,
         elevation: 8,
@@ -46,16 +50,16 @@ class AddButton extends StatelessWidget {
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
             value: 'add_friend',
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
                 Icon(CupertinoIcons.person_add, color: AppColors.mainTextColor, size: 26),
-                const SizedBox(width: 16),
-                Text(
-                  'Add Friend',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                SizedBox(width: 16.w),
+                CustomTextWidget(
+                  text: 'add_friend'.tr(),
+                  textStyle: TextStyle(
+                    fontSize: FontDetails.fontSizeM,
+                    fontWeight: FontDetails.semiBoldFontWeight,
                     color: AppColors.black,
                   ),
                 ),
@@ -64,16 +68,16 @@ class AddButton extends StatelessWidget {
           ),
           PopupMenuItem<String>(
             value: 'create_group',
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
-                Icon(CupertinoIcons.group, color: AppColors.mainTextColor, size: 26),
-                const SizedBox(width: 16),
-                Text(
-                  'Create Group',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                Icon(CupertinoIcons.group, color: AppColors.mainTextColor, size: 26.sp),
+                SizedBox(width: 16.w),
+                CustomTextWidget(
+                  text: 'create_group'.tr(),
+                  textStyle: TextStyle(
+                    fontSize: FontDetails.fontSizeM,
+                    fontWeight: FontDetails.semiBoldFontWeight,
                     color: AppColors.black,
                   ),
                 ),

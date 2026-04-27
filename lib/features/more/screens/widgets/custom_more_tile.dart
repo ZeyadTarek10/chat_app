@@ -1,6 +1,9 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomMoreTile extends StatelessWidget {
   final IconData icon;
@@ -23,17 +26,17 @@ class CustomMoreTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
-      leading: Icon(icon, color: iconColor ?? AppColors.black, size: 24),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+      contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
+      leading: Icon(icon, color: iconColor ?? AppColors.black, fontWeight: FontDetails.regularFontWeight, size: 20.sp),
+      title: CustomTextWidget(
+        text: title,
+        textStyle: TextStyle(
+          fontSize: FontDetails.fontSizeM,
+          fontWeight: FontDetails.boldFontWeight,
           color: textColor ?? AppColors.black,
         ),
       ),
-      trailing: trailing ?? Icon(CupertinoIcons.chevron_right, color: AppColors.mainTextColor, size: 20),
+      trailing: trailing ?? Icon(CupertinoIcons.chevron_right, color: AppColors.black, fontWeight: FontDetails.regularFontWeight, size: 20.sp),
       onTap: onTap,
     );
   }

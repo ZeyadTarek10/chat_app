@@ -1,0 +1,51 @@
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:chat_app/shared_widgets/show_snack_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ProfileData extends StatelessWidget {
+  const ProfileData({super.key, required this.title, required this.value});
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CustomTextWidget(
+          text: '$title :',
+          textStyle: TextStyle(
+              color: AppColors.mainTextColor,
+              fontSize: FontDetails.fontSizeM,
+              fontWeight: FontDetails.regularFontWeight),
+        ),
+        SizedBox(width: 15.w),
+        CustomTextWidget(
+          text: value,
+          textStyle: TextStyle(
+              color: AppColors.black,
+              fontSize: FontDetails.fontSizeM,
+              fontWeight: FontDetails.regularFontWeight),
+        ),
+        const Spacer(),
+        IconButton(
+          icon: Icon(Icons.copy,
+              size: 20.sp,
+              color: AppColors.black,
+              fontWeight: FontDetails.regularFontWeight),
+          onPressed: () {
+            Clipboard.setData(ClipboardData(text: value)).then((_) {
+              showSnackBar(context,
+                  text: '$title copied to clipboard',
+                  color: AppColors.backgroundColorbuttonblue1);
+            });
+          },
+        ),
+      ],
+    );
+  }
+}

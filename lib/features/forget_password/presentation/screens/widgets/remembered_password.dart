@@ -1,7 +1,9 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class RememberedPassword extends StatelessWidget {
@@ -14,7 +16,7 @@ class RememberedPassword extends StatelessWidget {
       children: [
         CustomTextWidget(
           text: "remembered_password".tr(),
-          textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14),
+          textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14.sp),
         ),
         GestureDetector(
           onTap: () {
@@ -24,8 +26,8 @@ class RememberedPassword extends StatelessWidget {
             'login_to_your_account'.tr(),
             style: TextStyle(
                 color: AppColors.backgroundColorbuttonblue2,
-                fontSize: 14,
-                fontWeight: FontWeight.w600),
+                fontSize: FontDetails.fontSizeS,
+                fontWeight: FontDetails.semiBoldFontWeight),
           ),
         ),
       ],

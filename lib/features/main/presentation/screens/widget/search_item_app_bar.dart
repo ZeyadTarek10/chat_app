@@ -1,6 +1,8 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchItemAppBar extends StatelessWidget {
   const SearchItemAppBar({
@@ -10,19 +12,19 @@ class SearchItemAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 40.h,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: TextField(
         autofocus: true, 
         decoration: InputDecoration(
-          hintText: 'Search...',
+          hintText: 'search'.tr(),
           hintStyle: TextStyle(color: AppColors.hintColor),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          prefixIcon: Icon(CupertinoIcons.search, color: AppColors.mainTextColor, size: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+          prefixIcon: Icon(CupertinoIcons.search, color: AppColors.mainTextColor, size: 20.sp),
         ),
         onChanged: (value) {
         },

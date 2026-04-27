@@ -6,7 +6,7 @@ import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubi
 import 'package:chat_app/features/main/presentation/screens/widget/custom_app_bar.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/custom_bottom_nav_bar.dart';
 import 'package:chat_app/features/more/screens/more_screen.dart';
-import 'package:chat_app/features/profile/screens/profile_screen.dart';
+import 'package:chat_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_app/features/splash/presentation/views/widgets/center_image_with_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedOpactyLogoSplash extends StatelessWidget {
   const AnimatedOpactyLogoSplash({super.key, required this.showDetails});
@@ -11,11 +12,11 @@ class AnimatedOpactyLogoSplash extends StatelessWidget {
     return AnimatedOpacity(
       opacity: showDetails ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 600),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 20),
-          CenterImageWithText(),
+          SizedBox(height: 20.h),
+          const CenterImageWithText(),
         ],
       ),
     );

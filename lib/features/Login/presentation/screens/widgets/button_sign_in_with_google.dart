@@ -1,8 +1,10 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({super.key});
@@ -13,17 +15,17 @@ class GoogleSignInButton extends StatelessWidget {
       onPressed: () {},
       icon: Image.asset(
         AppImages.googleLogoImg,
-        height: 24,
+        height: 24.h,
       ),
       label: CustomTextWidget(
        text:  'sign_in_with_google'.tr(),
-        textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 16, fontWeight: FontWeight.w500),
+        textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeM, fontWeight: FontDetails.mediumFontWeight),
       ),
       style: OutlinedButton.styleFrom(
         backgroundColor: AppColors.googlebtnColor,
         side: BorderSide.none,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       ),
     );
   }

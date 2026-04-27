@@ -11,6 +11,8 @@ class AppImages {
   static const String onboundingImg1 = '$path/onbording1.png';
   static const String onboundingImg2 = '$path/onbording2.png';
   static const String onboundingImg3 = '$path/onbording3.png';
+  static const String userCircle = '$path/User Circle.png';
+  static const String buttonIcon = '$path/Button Icon.png';
 
   static Widget showImg({
     required String imgPath,

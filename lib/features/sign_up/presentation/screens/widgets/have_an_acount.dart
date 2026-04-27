@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
@@ -13,7 +14,7 @@ class HaveAnAcount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("have_an_account".tr(),
-            style: TextStyle(color: AppColors.mainTextColor, fontSize: 14)),
+            style: TextStyle(color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeS)),
         GestureDetector(
           onTap: () {
             GoRouter.of(context).pushReplacement(AppRoutes.login);
@@ -22,8 +23,8 @@ class HaveAnAcount extends StatelessWidget {
             'sign_in_here'.tr(),
             style: TextStyle(
                 color: AppColors.backgroundColorbuttonblue2,
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
+                fontSize: FontDetails.fontSizeS,
+                fontWeight: FontDetails.boldFontWeight),
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildDotOnbording extends StatelessWidget {
   const BuildDotOnbording(
@@ -13,13 +14,13 @@ class BuildDotOnbording extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.only(right: 6),
-      height: 8,
-      width: currentPage == index ? 8 : 8,
+      height: 8.h,
+      width: currentPage == index ? 8.w : 8.w,
       decoration: BoxDecoration(
         color: currentPage == index
             ? AppColors.backgroundColorbuttonblue2
             : AppColors.backgroundColorbuttonblue2.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(4.r),
       ),
     );
   }

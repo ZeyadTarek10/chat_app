@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
@@ -5,6 +6,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/validations/app_validation.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class FormLogin extends StatelessWidget {
@@ -25,8 +27,8 @@ class FormLogin extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CustomTextWidget(text: 'email_address'.tr(), textAlign: TextAlign.start,
-            textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
-        const SizedBox(height: 8),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+        SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: emailController,
           hint: 'Rhebhek@gmail.com',
@@ -34,12 +36,12 @@ class FormLogin extends StatelessWidget {
           textInputType: TextInputType.emailAddress,
           validator: (value) => AppValidator.emailValidation(value),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomTextWidget(text: 'password'.tr(),
-                textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+                textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
             GestureDetector(
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.forgotPassword);
@@ -48,13 +50,13 @@ class FormLogin extends StatelessWidget {
                 text: 'forgot_password'.tr(),
                 textStyle: TextStyle(
                     color: AppColors.backgroundColorbuttonblue2,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                    fontSize: FontDetails.fontSizeXS,
+                    fontWeight: FontDetails.boldFontWeight),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: passwordController,
           hint: '********',

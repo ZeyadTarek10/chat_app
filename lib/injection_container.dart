@@ -10,6 +10,11 @@ import 'package:chat_app/features/forget_password/domain/use_cases/forget_passwo
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
+import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_source.dart';
+import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:chat_app/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:chat_app/features/profile/domain/use_cases/profile_use_case.dart';
+import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_source.dart';
 import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_impl.dart';
 import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
@@ -38,6 +43,7 @@ import 'core/services/url_launcher_service.dart';
 final getIt = GetIt.instance;
 
 Future<void> getItInit() async {
+
   //! Features
 
   /// Blocs
@@ -48,6 +54,10 @@ Future<void> getItInit() async {
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUseCase: getIt()));
   getIt.registerFactory<MainCubit>(() => MainCubit());
   getIt.registerFactory<MoreCubit>(() => MoreCubit(cacheHelper: getIt()));
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(
+      getProfileUseCase: getIt(),
+      updateProfileUseCase: getIt(),
+      logoutUseCase: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(
@@ -58,6 +68,12 @@ Future<void> getItInit() async {
       () => ForgetPasswordUseCase(repository: getIt()));
   getIt.registerLazySingleton<SignUpUseCase>(
       () => SignUpUseCase(repository: getIt()));
+  getIt.registerLazySingleton<GetProfileUseCase>(
+      () => GetProfileUseCase(profileRepositories: getIt()));
+  getIt.registerLazySingleton<UpdateProfileUseCase>(
+      () => UpdateProfileUseCase(profileRepositories: getIt()));
+  getIt.registerLazySingleton<LogoutUseCase>(
+      () => LogoutUseCase(profileRepositories: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>
@@ -69,6 +85,8 @@ Future<void> getItInit() async {
       () => ForgetPasswordRepositoryImpl(remoteDataSource: getIt()));
   getIt.registerLazySingleton<SignUpRepository>(
       () => SignUpRepositoryImpl(remoteDataSource: getIt()));
+  getIt.registerLazySingleton<ProfileRepositories>(() => ProfileRepositoryImpl(
+      networkInfo: getIt(), profileRemoteDataSource: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(
@@ -79,6 +97,8 @@ Future<void> getItInit() async {
       () => ForgetPasswordRemoteDataSourceImpl());
   getIt.registerLazySingleton<SignUpRemoteDataSource>(
       () => SignUpRemoteDataSourceImpl());
+  getIt.registerLazySingleton<ProfileRemoteDataSource>(() =>
+      ProfileRemoteDataSourceImpl());
 
   /// Core
   getIt.registerLazySingleton<NetworkInfo>(

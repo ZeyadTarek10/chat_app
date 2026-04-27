@@ -12,12 +12,14 @@ class SignUpUseCase {
     required String password,
     required String name,
     required String phone,
+    required String countryCode
   }) async {
     return await repository.signUp(
       email: email,
       password: password,
       name: name,
       phone: phone,
+      countryCode: countryCode,
     );
   }
 }

@@ -17,13 +17,14 @@ class SignUpRepositoryImpl extends SignUpRepository {
     required String password,
     required String name,
     required String phone,
+    required String countryCode
   }) async {
     try {
       final userModel = await remoteDataSource.createUserWithEmailAndPassword(
         email: email,
         password: password,
         name: name,
-        phone: phone,
+        phone: phone, countryCode: countryCode,
       );
       return right(userModel);
     } on FirebaseAuthException catch (e) {

@@ -1,7 +1,9 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/splash/presentation/views/widgets/animated_image_logo.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedAlignLogoSplash extends StatelessWidget {
   const AnimatedAlignLogoSplash(
@@ -36,8 +38,8 @@ class AnimatedAlignLogoSplash extends StatelessWidget {
                   child: CustomTextWidget(
                     text: 'E-Chat',
                     textStyle: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w900,
+                      fontSize: 35.sp,
+                      fontWeight: FontDetails.blackFontWeight,
                       color: AppColors.mainColor,
                       fontStyle: FontStyle.italic,
                     ),
