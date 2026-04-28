@@ -1,46 +1,38 @@
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/groups/screens/widgets/stack_circle_avatar.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatsItem extends StatelessWidget {
-
+class GroupsItem extends StatelessWidget {
   final String name;
-  final  String message;
+  final String message;
   final String time;
   final int unreadCount;
-  final String? image;
+  final List<String> image;
+  final int c;
 
-  const ChatsItem({
+  const GroupsItem({
     super.key,
     required this.name,
     required this.message,
     required this.time,
-    this.unreadCount = 0, this.image,
+    this.unreadCount = 0,
+    required this.image, required this.c,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-      leading: CircleAvatar(
-        radius: 26.r,
-        backgroundColor: Colors.grey.shade300,
-        backgroundImage: (image != null && image!.isNotEmpty) ? NetworkImage(image!) : null,
-        child: (image == null || image!.isEmpty)
-            ? CustomTextWidget(
-               text: name.isNotEmpty ? name[0].toUpperCase() : '',
-                textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
-              )
-            : null,
-      ),
+      leading: StackCircleAvatar(images: image, totalCount: c, name: name,),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: CustomTextWidget(
-              text:  name,
+              text: name,
               textStyle: TextStyle(
                 fontWeight: FontDetails.semiBoldFontWeight,
                 fontSize: FontDetails.fontSizeM,
@@ -51,7 +43,7 @@ class ChatsItem extends StatelessWidget {
           ),
           SizedBox(width: 8.w),
           CustomTextWidget(
-           text:  time,
+            text: time,
             textStyle: TextStyle(
               color: AppColors.mainTextColor,
               fontSize: FontDetails.fontSizeXS,
@@ -67,11 +59,13 @@ class ChatsItem extends StatelessWidget {
           children: [
             Expanded(
               child: CustomTextWidget(
-                text:  message,
+                text: message,
                 textStyle: TextStyle(
                   color: AppColors.mainTextColor,
                   fontSize: 13.sp,
-                  fontWeight: unreadCount > 0 ? FontDetails.mediumFontWeight : FontWeight.normal,
+                  fontWeight: unreadCount > 0
+                      ? FontDetails.mediumFontWeight
+                      : FontWeight.normal,
                 ),
                 maxLines: 1,
               ),
@@ -81,7 +75,7 @@ class ChatsItem extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
-                  color: AppColors.backgroundColorbuttonblue1, 
+                  color: AppColors.backgroundColorbuttonblue1,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: CustomTextWidget(

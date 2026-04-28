@@ -83,5 +83,6 @@
     "female": "انثى",
     "please_select_your_gender": "من فضلك اختر جنسك",
     "user_is_not_logged_in": "المستخدم لم يسجل الدخول",
-    "user_data_not_found": "بيانات المستخدم غير موجوده"
+    "user_data_not_found": "بيانات المستخدم غير موجوده",
+    "copied_to_clipboard": "تم النسخ إلى الحافظة"
 }

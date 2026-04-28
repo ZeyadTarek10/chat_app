@@ -4,6 +4,7 @@ import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/edit_profile_button.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/edit_profile_photo.dart';
+import 'package:chat_app/features/profile/presentation/screens/widgets/loading_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/logout_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/profile_data.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -40,11 +41,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       builder: (context, state) {
         if (state is ProfileLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const LoadingProfile();
         }
         final user = BlocProvider.of<ProfileCubit>(context).currentUser;
         if (user == null) {
-          return const Center(child: Text("No User Data Found"));
+          return Center(child: CustomTextWidget(text: "user_data_not_found".tr()));
         }
         return SingleChildScrollView(
           child: Padding(
@@ -59,9 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 CustomTextWidget(
                   text: user.name,
                   textStyle: TextStyle(
-                      fontSize: 26.sp, fontWeight: FontDetails.boldFontWeight),
+                      fontSize: FontDetails.fontSizeL, fontWeight: FontDetails.boldFontWeight),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 15.h),
                 ProfileData(
                     title: 'phone'.tr(),
                     value: '(${user.countryCode}) ${user.phone}'),

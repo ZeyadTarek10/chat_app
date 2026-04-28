@@ -43,7 +43,6 @@ import 'core/services/url_launcher_service.dart';
 final getIt = GetIt.instance;
 
 Future<void> getItInit() async {
-
   //! Features
 
   /// Blocs
@@ -97,8 +96,8 @@ Future<void> getItInit() async {
       () => ForgetPasswordRemoteDataSourceImpl());
   getIt.registerLazySingleton<SignUpRemoteDataSource>(
       () => SignUpRemoteDataSourceImpl());
-  getIt.registerLazySingleton<ProfileRemoteDataSource>(() =>
-      ProfileRemoteDataSourceImpl());
+  getIt.registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl());
 
   /// Core
   getIt.registerLazySingleton<NetworkInfo>(

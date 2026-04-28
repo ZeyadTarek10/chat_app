@@ -31,14 +31,14 @@ class EditProfileButton extends StatelessWidget {
         );
       },
       text: 'edit_profile'.tr(),
-      icon: Icon(Icons.edit_outlined, size: 24.sp),
+      icon: Icon(Icons.edit_outlined, size: FontDetails.fontSizeL),
       textStyle: TextStyle(
-          fontSize: 18.sp,
+          fontSize: FontDetails.fontSizeM,
           fontWeight: FontDetails.mediumFontWeight),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.backgroundColorbuttonblue1,
         foregroundColor: AppColors.white,
-        minimumSize: Size(double.infinity, 56.h),
+        minimumSize: Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)),
         elevation: 0,
