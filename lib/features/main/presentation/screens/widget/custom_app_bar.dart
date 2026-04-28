@@ -14,7 +14,6 @@ PreferredSizeWidget customNavBar(BuildContext context) {
         if (cubit.isSearching) {
           return SearchAppBar(cubit: cubit);
         }
-
         return AddAppBar(cubit: cubit);
       },
     ),

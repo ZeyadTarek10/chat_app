@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
@@ -14,6 +15,7 @@ import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/custom_app_bar.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -28,8 +30,9 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-  
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -53,14 +56,16 @@ class _SignupScreenState extends State<SignupScreen> {
             builder: (context) => const CustomLoading(),
           );
         } else if (state is SignUpSuccess) {
-          GoRouter.of(context).pop(); 
-          showSnackBar(context, text: 'signed_up_successfully'.tr(), color: Colors.green);
+          GoRouter.of(context).pop();
+          showSnackBar(context,
+              text: 'signed_up_successfully'.tr(), color: Colors.green);
           GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is SignUpFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
-          GoRouter.of(context).pop();
+            GoRouter.of(context).pop();
           }
-          showSnackBar(context, text: state.errorMessage, color: Colors.redAccent);
+          showSnackBar(context,
+              text: state.errorMessage, color: Colors.redAccent);
         }
       },
       builder: (context, state) {
@@ -72,40 +77,38 @@ class _SignupScreenState extends State<SignupScreen> {
             appBar: customAppBar(context),
             body: SafeArea(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     CustomTextWidget(
                       text: 'signup'.tr(),
                       textAlign: TextAlign.center,
-                      textStyle: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      textStyle: TextStyle(
+                          fontSize: 28.sp, fontWeight: FontDetails.boldFontWeight),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     const GoogleSignInButton(),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     const DividerSignUp(),
-                    const SizedBox(height: 30),
-                    
+                    SizedBox(height: 30.h),
                     FormSignUp(
                       nameController: nameController,
                       phoneController: phoneController,
                       emailController: emailController,
                       passwordController: passwordController,
                       confirmPasswordController: confirmPasswordController,
-                      isPasswordVisible: cubit.isPasswordVisible, 
-                      togglePasswordVisibility: cubit.togglePasswordVisibility, 
+                      isPasswordVisible: cubit.isPasswordVisible,
+                      togglePasswordVisibility: cubit.togglePasswordVisibility,
+                      onCountryCodeChanged: cubit.updateCountryCode,
                     ),
-                    
-                    const SizedBox(height: 20),
-                    
+                    SizedBox(height: 20.h),
                     CheckBoxSignUp(
                       value: cubit.isTermsAccepted,
-                      onChanged: cubit.toggleTermsAcceptance, 
+                      onChanged: cubit.toggleTermsAcceptance,
                     ),
-                    
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
                     CustomLinearButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
@@ -117,20 +120,20 @@ class _SignupScreenState extends State<SignupScreen> {
                           );
                         }
                       },
-                      height: 50,
-                      width: double.infinity,
+                      height: 50.h,
+                      width: double.infinity.w,
                       child: CustomTextWidget(
                         text: 'signup'.tr(),
-                        textStyle: const TextStyle(
-                          fontSize: 16,
+                        textStyle: TextStyle(
+                          fontSize: FontDetails.fontSizeM,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontDetails.boldFontWeight,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     const HaveAnAcount(),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),

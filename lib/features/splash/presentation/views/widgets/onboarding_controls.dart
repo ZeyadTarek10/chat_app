@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -6,6 +7,7 @@ import 'package:chat_app/features/splash/presentation/views/widgets/build_dot_on
 import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/buttons/custom_text_btn.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingControls extends StatelessWidget {
   final int currentPage;
@@ -41,22 +43,22 @@ class OnboardingControls extends StatelessWidget {
             clipper: BottomWaveClipper(),
             child: Container(
               color: const Color(0xFFDDF3FF),
-              width: double.infinity,
-              height: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              width: double.infinity.w,
+              height: double.infinity.h,
+              padding: EdgeInsets.symmetric(horizontal: 24.0.w),
               child: Column(
                 children: [
                   const Spacer(flex: 2),
                   CustomLinearButton(
                       onPressed: onGetStarted,
-                      height: 60,
-                      width: double.infinity,
+                      height: 60.h,
+                      width: double.infinity.w,
                       child: CustomTextWidget(
                           text: "get_started".tr(),
                           textStyle: TextStyle(
-                              fontSize: 16,
+                              fontSize: FontDetails.fontSizeM,
                               color: AppColors.white,
-                              fontWeight: FontWeight.bold))),
+                              fontWeight: FontDetails.boldFontWeight))),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +68,7 @@ class OnboardingControls extends StatelessWidget {
                         text: 'skip'.tr(),
                         textStyle: TextStyle(
                             color: AppColors.backgroundColorbuttonblue2,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                       Row(
                         children: List.generate(
@@ -84,10 +86,10 @@ class OnboardingControls extends StatelessWidget {
                             padding: const EdgeInsets.all(16),
                           ),
                           textStyle: TextStyle(
-                              color: AppColors.mainColor, fontSize: 12)),
+                              color: AppColors.mainColor, fontSize: FontDetails.fontSizeXS)),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),

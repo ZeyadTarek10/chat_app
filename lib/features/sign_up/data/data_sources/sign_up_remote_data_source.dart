@@ -4,14 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class  SignUpRemoteDataSource {
   Future<UserModel> createUserWithEmailAndPassword({required String email, required String password, required String name,
-    required String phone,});
+    required String phone, required String countryCode});
 }
 
 class SignUpRemoteDataSourceImpl extends SignUpRemoteDataSource {
   
   @override
   Future<UserModel> createUserWithEmailAndPassword({required String email, required String password, required String name,
-    required String phone,}) async {
+    required String phone, required String countryCode}) async {
     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -21,7 +21,7 @@ class SignUpRemoteDataSourceImpl extends SignUpRemoteDataSource {
       uid: userCredential.user!.uid,
       name: name,
       email: email,
-      phone: phone,
+      phone: phone, countryCode: countryCode, gender: '', birthday: '', profilePicUrl: null
     );
 
     if (userCredential.user != null) {
@@ -29,10 +29,7 @@ class SignUpRemoteDataSourceImpl extends SignUpRemoteDataSource {
           .collection('users')
           .doc(userModel.uid)
           .set({
-        'uid': userModel.uid,
-        'name': name,
-        'phone': phone,
-        'email': email,
+        ...userModel.toJson(),
         'createdAt': DateTime.now(),
       });
     }

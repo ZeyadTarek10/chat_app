@@ -1,6 +1,6 @@
-import 'package:chat_app/features/first_feature/domain/entities/cat_fact_entity.dart';
+import 'package:chat_app/features/chats/domain/entities/chats_entity.dart';
 
-class ChatsModel extends CatFactEntity {
+class ChatsModel extends ChatsEntity {
   ChatsModel({
     required super.fact,
     required super.length,

@@ -1,7 +1,9 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class KeepMeSignIn extends StatelessWidget {
   const KeepMeSignIn({super.key, required this.value, this.onChanged});
@@ -13,21 +15,21 @@ class KeepMeSignIn extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          height: 24,
-          width: 24,
+          height: 24.h,
+          width: 24.w,
           child: Checkbox(
             value: value,
             onChanged: onChanged,
             activeColor: const Color(0xFF4ADE80),
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            side: BorderSide(color: AppColors.mainTextColor, width: 1.5),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+            side: BorderSide(color: AppColors.mainTextColor, width: 1.5.w),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
         CustomTextWidget(
             text: 'keep_me_signed_in'.tr(),
-            textStyle: TextStyle(fontSize: 14, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
       ],
     );
   }

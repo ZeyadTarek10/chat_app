@@ -2,6 +2,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/search_item_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchAppBar extends StatelessWidget {
   const SearchAppBar({
@@ -32,7 +33,7 @@ class SearchAppBar extends StatelessWidget {
             cubit.toggleSearch(); 
           },
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
       ],
     );
   }

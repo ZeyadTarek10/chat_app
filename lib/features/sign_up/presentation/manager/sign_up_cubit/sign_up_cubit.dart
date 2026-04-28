@@ -11,6 +11,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   bool isPasswordVisible = false;
   bool isTermsAccepted = false;
+  String selectedCountryCode = '+20';
 
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -20,6 +21,11 @@ class SignUpCubit extends Cubit<SignUpState> {
   void toggleTermsAcceptance(bool? value) {
     isTermsAccepted = value ?? false;
     emit(SignUpFormUpdated()); 
+  }
+
+  void updateCountryCode(String code) {
+    selectedCountryCode = code;
+    emit(SignUpFormUpdated());
   }
 
   Future<void> signUpUser({
@@ -39,7 +45,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       email: email,
       password: password,
       name: name,
-      phone: phone,
+      phone: phone, countryCode: selectedCountryCode,
     );
 
     result.fold(

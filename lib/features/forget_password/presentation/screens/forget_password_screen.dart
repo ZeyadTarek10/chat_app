@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
@@ -11,6 +12,7 @@ import 'package:chat_app/shared_widgets/custom_app_bar.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -66,28 +68,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           appBar: customAppBar(context),
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Form(
                 key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     CustomTextWidget(
                       text: 'forgot_password'.tr(),
-                      textStyle: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87),
+                      textStyle: TextStyle(
+                          fontSize: FontDetails.fontSizeL,
+                          fontWeight: FontDetails.boldFontWeight,
+                          color: AppColors.black),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     CustomTextWidget(
                       text:
                           "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password".tr(),
-                      textStyle: const TextStyle(
-                          fontSize: 14, color: Colors.grey, height: 1.5),
+                      textStyle: TextStyle(
+                          fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor, height: 1.5.h),
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     CustomTextFormFieldWidget(
                       controller: emailController,
                       hint: 'Rhebhek@gmail.com',
@@ -96,7 +98,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       validator: (value) =>
                           AppValidator.emailValidation(value),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     CustomLinearButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
@@ -106,15 +108,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             );
                           }
                         },
-                        height: 50,
-                        width: double.infinity,
+                        height: 50.h,
+                        width: double.infinity.w,
                         child: CustomTextWidget(
                             text: 'submit'.tr(),
                             textStyle: TextStyle(
-                                fontSize: 16,
+                                fontSize: FontDetails.fontSizeM,
                                 color: AppColors.white,
-                                fontWeight: FontWeight.bold))),
-                    const SizedBox(height: 24),
+                                fontWeight: FontDetails.boldFontWeight))),
+                    SizedBox(height: 24.h),
                     const RememberedPassword(),
                   ],
                 ),

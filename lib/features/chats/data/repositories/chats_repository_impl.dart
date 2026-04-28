@@ -1,11 +1,11 @@
 import 'package:chat_app/features/chats/data/data_sources/chats_remote_data_source.dart';
+import 'package:chat_app/features/chats/domain/entities/chats_entity.dart';
+import 'package:chat_app/features/chats/domain/repositories/chats_repositories.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chat_app/core/error/failures.dart';
 import 'package:chat_app/core/network/netwok_info.dart';
-import 'package:chat_app/features/first_feature/domain/entities/cat_fact_entity.dart';
-import 'package:chat_app/features/first_feature/domain/repositories/first_feature_repo.dart';
 
-class ChatsRepositoryImpl implements FirstFeatureRepository {
+class ChatsRepositoryImpl implements ChatsRepositories {
   final NetworkInfo networkInfo;
   final ChatsRemoteDataSource chatsRemoteDataSource;
 
@@ -13,7 +13,7 @@ class ChatsRepositoryImpl implements FirstFeatureRepository {
       {required this.networkInfo, required this.chatsRemoteDataSource});
 
   @override
-  Future<Either<Failure, CatFactEntity>> getCatFact() async {
+  Future<Either<Failure, ChatsEntity>> getChats() async {
     try {
       final response = await chatsRemoteDataSource.getChats();
       return Right(response);

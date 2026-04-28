@@ -29,9 +29,9 @@ class AppValidator {
     if (value == null || value.isEmpty) {
       return 'enter_phone_number'.tr();
     }
-    if (!RegExp(r'^\(\d{3}\) \d{3}-\d{4}$').hasMatch(value)) {
-      return "enter_valid_number".tr();
-    }
+    // if (!RegExp(r'^\(\d{3}\) \d{3}-\d{4}$').hasMatch(value)) {
+    //   return "enter_valid_number".tr();
+    // }
     return null;
   }
 

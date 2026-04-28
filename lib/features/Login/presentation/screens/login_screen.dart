@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
@@ -13,6 +14,7 @@ import 'package:chat_app/features/Login/presentation/screens/widgets/kee_me_sign
 import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -93,35 +95,35 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: AppColors.white,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Form(
                 key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 100),
+                    SizedBox(height: 100.h),
                     CustomTextWidget(
                       text: 'login'.tr(),
                       textAlign: TextAlign.center,
                       textStyle:
-                          const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                           TextStyle(fontSize: 28.sp, fontWeight: FontDetails.boldFontWeight),
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     const GoogleSignInButton(),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     const DividerSignIn(),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     FormLogin(
                         emailController: emailController,
                         passwordController: passwordController,
                         isPasswordVisible: cubit.isPasswordVisible,
                         togglePasswordVisibility: cubit.togglePasswordVisibility),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     KeepMeSignIn(
                       value: cubit.isKeepMeSignedIn,
                       onChanged: cubit.toggleKeepMeSignedIn,
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     CustomLinearButton(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
@@ -131,17 +133,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 isKeepMeSignedIn: cubit.isKeepMeSignedIn);
                           }
                         },
-                        height: 50,
+                        height: 50.h,
                         width: double.infinity,
                         child: CustomTextWidget(
                             text: 'login'.tr(),
                             textStyle: TextStyle(
-                                fontSize: 16,
+                                fontSize: FontDetails.fontSizeM,
                                 color: AppColors.white,
-                                fontWeight: FontWeight.bold))),
-                    const SizedBox(height: 30),
+                                fontWeight: FontDetails.boldFontWeight))),
+                    SizedBox(height: 30.h),
                     const DontHaveAnAcount(),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),

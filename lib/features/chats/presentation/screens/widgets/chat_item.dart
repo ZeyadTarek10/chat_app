@@ -1,6 +1,8 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatsItem extends StatelessWidget {
 
@@ -21,15 +23,15 @@ class ChatsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       leading: CircleAvatar(
-        radius: 26,
+        radius: 26.r,
         backgroundColor: Colors.grey.shade300,
         backgroundImage: (image != null && image!.isNotEmpty) ? NetworkImage(image!) : null,
         child: (image == null || image!.isEmpty)
             ? CustomTextWidget(
                text: name.isNotEmpty ? name[0].toUpperCase() : '',
-                textStyle: TextStyle(color: AppColors.black, fontSize: 20),
+                textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
               )
             : null,
       ),
@@ -40,20 +42,20 @@ class ChatsItem extends StatelessWidget {
             child: CustomTextWidget(
               text:  name,
               textStyle: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontWeight: FontDetails.semiBoldFontWeight,
+                fontSize: FontDetails.fontSizeM,
                 color: AppColors.black,
               ),
               maxLines: 1,
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8.w),
           CustomTextWidget(
            text:  time,
             textStyle: TextStyle(
               color: AppColors.mainTextColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+              fontSize: FontDetails.fontSizeXS,
+              fontWeight: FontDetails.mediumFontWeight,
             ),
           ),
         ],
@@ -68,26 +70,26 @@ class ChatsItem extends StatelessWidget {
                 text:  message,
                 textStyle: TextStyle(
                   color: AppColors.mainTextColor,
-                  fontSize: 13,
-                  fontWeight: unreadCount > 0 ? FontWeight.w500 : FontWeight.normal,
+                  fontSize: 13.sp,
+                  fontWeight: unreadCount > 0 ? FontDetails.mediumFontWeight : FontWeight.normal,
                 ),
                 maxLines: 1,
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             if (unreadCount > 0)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                 decoration: BoxDecoration(
                   color: AppColors.backgroundColorbuttonblue2, 
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: CustomTextWidget(
                   text: unreadCount.toString(),
                   textStyle: TextStyle(
                     color: AppColors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+                    fontSize: FontDetails.fontSizeXS,
+                    fontWeight: FontDetails.boldFontWeight,
                   ),
                 ),
               ),
