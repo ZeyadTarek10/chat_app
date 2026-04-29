@@ -26,23 +26,22 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  late SignUpCubit signUpCubit;
 
-  final formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    signUpCubit = context.read<SignUpCubit>();
+  }
 
   @override
   void dispose() {
-    nameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
     super.dispose();
+    signUpCubit.nameController.dispose();
+    signUpCubit.phoneController.dispose();
+    signUpCubit.emailController.dispose();
+    signUpCubit.passwordController.dispose();
+    signUpCubit.confirmPasswordController.dispose();
   }
 
   @override
@@ -69,9 +68,8 @@ class _SignupScreenState extends State<SignupScreen> {
         }
       },
       builder: (context, state) {
-        final cubit = BlocProvider.of<SignUpCubit>(context);
         return Form(
-          key: formKey,
+          key: signUpCubit.formKey,
           child: Scaffold(
             backgroundColor: AppColors.white,
             appBar: customAppBar(context),
@@ -86,7 +84,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       text: 'signup'.tr(),
                       textAlign: TextAlign.center,
                       textStyle: TextStyle(
-                          fontSize: 28.sp, fontWeight: FontDetails.boldFontWeight),
+                          fontSize: 28.sp,
+                          fontWeight: FontDetails.boldFontWeight),
                     ),
                     SizedBox(height: 30.h),
                     const GoogleSignInButton(),
@@ -94,29 +93,29 @@ class _SignupScreenState extends State<SignupScreen> {
                     const DividerSignUp(),
                     SizedBox(height: 30.h),
                     FormSignUp(
-                      nameController: nameController,
-                      phoneController: phoneController,
-                      emailController: emailController,
-                      passwordController: passwordController,
-                      confirmPasswordController: confirmPasswordController,
-                      isPasswordVisible: cubit.isPasswordVisible,
-                      togglePasswordVisibility: cubit.togglePasswordVisibility,
-                      onCountryCodeChanged: cubit.updateCountryCode,
+                      nameController: signUpCubit.nameController,
+                      phoneController: signUpCubit.phoneController,
+                      emailController: signUpCubit.emailController,
+                      passwordController: signUpCubit.passwordController,
+                      confirmPasswordController: signUpCubit.confirmPasswordController,
+                      isPasswordVisible: signUpCubit.isPasswordVisible,
+                      togglePasswordVisibility: signUpCubit.togglePasswordVisibility,
+                      onCountryCodeChanged: signUpCubit.updateCountryCode,
                     ),
                     SizedBox(height: 20.h),
                     CheckBoxSignUp(
-                      value: cubit.isTermsAccepted,
-                      onChanged: cubit.toggleTermsAcceptance,
+                      value: signUpCubit.isTermsAccepted,
+                      onChanged: signUpCubit.toggleTermsAcceptance,
                     ),
                     SizedBox(height: 24.h),
                     CustomLinearButton(
                       onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          cubit.signUpUser(
-                            name: nameController.text.trim(),
-                            phone: phoneController.text.trim(),
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
+                        if (signUpCubit.formKey.currentState!.validate()) {
+                          signUpCubit.signUpUser(
+                            name: signUpCubit.nameController.text.trim(),
+                            phone: signUpCubit.phoneController.text.trim(),
+                            email: signUpCubit.emailController.text.trim(),
+                            password: signUpCubit.passwordController.text.trim(),
                           );
                         }
                       },

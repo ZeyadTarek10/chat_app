@@ -11,6 +11,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool isPasswordVisible = false;
   bool isKeepMeSignedIn = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -31,8 +34,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     
     var result = await loginUseCase.call(
-      email: email, 
-      password: password, 
+      email: emailController.text, 
+      password: passwordController.text, 
       isKeepMeSignedIn: isKeepMeSignedIn
     );
     

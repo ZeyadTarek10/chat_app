@@ -85,7 +85,7 @@ Future<void> getItInit() async {
   getIt.registerLazySingleton<SignUpRepository>(
       () => SignUpRepositoryImpl(remoteDataSource: getIt()));
   getIt.registerLazySingleton<ProfileRepositories>(() => ProfileRepositoryImpl(
-      networkInfo: getIt(), profileRemoteDataSource: getIt()));
+      networkInfo: getIt(), profileRemoteDataSource: getIt(), cacheHelper: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(

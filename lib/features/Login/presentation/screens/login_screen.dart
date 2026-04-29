@@ -25,15 +25,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  late LoginCubit loginCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    loginCubit = context.read<LoginCubit>();
+  }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
     super.dispose();
+    loginCubit.emailController.dispose();
+    loginCubit.passwordController.dispose();
   }
 
 //   Future<void> signInWithGoogle(BuildContext context) async {
@@ -90,14 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) {
-        final cubit = BlocProvider.of<LoginCubit>(context);
         return Scaffold(
           backgroundColor: AppColors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Form(
-                key: formKey,
+                key: loginCubit.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -105,8 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomTextWidget(
                       text: 'login'.tr(),
                       textAlign: TextAlign.center,
-                      textStyle:
-                           TextStyle(fontSize: 28.sp, fontWeight: FontDetails.boldFontWeight),
+                      textStyle: TextStyle(
+                          fontSize: 28.sp,
+                          fontWeight: FontDetails.boldFontWeight),
                     ),
                     SizedBox(height: 40.h),
                     const GoogleSignInButton(),
@@ -114,23 +118,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     const DividerSignIn(),
                     SizedBox(height: 30.h),
                     FormLogin(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        isPasswordVisible: cubit.isPasswordVisible,
-                        togglePasswordVisibility: cubit.togglePasswordVisibility),
+                        emailController: loginCubit.emailController,
+                        passwordController: loginCubit.passwordController,
+                        isPasswordVisible: loginCubit.isPasswordVisible,
+                        togglePasswordVisibility:
+                            loginCubit.togglePasswordVisibility),
                     SizedBox(height: 10.h),
                     KeepMeSignIn(
-                      value: cubit.isKeepMeSignedIn,
-                      onChanged: cubit.toggleKeepMeSignedIn,
+                      value: loginCubit.isKeepMeSignedIn,
+                      onChanged: loginCubit.toggleKeepMeSignedIn,
                     ),
                     SizedBox(height: 20.h),
                     CustomLinearButton(
                         onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            cubit.signInUser(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                                isKeepMeSignedIn: cubit.isKeepMeSignedIn);
+                          if (loginCubit.formKey.currentState!.validate()) {
+                            loginCubit.signInUser(
+                                email: loginCubit.emailController.text.trim(),
+                                password: loginCubit.passwordController.text.trim(),
+                                isKeepMeSignedIn: loginCubit.isKeepMeSignedIn);
                           }
                         },
                         height: 50.h,
