@@ -8,9 +8,12 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final ForgetPasswordUseCase forgotPasswordUseCase;
   ForgetPasswordCubit({required this.forgotPasswordUseCase}) : super(ForgetPasswordInitial());
 
+  final TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
   Future<void> resetPassword({required String email}) async {
     emit(ForgetPasswordLoading());
-    var result = await forgotPasswordUseCase.call(email: email);
+    var result = await forgotPasswordUseCase.call(email: emailController.text.trim());
     
     result.fold(
       (failure) => emit(ForgetPasswordFailure(errorMessage: failure.massage)),

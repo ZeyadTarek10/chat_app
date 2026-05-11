@@ -51,10 +51,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpLoading());
 
     var result = await signUpUseCase.call(
-      email: emailController.text,
-      password: passwordController.text,
-      name: nameController.text,
-      phone: phoneController.text, countryCode: selectedCountryCode,
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      name: nameController.text.trim(),
+      phone: phoneController.text.trim(), countryCode: selectedCountryCode,
     );
 
     result.fold(

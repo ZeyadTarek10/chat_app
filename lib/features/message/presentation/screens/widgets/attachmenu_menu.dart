@@ -1,5 +1,6 @@
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/icon_options.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +11,7 @@ class AttachmentMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),
@@ -25,21 +26,21 @@ class AttachmentMenu extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconOptions(icon: Icons.camera_alt, label: 'Camera'),
-              IconOptions(icon: Icons.mic, label: 'Record'),
-              IconOptions(icon: Icons.person, label: 'Contact'),
+              IconOptions(icon: Icons.camera_alt, label: 'camera'.tr()),
+              IconOptions(icon: Icons.mic, label: 'record'.tr()),
+              IconOptions(icon: Icons.person, label: 'contact'.tr()),
             ],
           ),
           SizedBox(height: 24.h),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconOptions(icon: Icons.photo, label: 'Gallery'),
-              IconOptions(icon: Icons.location_on, label: 'My Location'),
-              IconOptions(icon: Icons.insert_drive_file, label: 'Document'),
+              IconOptions(icon: Icons.photo, label: 'gallery'.tr()),
+              IconOptions(icon: Icons.location_on, label: 'my_location'.tr()),
+              IconOptions(icon: Icons.insert_drive_file, label: 'document'.tr()),
             ],
           ),
         ],

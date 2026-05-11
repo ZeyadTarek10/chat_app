@@ -9,13 +9,15 @@ class GroupMessageBuble extends StatelessWidget {
   final String time;
   final String senderName;
   final String avatarUrl;
+  final String text;
 
   const GroupMessageBuble({
-    super.key, 
-    required this.message, 
+    super.key,
+    required this.message,
     required this.time,
     required this.senderName,
     required this.avatarUrl,
+    required this.text,
   });
 
   @override
@@ -27,8 +29,15 @@ class GroupMessageBuble extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: FontDetails.fontSizeS,
-            backgroundImage: NetworkImage(avatarUrl),
+            backgroundImage:
+                avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
             backgroundColor: Colors.grey.shade300,
+            child: avatarUrl.isEmpty
+                ? CustomTextWidget(
+                    text: text.isNotEmpty ? text[0].toUpperCase() : "",
+                    textStyle: TextStyle(color: AppColors.white),
+                  )
+                : null,
           ),
           SizedBox(width: 8.w),
           Expanded(
@@ -40,21 +49,22 @@ class GroupMessageBuble extends StatelessWidget {
                   child: CustomTextWidget(
                     text: senderName,
                     textStyle: TextStyle(
-                      color: Colors.grey.shade500, 
+                      color: Colors.grey.shade500,
                       fontSize: FontDetails.fontSizeXS,
                       fontWeight: FontDetails.mediumFontWeight,
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   decoration: BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.r),
                       topRight: Radius.circular(16.r),
                       bottomRight: Radius.circular(16.r),
-                      bottomLeft: Radius.circular(4.r), 
+                      bottomLeft: Radius.circular(4.r),
                     ),
                   ),
                   child: Column(
@@ -62,12 +72,17 @@ class GroupMessageBuble extends StatelessWidget {
                     children: [
                       CustomTextWidget(
                         text: message,
-                        textStyle: TextStyle(color: AppColors.black, fontSize: FontDetails.fontSizeS, height: 1.3.h),
+                        textStyle: TextStyle(
+                            color: AppColors.black,
+                            fontSize: FontDetails.fontSizeS,
+                            height: 1.3.h),
                       ),
                       SizedBox(height: 6.h),
                       CustomTextWidget(
                         text: time,
-                        textStyle: TextStyle(color: Colors.grey.shade400, fontSize: FontDetails.fontSizeXS),
+                        textStyle: TextStyle(
+                            color: Colors.grey.shade400,
+                            fontSize: FontDetails.fontSizeXS),
                       ),
                     ],
                   ),
@@ -84,8 +99,14 @@ class GroupMessageBuble extends StatelessWidget {
 class GroupsMessageBubleForYou extends StatelessWidget {
   final String message;
   final String time;
+  final bool isRead;
 
-  const GroupsMessageBubleForYou({super.key, required this.message, required this.time});
+  const GroupsMessageBubleForYou({
+    super.key,
+    required this.message,
+    required this.time,
+    this.isRead = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +114,14 @@ class GroupsMessageBubleForYou extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        margin:  const EdgeInsets.only(right: 16, left: 60, bottom: 12),
+        margin: const EdgeInsets.only(right: 16, left: 60, bottom: 12),
         decoration: BoxDecoration(
           color: const Color(0xFF1565C0),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.r),
             topRight: Radius.circular(16.r),
             bottomLeft: Radius.circular(16.r),
-            bottomRight: Radius.circular(4.r), 
+            bottomRight: Radius.circular(4.r),
           ),
         ),
         child: Column(
@@ -108,7 +129,10 @@ class GroupsMessageBubleForYou extends StatelessWidget {
           children: [
             CustomTextWidget(
               text: message,
-              textStyle: TextStyle(color: AppColors.white, fontSize: FontDetails.fontSizeS, height: 1.3.h),
+              textStyle: TextStyle(
+                  color: AppColors.white,
+                  fontSize: FontDetails.fontSizeS,
+                  height: 1.3.h),
             ),
             SizedBox(height: 6.h),
             Row(
@@ -116,10 +140,13 @@ class GroupsMessageBubleForYou extends StatelessWidget {
               children: [
                 CustomTextWidget(
                   text: time,
-                  textStyle: TextStyle(color: Colors.white70, fontSize: FontDetails.fontSizeXS),
+                  textStyle: TextStyle(
+                      color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeXS),
                 ),
-               SizedBox(width: 4.w),
-               Icon(Icons.done_all, color: AppColors.white, size: FontDetails.fontSizeS),
+                SizedBox(width: 4.w),
+                Icon(Icons.done_all,
+                    color: isRead ? AppColors.mainColor : AppColors.white,
+                    size: FontDetails.fontSizeS),
               ],
             ),
           ],

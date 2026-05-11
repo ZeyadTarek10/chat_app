@@ -1,9 +1,20 @@
 class ChatsEntity {
-  final String fact;
-  final int length;
+  final String? id;
+  final List? members;
+  final String? lastMessage;
+  final DateTime? lastMessageTime;
+  final DateTime? createdAt;
+  final String? friendName;
+  final String? friendImage;
+  final int? unreadCount;
 
-  ChatsEntity({
-    required this.fact,
-    required this.length,
-  });
+  ChatsEntity(
+      {this.id,
+      this.members,
+      this.lastMessage,
+      this.lastMessageTime,
+      this.createdAt,
+      this.friendName,
+      this.friendImage,
+      this.unreadCount});
 }

@@ -1,52 +1,64 @@
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/sign_up/data/models/user_model.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBarMessage2 extends StatelessWidget {
-  const AppBarMessage2({super.key});
+  final UserModel userModel;
+  // final String roomId;
+  const AppBarMessage2({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+            decoration: BoxDecoration(
+              color: AppColors.white,
             ),
             child: Row(
               children: [
                 CircleAvatar(
-                  radius: 22,
+                  radius: 22.r,
                   backgroundColor: Colors.grey.shade300,
-                  backgroundImage: const NetworkImage(
-                      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Jimmy_Wales_Fundraiser_Appeal_edit.jpg/250px-Jimmy_Wales_Fundraiser_Appeal_edit.jpg"),
+                  backgroundImage: (userModel.profilePicUrl != null && userModel.profilePicUrl!.isNotEmpty) ? NetworkImage(userModel.profilePicUrl!) : null,
+        child: (userModel.profilePicUrl == null || userModel.profilePicUrl!.isEmpty)
+            ? CustomTextWidget(
+               text: userModel.name.isNotEmpty ? userModel.name[0].toUpperCase() : '',
+                textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
+              )
+            : null,          
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'David Wayne',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                      CustomTextWidget(
+                        text: userModel.name,
+                        textStyle: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontDetails.boldFontWeight,
+                            fontSize: 16.sp),
                       ),
-                      Text(
-                        '(+44) 50 9285 3022',
-                        style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 12),
+                      CustomTextWidget(
+                        text: '(${userModel.countryCode})${userModel.phone}',
+                        textStyle: TextStyle(
+                            color: Colors.grey.shade600, fontSize: FontDetails.fontSizeXS),
                       ),
                     ],
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.videocam_outlined,
-                      color: Colors.black, size: 26),
+                  icon: Icon(Icons.videocam_outlined,
+                      color: AppColors.black, size: 26.sp),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.call_outlined,
-                      color: Colors.black, size: 22),
+                  icon: Icon(Icons.call_outlined,
+                      color:  AppColors.black, size: 22.sp),
                 ),
               ],
             ),

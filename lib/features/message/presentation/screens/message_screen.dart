@@ -1,52 +1,43 @@
-import 'package:chat_app/core/utils/app_colors.dart';
-import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message2.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/attachmenu_menu.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/list_view_builder_message.dart';
-import 'package:chat_app/features/message/presentation/screens/widgets/send_icon.dart';
-import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
+import 'package:chat_app/features/message/presentation/screens/widgets/sending_messages_container.dart';
+import 'package:chat_app/features/message/presentation/screens/widgets/welcom_message.dart';
+import 'package:chat_app/features/sign_up/data/models/user_model.dart';
+import 'package:chat_app/shared_widgets/custom_loading.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key});
+  final String roomId;
+  final String friendId;
+  const MessageScreen({
+    super.key,
+    required this.roomId,
+    required this.friendId,
+  });
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  final TextEditingController controller = TextEditingController();
-  final ScrollController controller0 = ScrollController();
-  bool isMenuOpen = false;
+  late MessageCubit messageCubit;
 
-  List<Map<String, dynamic>> dummyMessages = [
-    {
-      "text": "No problem at all!\nI'll be there in about 15 minutes.",
-      "time": "10:11",
-      "isMe": false
-    },
-    {
-      "text":
-          "Awesome, thanks for letting me know!\nCan't wait for my delivery. 🎉",
-      "time": "10:11",
-      "isMe": true
-    },
-    {"text": "Hi!", "time": "10:10", "isMe": true},
-    {
-      "text":
-          "This is your delivery driver from Speedy Chow. I'm just around the corner from your place. 😊",
-      "time": "10:10",
-      "isMe": false
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    messageCubit = context.read<MessageCubit>();
+  }
 
   @override
   void dispose() {
-    controller.dispose();
-    controller0.dispose();
     super.dispose();
+    messageCubit.controller.dispose();
+    messageCubit.controller0.dispose();
   }
 
   @override
@@ -56,76 +47,69 @@ class _MessageScreenState extends State<MessageScreen> {
       appBar: AppBarMessage(context),
       body: Column(
         children: [
-          const AppBarMessage2(),
           Expanded(
-            child: ListViewBuilderMessage(
-                controller0: controller0, dummyMessages: dummyMessages),
-          ),
-          if (isMenuOpen) const AttachmentMenu(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-            color: AppColors.white,
-            child: Row(
+            child: Stack(
               children: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isMenuOpen = !isMenuOpen;
-                    });
+                Positioned.fill(child: BlocBuilder<MessageCubit, MessageState>(
+                  buildWhen: (previous, current) {
+                    return current is MessageLoadingState ||
+                        current is MessageErrorState ||
+                        current is MessageLoadedState;
                   },
-                  icon: Icon(Icons.add,
-                      color: AppColors.backgroundColorbuttonblue1,
-                      size: FontDetails.fontSizeL),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: CustomTextFormFieldWidget(
-                      fillColor: AppColors.mainTextColor.withOpacity(0.1),
-                      controller: controller,
-                      onChange: (value) => sendMessage(),
-                      hint: 'Type a message',
-                      hintColor: AppColors.mainTextColor,
-                      withBorders: false,
-                      validator: (value) {
-                        return null;
-                      },
-                    ),
+                  builder: (context, state) {
+                    if (state is MessageLoadingState) {
+                      return const CustomLoading();
+                    } else if (state is MessageErrorState) {
+                      return Center(child: CustomTextWidget(text: state.errMsg));
+                    }
+                    if (state is MessageLoadedState) {
+                      final messages = state.messages;
+                      final friendData = state.friendData;
+                
+                      return Column(
+                        children: [
+                          if (friendData != null)
+                            AppBarMessage2(
+                              userModel: friendData as UserModel,
+                            ),
+                          Expanded(
+                            child: messages.isEmpty
+                                ? WelcomeMessage(
+                                    userModel: friendData as UserModel,
+                                    roomId: widget.roomId,
+                                  )
+                                : ListViewBuilderMessages(
+                                    messageCubit: messageCubit,
+                                    messages: messages,
+                                    widget: widget),
+                          ),
+                        ],
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                ),),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: BlocBuilder<MessageCubit, MessageState>(
+                    builder: (context, state) {
+                      bool isMenuOpen = context.read<MessageCubit>().isMenuOpen;
+
+                      if (isMenuOpen) {
+                        return const AttachmentMenu();
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
-                ),
-                SizedBox(width: 12.w),
-                InkWell(
-                  onTap: sendMessage,
-                  child: const SendIcon(),
                 ),
               ],
             ),
           ),
+          SendingMessagesContainer(messageCubit: messageCubit, widget: widget),
         ],
       ),
     );
   }
-
-  void sendMessage() {
-    if (controller.text.isNotEmpty) {
-      setState(() {
-        dummyMessages.insert(0, {
-          "text": controller.text,
-          "time": "10:12",
-          "isMe": true,
-        });
-      });
-      controller.clear();
-      controller0.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-    }
-  }
 }
-

@@ -23,12 +23,17 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  late ForgetPasswordCubit forgetPasswordCubit;
+
+  @override
+  void initState() {
+    forgetPasswordCubit = context.read<ForgetPasswordCubit>();
+    super.initState();
+  }
 
   @override
   void dispose() {
-    emailController.dispose();
+    forgetPasswordCubit.emailController.dispose();
     super.dispose();
   }
 
@@ -44,7 +49,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           );
         }
         if (state is ForgetPasswordSuccess) {
-          GoRouter.of(context).pop(); 
+          GoRouter.of(context).pop();
           showSnackBar(
             context,
             color: Colors.green,
@@ -53,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           GoRouter.of(context).pop();
         } else if (state is ForgetPasswordFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
-          GoRouter.of(context).pop();
+            GoRouter.of(context).pop();
           }
           showSnackBar(
             context,
@@ -70,7 +75,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Form(
-                key: formKey,
+                key: forgetPasswordCubit.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -85,26 +90,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     SizedBox(height: 12.h),
                     CustomTextWidget(
                       text:
-                          "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password".tr(),
+                          "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password"
+                              .tr(),
                       textStyle: TextStyle(
-                          fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor, height: 1.5.h),
+                          fontSize: FontDetails.fontSizeS,
+                          color: AppColors.mainTextColor,
+                          height: 1.5.h),
                     ),
                     SizedBox(height: 40.h),
                     CustomTextFormFieldWidget(
-                      controller: emailController,
+                      controller: forgetPasswordCubit.emailController,
                       hint: 'Rhebhek@gmail.com',
                       withBorders: true,
                       textInputType: TextInputType.emailAddress,
-                      validator: (value) =>
-                          AppValidator.emailValidation(value),
+                      validator: (value) => AppValidator.emailValidation(value),
                     ),
                     SizedBox(height: 30.h),
                     CustomLinearButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
+                          if (forgetPasswordCubit.formKey.currentState!.validate()) {
                             BlocProvider.of<ForgetPasswordCubit>(context)
                                 .resetPassword(
-                              email: emailController.text.trim(),
+                              email: forgetPasswordCubit.emailController.text.trim(),
                             );
                           }
                         },

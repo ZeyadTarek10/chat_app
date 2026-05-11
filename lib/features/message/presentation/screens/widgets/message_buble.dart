@@ -31,12 +31,15 @@ class MessageBuble extends StatelessWidget {
           children: [
             CustomTextWidget(
               text: message,
-              textStyle: TextStyle(color: AppColors.black, fontSize: FontDetails.fontSizeS),
+              textStyle: TextStyle(
+                  color: AppColors.black, fontSize: FontDetails.fontSizeS),
             ),
             SizedBox(height: 6.h),
             CustomTextWidget(
               text: time,
-              textStyle: TextStyle(color: Colors.grey.shade400, fontSize: FontDetails.fontSizeXS),
+              textStyle: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontSize: FontDetails.fontSizeXS),
             ),
           ],
         ),
@@ -48,8 +51,13 @@ class MessageBuble extends StatelessWidget {
 class MessageBubleForYou extends StatelessWidget {
   final String message;
   final String time;
+  final bool isRead;
 
-  const MessageBubleForYou({super.key, required this.message, required this.time});
+  const MessageBubleForYou(
+      {super.key,
+      required this.message,
+      required this.time,
+      required this.isRead});
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +80,22 @@ class MessageBubleForYou extends StatelessWidget {
           children: [
             CustomTextWidget(
               text: message,
-              textStyle: TextStyle(color: AppColors.white, fontSize: FontDetails.fontSizeS),
+              textStyle: TextStyle(
+                  color: AppColors.white, fontSize: FontDetails.fontSizeS),
             ),
             SizedBox(height: 6.h),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 CustomTextWidget(
-                 text: time,
-                  textStyle: TextStyle(color: Colors.white70, fontSize: FontDetails.fontSizeXS),
+                  text: time,
+                  textStyle: TextStyle(
+                      color: Colors.white70, fontSize: FontDetails.fontSizeXS),
                 ),
                 SizedBox(width: 4.w),
-                Icon(Icons.done_all, color: AppColors.white, size: FontDetails.fontSizeS),
+                Icon(Icons.done_all,
+                    color: isRead ? AppColors.mainColor : AppColors.white,
+                    size: FontDetails.fontSizeS),
               ],
             ),
           ],
@@ -92,4 +104,3 @@ class MessageBubleForYou extends StatelessWidget {
     );
   }
 }
-

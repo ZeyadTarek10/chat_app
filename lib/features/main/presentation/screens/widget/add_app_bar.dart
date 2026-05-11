@@ -16,7 +16,7 @@ class AddAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.mainColor,
+      flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.only(left: 16.0),

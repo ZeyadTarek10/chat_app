@@ -2,6 +2,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IconOptions extends StatelessWidget {
   const IconOptions({super.key, required this.icon, required this.label});
@@ -14,7 +15,7 @@ class IconOptions extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.r),
           decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
@@ -28,7 +29,7 @@ class IconOptions extends StatelessWidget {
           ),
           child: Icon(icon, color: AppColors.white, size: FontDetails.fontSizeL),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         CustomTextWidget(
           text: label,
           textStyle: TextStyle(

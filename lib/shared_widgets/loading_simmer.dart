@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -22,7 +23,7 @@ class LoadingShimmer extends StatelessWidget {
         width: width,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.3),
+          color: AppColors.mainTextColor.withOpacity(0.3),
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius ?? 14),
           ),

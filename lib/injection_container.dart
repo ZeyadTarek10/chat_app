@@ -3,12 +3,39 @@ import 'package:chat_app/features/Login/data/repositories/login_repository_impl.
 import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
 import 'package:chat_app/features/Login/domain/use_cases/login_use_case.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:chat_app/features/chats/data/data_sources/create_chats_remote_data_source.dart';
+import 'package:chat_app/features/chats/data/repositories/chats_repository_impl.dart';
+import 'package:chat_app/features/chats/domain/repositories/chats_repositories.dart';
+import 'package:chat_app/features/chats/domain/use_cases/create_chats_use_case.dart';
+import 'package:chat_app/features/chats/domain/use_cases/get_chat_use_case.dart';
+import 'package:chat_app/features/chats/domain/use_cases/search_chats_use_case.dart';
+import 'package:chat_app/features/chats/presentation/manager/create_chats_cubit/create_chats_cubit.dart';
+import 'package:chat_app/features/chats/presentation/manager/get_chats_cubit/get_chats_cubit.dart';
 import 'package:chat_app/features/forget_password/data/data_sources/forget_password_remote_data_source.dart';
 import 'package:chat_app/features/forget_password/data/repositories/forget_password_repository_impl.dart';
 import 'package:chat_app/features/forget_password/domain/repositories/forget_password_repository.dart';
 import 'package:chat_app/features/forget_password/domain/use_cases/forget_password_use_case.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
+import 'package:chat_app/features/groups/data/data_sources/groups_remote_data_source.dart';
+import 'package:chat_app/features/groups/data/repositories/groups_repository_imp.dart';
+import 'package:chat_app/features/groups/domain/repositories/groups_repository.dart';
+import 'package:chat_app/features/groups/domain/use_cases/create_groups_use_case.dart';
+import 'package:chat_app/features/groups/domain/use_cases/get_all_users_use_case.dart';
+import 'package:chat_app/features/groups/domain/use_cases/get_groups_use_case.dart';
+import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
+import 'package:chat_app/features/message/data/data_sources/message_remote_data_source.dart';
+import 'package:chat_app/features/message/data/repositories/message_repo_impl.dart';
+import 'package:chat_app/features/message/domain/repositories/message_repo.dart';
+import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
+import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
+import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
+import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
+import 'package:chat_app/features/message_groups/data/data_source/message_groups_remote_data_source.dart';
+import 'package:chat_app/features/message_groups/data/repositories/message_groups_repository_impl.dart';
+import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
+import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
+import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
@@ -57,6 +84,20 @@ Future<void> getItInit() async {
       getProfileUseCase: getIt(),
       updateProfileUseCase: getIt(),
       logoutUseCase: getIt()));
+  getIt.registerFactory<CreateChatsCubit>(() => CreateChatsCubit(
+      createChatsUseCase: getIt(), searchUsersUseCase: getIt()));
+  getIt.registerFactory<GetChatsCubit>(
+      () => GetChatsCubit(getChatsUseCase: getIt()));
+  getIt.registerFactory<MessageCubit>(() => MessageCubit(
+      getMessagesUseCase: getIt(),
+      sendMessageUseCase: getIt(),
+      readMessageUseCase: getIt(),
+      getUserByIdUseCase: getIt()));
+  getIt.registerFactory<GroupsCubit>(() => GroupsCubit(
+      createGroupsUseCase: getIt(),
+      getGroupsUseCase: getIt(), getAllUsersUseCase: getIt()));
+  getIt.registerFactory<MessegeGroupCubit>(() => MessegeGroupCubit(
+      sendMessageUseCase: getIt(), repository: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(
@@ -73,6 +114,28 @@ Future<void> getItInit() async {
       () => UpdateProfileUseCase(profileRepositories: getIt()));
   getIt.registerLazySingleton<LogoutUseCase>(
       () => LogoutUseCase(profileRepositories: getIt()));
+  getIt.registerLazySingleton<CreateChatsUseCase>(
+      () => CreateChatsUseCase(chatsRepositories: getIt()));
+  getIt.registerLazySingleton<GetChatsUseCase>(
+      () => GetChatsUseCase(chatsRepositories: getIt()));
+  getIt.registerLazySingleton<SearchUsersUseCase>(
+      () => SearchUsersUseCase(repository: getIt()));
+  getIt.registerLazySingleton<ReadMessageUseCase>(
+      () => ReadMessageUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<GetMessagesUseCase>(
+      () => GetMessagesUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<SendMessageUseCase>(
+      () => SendMessageUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<GetUserByIdUseCase>(
+      () => GetUserByIdUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<CreateGroupsUseCase>(
+      () => CreateGroupsUseCase(groupsRepository: getIt()));
+  getIt.registerLazySingleton<GetGroupsUseCase>(
+      () => GetGroupsUseCase(groupsRepository: getIt()));
+  getIt.registerLazySingleton<GetAllUsersUseCase>(
+      () => GetAllUsersUseCase(groupsRepository: getIt()));
+  getIt.registerLazySingleton<SendGroupMessageUseCase>(
+      () => SendGroupMessageUseCase(messageGroupsRepository: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>
@@ -85,7 +148,17 @@ Future<void> getItInit() async {
   getIt.registerLazySingleton<SignUpRepository>(
       () => SignUpRepositoryImpl(remoteDataSource: getIt()));
   getIt.registerLazySingleton<ProfileRepositories>(() => ProfileRepositoryImpl(
-      networkInfo: getIt(), profileRemoteDataSource: getIt(), cacheHelper: getIt()));
+      networkInfo: getIt(),
+      profileRemoteDataSource: getIt(),
+      cacheHelper: getIt()));
+  getIt.registerLazySingleton<ChatsRepositories>(() => ChatsRepositoryImpl(
+      networkInfo: getIt(), chatsRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<MessageRepository>(() =>
+      MessageRepoImpl(networkInfo: getIt(), messageRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<GroupsRepository>(
+      () => GroupsRepositoryImp(remoteDataSource: getIt()));
+  getIt.registerLazySingleton<MessageGroupsRepository>(
+      () => MessageGroupsRepositoryImpl(messageGroupsRemoteDataSource: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(
@@ -98,6 +171,14 @@ Future<void> getItInit() async {
       () => SignUpRemoteDataSourceImpl());
   getIt.registerLazySingleton<ProfileRemoteDataSource>(
       () => ProfileRemoteDataSourceImpl());
+  getIt.registerLazySingleton<ChatsRemoteDataSource>(
+      () => ChatsRemoteDataSourceImpl());
+  getIt.registerLazySingleton<MessageRemoteDataSource>(
+      () => MessageRemoteDataSourceImpl());
+  getIt.registerLazySingleton<GroupsRemoteDataSource>(
+      () => GroupsRemoteDataSourceImpl());
+  getIt.registerLazySingleton<MessageGroupsRemoteDataSource>(
+      () => MessageGroupsRemoteDataSourceImpl());
 
   /// Core
   getIt.registerLazySingleton<NetworkInfo>(
