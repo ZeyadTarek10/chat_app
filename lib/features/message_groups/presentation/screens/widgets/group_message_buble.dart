@@ -141,7 +141,7 @@ class GroupsMessageBubleForYou extends StatelessWidget {
                 CustomTextWidget(
                   text: time,
                   textStyle: TextStyle(
-                      color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeXS),
+                      color: Colors.white70, fontSize: FontDetails.fontSizeXS),
                 ),
                 SizedBox(width: 4.w),
                 Icon(Icons.done_all,

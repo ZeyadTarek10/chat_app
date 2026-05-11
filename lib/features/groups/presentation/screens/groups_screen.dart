@@ -1,4 +1,5 @@
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/groups_item.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class GroupsScreen extends StatelessWidget {
   const GroupsScreen({super.key});
@@ -21,7 +23,12 @@ class GroupsScreen extends StatelessWidget {
         } 
         else if (state is GroupsLoaded) {
           if (state.groups.isEmpty) {
-            return Center(child: CustomTextWidget(text: "there_are_no_groups_now".tr()));
+            return Center(child: Column(
+              children: [
+                Lottie.asset('assets/lottie/Share.json'),
+                CustomTextWidget(text: "there_are_no_groups_now".tr(), textStyle: appTheme().textTheme.displayMedium),
+              ],
+            ));
           }
           return ListView.builder(
             itemCount: state.groups.length,
