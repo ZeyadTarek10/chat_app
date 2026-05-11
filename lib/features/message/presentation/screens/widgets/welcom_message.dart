@@ -1,3 +1,4 @@
+import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -37,7 +38,7 @@ class WelcomeMessage extends StatelessWidget {
           context.read<MessageCubit>().sendMessage(welcomeMsg, roomId);
         },
         child: Card(
-          color: AppColors.backgroundColorCircleButtonblue3.withOpacity(0.5),
+          color: AppColors.white.withOpacity(0.5),
           elevation: 3,
           shadowColor: AppColors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
@@ -50,7 +51,7 @@ class WelcomeMessage extends StatelessWidget {
                 SizedBox(height: 10.h),
                 CustomTextWidget(text:
                   "Say Hello to ${userModel.name}",
-                  textStyle: TextStyle(fontSize: FontDetails.fontSizeL, color: AppColors.white),
+                  textStyle: appTheme().textTheme.displayMedium,
                 ),
               ],
             ),
