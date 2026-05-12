@@ -1,3 +1,4 @@
+import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({
@@ -44,7 +46,9 @@ class AddButton extends StatelessWidget {
         onSelected: (value) {
           cubit.toggleMenuState(false);
           if (value == 'add_friend') {
+            GoRouter.of(context).push(AppRoutes.addChats);
           } else if (value == 'create_group') {
+            GoRouter.of(context).push(AppRoutes.addGroups);
           }
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[

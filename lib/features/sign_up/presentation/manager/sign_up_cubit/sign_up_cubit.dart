@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/sign_up/domain/use_cases/sign_up_use_case.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 part 'sign_up_state.dart';
 
@@ -12,6 +12,15 @@ class SignUpCubit extends Cubit<SignUpState> {
   bool isPasswordVisible = false;
   bool isTermsAccepted = false;
   String selectedCountryCode = '+20';
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
 
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -42,10 +51,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpLoading());
 
     var result = await signUpUseCase.call(
-      email: email,
-      password: password,
-      name: name,
-      phone: phone, countryCode: selectedCountryCode,
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      name: nameController.text.trim(),
+      phone: phoneController.text.trim(), countryCode: selectedCountryCode,
     );
 
     result.fold(

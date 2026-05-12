@@ -25,7 +25,7 @@ class ChatsItem extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       leading: CircleAvatar(
-        radius: 26.r,
+        radius: 22.r,
         backgroundColor: Colors.grey.shade300,
         backgroundImage: (image != null && image!.isNotEmpty) ? NetworkImage(image!) : null,
         child: (image == null || image!.isEmpty)
@@ -79,10 +79,10 @@ class ChatsItem extends StatelessWidget {
             SizedBox(width: 8.w),
             if (unreadCount > 0)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
-                  color: AppColors.backgroundColorbuttonblue2, 
-                  borderRadius: BorderRadius.circular(6.r),
+                  color: AppColors.backgroundColorbuttonblue1, 
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: CustomTextWidget(
                   text: unreadCount.toString(),

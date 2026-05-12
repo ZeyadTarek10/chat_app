@@ -18,14 +18,14 @@ class LogOutProfile extends StatelessWidget {
         context.read<ProfileCubit>().logout();
       },
       text: 'logout'.tr(),
-      icon: Icon(Icons.logout, size: 24.sp),
+      icon: Icon(Icons.logout, size: FontDetails.fontSizeL),
       textStyle: TextStyle(
-          fontSize: 18.sp,
+          fontSize: FontDetails.fontSizeM,
           fontWeight: FontDetails.mediumFontWeight),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xffFEECEB),
         foregroundColor: const Color(0xffF6695E),
-        minimumSize: Size(double.infinity, 56.h),
+        minimumSize: Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)),
         elevation: 0,

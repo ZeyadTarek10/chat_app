@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 AppBar customAppBar(BuildContext context){
 return AppBar(
@@ -14,7 +15,7 @@ return AppBar(
             ),
             child: IconButton(
               icon: Icon(Icons.arrow_back_ios_new,
-                  color: AppColors.black, size: 18),
+                  color: AppColors.black, size: 18.sp),
               onPressed: () => Navigator.pop(context),
             ),
           ),

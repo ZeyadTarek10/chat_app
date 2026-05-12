@@ -1,0 +1,62 @@
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
+import 'package:chat_app/features/message_groups/presentation/screens/widgets/stack_app_bar_images.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class AppBarGroupsMessages extends StatelessWidget {
+  final GroupsEntity group;
+  const AppBarGroupsMessages({
+    super.key,
+    required this.group,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+      ),
+      child: Row(
+        children: [
+          StackAppBarImages(group: group),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextWidget(
+                  text: group.name,
+                  textStyle: TextStyle(
+                      color: AppColors.black,
+                      fontWeight: FontDetails.boldFontWeight,
+                      fontSize: FontDetails.fontSizeM),
+                ),
+                CustomTextWidget(
+                  text: '${group.members.length} members',
+                  textStyle: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: FontDetails.fontSizeXS),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.videocam_outlined,
+                color: AppColors.black, size: 26.sp),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon:
+                Icon(Icons.call_outlined, color: AppColors.black, size: 22.sp),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

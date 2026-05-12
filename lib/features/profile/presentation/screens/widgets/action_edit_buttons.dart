@@ -62,7 +62,7 @@ class ActionEditButtons extends StatelessWidget {
                   fontSize: FontDetails.fontSizeM,
                   fontWeight: FontDetails.semiBoldFontWeight),
               backgroundColor: AppColors.backgroundColorbuttonblue2,
-              foregroundColor: Colors.white,
+              foregroundColor: AppColors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.r)),
               elevation: 0,

@@ -17,7 +17,7 @@ class EditProfilePhoto extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-          radius: 80.r,
+          radius: 65.r,
           backgroundImage: user!.profilePicUrl != null
               ? NetworkImage(user!.profilePicUrl!) as ImageProvider
               : const AssetImage(AppImages.userCircle),

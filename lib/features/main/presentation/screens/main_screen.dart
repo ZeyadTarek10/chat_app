@@ -1,7 +1,7 @@
 import 'package:chat_app/core/enum/nav_bar_enum.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/chats/presentation/screens/chats_screen.dart';
-import 'package:chat_app/features/groups/screens/groups_screen.dart';
+import 'package:chat_app/features/groups/presentation/screens/groups_screen.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/custom_app_bar.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/custom_bottom_nav_bar.dart';
