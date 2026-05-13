@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,7 +41,7 @@ class FormSignUp extends StatelessWidget {
         CustomTextWidget(
             textAlign: TextAlign.left,
             text: 'full_name'.tr(),
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: nameController,
@@ -54,7 +55,7 @@ class FormSignUp extends StatelessWidget {
         CustomTextWidget(
             textAlign: TextAlign.left,
             text: 'phone_number'.tr(),
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: phoneController,
@@ -68,6 +69,23 @@ class FormSignUp extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CountryCodePicker(
+                  // backgroundColor: context.color.mainColor!.withOpacity(0.5),
+                  dialogBackgroundColor: context.color.navBarbg,
+                  dialogTextStyle: TextStyle(color: context.color.textColor),
+                  barrierColor: ColorsLight.mainTextColor,
+                  headerTextStyle: TextStyle(color: context.color.textColor, fontWeight: FontDetails.boldFontWeight, fontSize: FontDetails.fontSizeM),
+                  searchDecoration: const InputDecoration(
+                    prefixIconColor: Color.fromARGB(149, 0, 0, 0),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainColor)
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainTextColor)
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainTextColor),
+                    ),
+                  ),
                   onChanged: (CountryCode countryCode) {
                     onCountryCodeChanged(countryCode.dialCode ?? '+20');
                   },
@@ -78,14 +96,14 @@ class FormSignUp extends StatelessWidget {
                   alignLeft: false,
                   padding: EdgeInsets.zero,
                   flagWidth: 24.w,
-                  textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14.sp),
+                  textStyle: TextStyle(color: ColorsLight.mainTextColor, fontSize: 14.sp),
                 ),
-                Icon(Icons.keyboard_arrow_down, size: 20.sp, color: AppColors.mainTextColor),
+                Icon(Icons.keyboard_arrow_down, size: 20.sp, color: ColorsLight.mainTextColor),
                 SizedBox(width: 4.w),
                 Container(
                   height: 24.h,
                   width: 1.w,
-                  color: Colors.grey.withOpacity(0.5),
+                  color: ColorsLight.mainTextColor.withOpacity(0.5),
                 ),
                 SizedBox(width: 8.w),
               ],
@@ -97,7 +115,7 @@ class FormSignUp extends StatelessWidget {
         CustomTextWidget(
             textAlign: TextAlign.left,
             text: 'email_address'.tr(),
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: emailController,
@@ -111,7 +129,7 @@ class FormSignUp extends StatelessWidget {
         CustomTextWidget(
             text: 'password'.tr(),
             textAlign: TextAlign.left,
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: passwordController,
@@ -121,7 +139,7 @@ class FormSignUp extends StatelessWidget {
           suffixIcon: IconButton(
             icon: Icon(
               isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-              color: AppColors.hintColor,
+              color: ColorsLight.hintColor,
             ),
             onPressed: togglePasswordVisibility,
           ),
@@ -132,7 +150,7 @@ class FormSignUp extends StatelessWidget {
         CustomTextWidget(
             text: 'confirm_password'.tr(),
             textAlign: TextAlign.left,
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: confirmPasswordController,
@@ -142,7 +160,7 @@ class FormSignUp extends StatelessWidget {
           suffixIcon: IconButton(
             icon: Icon(
               isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-              color: AppColors.hintColor,
+              color: ColorsLight.hintColor,
             ),
             onPressed: togglePasswordVisibility,
           ),

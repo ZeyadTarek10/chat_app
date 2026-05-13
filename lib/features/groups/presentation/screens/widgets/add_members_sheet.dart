@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
@@ -18,7 +19,7 @@ class AddMembersSheet extends StatelessWidget {
       builder: (context, state) {
         var cubit = context.read<GroupsCubit>();
         return Container(
-          color: AppColors.white,
+          color: context.color.navBarbg,
           height: MediaQuery.of(context).size.height * 0.8,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
@@ -28,13 +29,13 @@ class AddMembersSheet extends StatelessWidget {
                   width: 60.w,
                   height: 5.h,
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: context.color.textColor!.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(10.r))),
               SizedBox(height: 20.h),
               CustomTextWidget(
                   text: "add_members_to_group".tr(),
                   textStyle: TextStyle(
-                      fontWeight: FontDetails.boldFontWeight, fontSize: 16.sp)),
+                      fontWeight: FontDetails.boldFontWeight, fontSize: 16.sp, color: context.color.textColor)),
               SizedBox(height: 15.h),
               Expanded(
                 child: state is GroupsUsersLoading
@@ -42,7 +43,7 @@ class AddMembersSheet extends StatelessWidget {
                     : cubit.contacts.isEmpty
                         ? Center(
                             child: CustomTextWidget(
-                                text: "there_are_no_users_to_add".tr()))
+                                text: "there_are_no_users_to_add".tr(), textStyle: TextStyle(color: context.color.textColor)))
                         : ListView.builder(
                             itemCount: cubit.contacts.length,
                             itemBuilder: (context, index) {
@@ -59,24 +60,24 @@ class AddMembersSheet extends StatelessWidget {
 
                               return CheckboxListTile(
                                 value: contact['selected'],
-                                title: CustomTextWidget(text: contact['name']),
-                                subtitle: CustomTextWidget(text: contact['phone']),
+                                title: CustomTextWidget(text: contact['name'], textStyle: TextStyle(color: context.color.textColor)),
+                                subtitle: CustomTextWidget(text: contact['phone'], textStyle: TextStyle(color: context.color.textColor)),
                                 secondary: CircleAvatar(
-                                  backgroundColor: AppColors.mainColor.withOpacity(0.5),
+                                  backgroundColor: ColorsDark.blueDark.withOpacity(0.5),
                                   backgroundImage: imageUrl.isNotEmpty
                                       ? NetworkImage(imageUrl)
                                       : null,
                                   child: imageUrl.isEmpty
                                       ? CustomTextWidget(text: initial,
                                           textStyle: TextStyle(
-                                              color: AppColors.white,
+                                              color: ColorsDark.white,
                                               fontWeight: FontDetails.boldFontWeight))
                                       : null,
                                 ),
                                 onChanged: (val) {
                                   cubit.toggleContact(index, val ?? false);
                                 },
-                                activeColor: AppColors.backgroundColorbuttonblue1,
+                                activeColor: ColorsDark.blueLight1,
                                 checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(5)),
                               );
                             },
@@ -89,7 +90,7 @@ class AddMembersSheet extends StatelessWidget {
                     child: CustomElevatedButtonWidget(
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        backgroundColor: AppColors.lightBlue,
+                        backgroundColor: ColorsDark.addMemberButtonLightBlue,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.r)),
                       ),
@@ -98,7 +99,7 @@ class AddMembersSheet extends StatelessWidget {
                       btnHeight: 60.h,
                       text: 'cancel'.tr(),
                       textStyle: TextStyle(
-                          color: AppColors.backgroundColorbuttonblue2,
+                          color: ColorsDark.blueLight2,
                           fontSize: 16.sp),
                     ),
                   ),
@@ -116,7 +117,7 @@ class AddMembersSheet extends StatelessWidget {
                         text: 'add'.tr(),
                         textStyle: TextStyle(
                           fontSize: FontDetails.fontSizeM,
-                          color: AppColors.white,
+                          color: ColorsDark.white,
                           fontWeight: FontDetails.boldFontWeight,
                         ),
                       ),

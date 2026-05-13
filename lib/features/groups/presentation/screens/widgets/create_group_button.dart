@@ -27,7 +27,7 @@ class CreateGroupButton extends StatelessWidget {
           text: 'create_group'.tr(),
           textStyle: TextStyle(
             fontSize: FontDetails.fontSizeM,
-            color: AppColors.white,
+            color: ColorsDark.white,
             fontWeight: FontDetails.boldFontWeight,
           ),
         ),

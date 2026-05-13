@@ -15,7 +15,7 @@ class SearchAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.mainColor, 
+      backgroundColor: ColorsLight.mainColor, 
       elevation: 0,
       automaticallyImplyLeading: false, 
       title: const SearchItemAppBar(),
@@ -24,10 +24,10 @@ class SearchAppBar extends StatelessWidget {
           icon: Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: AppColors.white.withOpacity(0.2),
+                    color: ColorsLight.white.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.close, color: AppColors.white),
+                  child: const Icon(Icons.close, color: ColorsLight.white),
                 ),
           onPressed: () {
             cubit.toggleSearch(); 

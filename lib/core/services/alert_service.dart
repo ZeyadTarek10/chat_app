@@ -22,9 +22,9 @@ class AlertService {
             padding: EdgeInsets.all(10.w),
             margin: EdgeInsets.only(bottom: 20.w),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: ColorsLight.white,
               border: Border.all(
-                  color: status == AlertStatus.success ? AppColors.green : AppColors.error),
+                  color: status == AlertStatus.success ? ColorsLight.green : ColorsLight.error),
               borderRadius: BorderRadius.all(Radius.circular(12.r)),
             ),
             child: Row(
@@ -42,14 +42,14 @@ class AlertService {
                         maxLines: 2,
                         textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color:
-                                status == AlertStatus.success ? AppColors.green : AppColors.error),
+                                status == AlertStatus.success ? ColorsLight.green : ColorsLight.error),
                       ),
                       CustomTextWidget(
                         text: subtitle,
                         maxLines: 3,
                         textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color:
-                                status == AlertStatus.success ? AppColors.green : AppColors.error),
+                                status == AlertStatus.success ? ColorsLight.green : ColorsLight.error),
                       ),
                     ],
                   ),

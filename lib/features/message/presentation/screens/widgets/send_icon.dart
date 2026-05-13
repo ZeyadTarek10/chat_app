@@ -11,18 +11,18 @@ class SendIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12.r),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.backgroundColorbuttonblue1,
-            AppColors.backgroundColorbuttonblue2,
+            ColorsDark.blueLight1,
+            ColorsDark.blueLight2,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         shape: BoxShape.circle,
       ),
-      child: Icon(Icons.send_rounded, color: AppColors.white, size: 20.sp),
+      child: Icon(Icons.send_rounded, color: ColorsDark.white, size: 20.sp),
     );
   }
 }

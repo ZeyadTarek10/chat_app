@@ -35,10 +35,10 @@ class NavItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
           gradient:   isSelected
-      ? LinearGradient(
+      ? const LinearGradient(
           colors: [
-            AppColors.backgroundColorbuttonblue1,
-            AppColors.backgroundColorbuttonblue2,
+            ColorsDark.blueLight1,
+            ColorsDark.blueLight2,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -56,14 +56,14 @@ class NavItem extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: isSelected ? AppColors.white : AppColors.mainTextColor,
+                color: isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
                 size: 24.sp,
               ),
               SizedBox(height: 4.h),
               CustomTextWidget(
                 text: label,
                 textStyle: TextStyle(
-                  color: isSelected ? AppColors.white : AppColors.mainTextColor,
+                  color: isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
                   fontSize: FontDetails.fontSizeXS,
                   fontWeight: isSelected ? FontDetails.semiBoldFontWeight : FontDetails.mediumFontWeight,
                 ),

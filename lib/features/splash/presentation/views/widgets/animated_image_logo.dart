@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 
@@ -17,7 +18,7 @@ class AnimatedImageLogo extends StatelessWidget {
           width: logSize,
           height: logSize,
           fit: BoxFit.contain,
-          color: const Color(0xFFD0E8F2), 
+          color: context.color.onbordingWaveColor2, 
           colorBlendMode: BlendMode.srcIn, 
         ),
         TweenAnimationBuilder<double>(

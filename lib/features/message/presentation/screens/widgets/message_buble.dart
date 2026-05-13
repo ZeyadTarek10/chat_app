@@ -18,7 +18,7 @@ class MessageBuble extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         margin: const EdgeInsets.only(left: 16, right: 60, bottom: 12),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: ColorsDark.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.r),
             topRight: Radius.circular(16.r),
@@ -32,7 +32,7 @@ class MessageBuble extends StatelessWidget {
             CustomTextWidget(
               text: message,
               textStyle: TextStyle(
-                  color: AppColors.black, fontSize: FontDetails.fontSizeS),
+                  color: ColorsLight.black, fontSize: FontDetails.fontSizeS),
             ),
             SizedBox(height: 6.h),
             CustomTextWidget(
@@ -81,7 +81,7 @@ class MessageBubleForYou extends StatelessWidget {
             CustomTextWidget(
               text: message,
               textStyle: TextStyle(
-                  color: AppColors.white, fontSize: FontDetails.fontSizeS),
+                  color: ColorsDark.white, fontSize: FontDetails.fontSizeS),
             ),
             SizedBox(height: 6.h),
             Row(
@@ -94,7 +94,7 @@ class MessageBubleForYou extends StatelessWidget {
                 ),
                 SizedBox(width: 4.w),
                 Icon(Icons.done_all,
-                    color: isRead ? AppColors.mainColor : AppColors.white,
+                    color: isRead ? ColorsDark.mainColor : ColorsDark.white,
                     size: FontDetails.fontSizeS),
               ],
             ),

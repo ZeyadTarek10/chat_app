@@ -36,8 +36,8 @@ class EditProfileButton extends StatelessWidget {
           fontSize: FontDetails.fontSizeM,
           fontWeight: FontDetails.mediumFontWeight),
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColorbuttonblue1,
-        foregroundColor: AppColors.white,
+        backgroundColor: ColorsDark.blueLight1,
+        foregroundColor: ColorsDark.white,
         minimumSize: Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)),

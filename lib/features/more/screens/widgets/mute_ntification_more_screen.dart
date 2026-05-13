@@ -19,7 +19,7 @@ class MuteNtificationMoreScreen extends StatelessWidget {
       title: 'mute_notification'.tr(),
       trailing: CupertinoSwitch(
         value: cubit.isMuteNotification,
-        activeTrackColor: AppColors.backgroundColorbuttonblue1,
+        activeTrackColor: ColorsDark.blueLight1,
         onChanged: (val) => cubit.toggleSwitch('mute_notif', val),
       ),
     );

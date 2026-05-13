@@ -1,14 +1,13 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
-import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
-import 'package:chat_app/features/message/presentation/screens/widgets/more_options_button.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-AppBar AppBarMessage(BuildContext context, MessageCubit cubit, String roomId) {
+AppBar AppBarGroupsMessages2(BuildContext context) {
+
   return AppBar(
     backgroundColor: context.color.mainColor,
     scrolledUnderElevation: 0,
@@ -50,19 +49,24 @@ AppBar AppBarMessage(BuildContext context, MessageCubit cubit, String roomId) {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-            decoration: BoxDecoration(
-              color: ColorsDark.white.withOpacity(0.4),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: ColorsLight.mainTextColor.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: MoreOptionsButton(cubit: cubit, roomId: roomId)),
+          decoration: BoxDecoration(
+            color: ColorsDark.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: ColorsLight.mainTextColor.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          // child: IconButton(
+          //   icon: Icon(Icons.more_horiz_rounded,
+          //       color: AppColors.black, size: 20.sp),
+          //   onPressed: () {},
+          // ),
+        ),
       ),
     ],
   );

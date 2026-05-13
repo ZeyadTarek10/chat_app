@@ -14,6 +14,19 @@ class MoreCubit extends Cubit<MoreState> {
   bool isHideChatHistory = false;
   bool isSecurityEnabled = false;
 
+    Future<void> changeAppThemeMode(String key,{bool? sharedMode}) async {
+      if (key == 'dark_mode') isDarkMode = sharedMode ?? !isDarkMode;
+    if (sharedMode != null) {
+      isDarkMode = sharedMode;
+      emit(CubitState.themeChangeMode(isDark: isDarkMode));
+    } else {
+      isDarkMode = !isDarkMode;
+      await CacheHelper()
+          .setBoolean('mode', isDarkMode)
+          .then((value) => emit(CubitState.themeChangeMode(isDark: isDarkMode)));
+    }
+  }
+
   void toggleSwitch(String key, bool value) {
     if (key == 'dark_mode') isDarkMode = value;
     if (key == 'mute_notif') isMuteNotification = value;

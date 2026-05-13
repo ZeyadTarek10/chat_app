@@ -1,4 +1,4 @@
-import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/stack_app_bar_images.dart';
@@ -18,7 +18,7 @@ class AppBarGroupsMessages extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: context.color.mainColor,
       ),
       child: Row(
         children: [
@@ -31,7 +31,7 @@ class AppBarGroupsMessages extends StatelessWidget {
                 CustomTextWidget(
                   text: group.name,
                   textStyle: TextStyle(
-                      color: AppColors.black,
+                      color: context.color.textColor,
                       fontWeight: FontDetails.boldFontWeight,
                       fontSize: FontDetails.fontSizeM),
                 ),
@@ -47,12 +47,12 @@ class AppBarGroupsMessages extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.videocam_outlined,
-                color: AppColors.black, size: 26.sp),
+                color: context.color.textColor, size: 26.sp),
           ),
           IconButton(
             onPressed: () {},
             icon:
-                Icon(Icons.call_outlined, color: AppColors.black, size: 22.sp),
+                Icon(Icons.call_outlined, color: context.color.textColor, size: 22.sp),
           ),
         ],
       ),

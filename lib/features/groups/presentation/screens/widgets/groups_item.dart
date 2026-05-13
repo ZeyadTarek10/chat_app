@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/stack_circle_avatar.dart';
@@ -37,7 +38,7 @@ class GroupsItem extends StatelessWidget {
               textStyle: TextStyle(
                 fontWeight: FontDetails.semiBoldFontWeight,
                 fontSize: FontDetails.fontSizeM,
-                color: AppColors.black,
+                color: context.color.textColor,
               ),
               maxLines: 1,
             ),
@@ -46,7 +47,7 @@ class GroupsItem extends StatelessWidget {
           CustomTextWidget(
             text: time,
             textStyle: TextStyle(
-              color: AppColors.mainTextColor,
+              color: ColorsLight.mainTextColor,
               fontSize: FontDetails.fontSizeXS,
               fontWeight: FontDetails.mediumFontWeight,
             ),
@@ -62,7 +63,7 @@ class GroupsItem extends StatelessWidget {
               child: CustomTextWidget(
                 text: message,
                 textStyle: TextStyle(
-                  color: AppColors.mainTextColor,
+                  color: ColorsLight.mainTextColor,
                   fontSize: 13.sp,
                   fontWeight: unreadCount > 0
                       ? FontDetails.mediumFontWeight
@@ -76,13 +77,13 @@ class GroupsItem extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
-                  color: AppColors.backgroundColorbuttonblue1,
+                  color: ColorsDark.blueLight1,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: CustomTextWidget(
                   text: unreadCount.toString(),
                   textStyle: TextStyle(
-                    color: AppColors.white,
+                    color: ColorsDark.white,
                     fontSize: FontDetails.fontSizeXS,
                     fontWeight: FontDetails.boldFontWeight,
                   ),

@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -31,7 +32,7 @@ class ChatsItem extends StatelessWidget {
         child: (image == null || image!.isEmpty)
             ? CustomTextWidget(
                text: name.isNotEmpty ? name[0].toUpperCase() : '',
-                textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
+                textStyle: TextStyle(color: ColorsLight.black, fontSize: 20.sp),
               )
             : null,
       ),
@@ -44,7 +45,7 @@ class ChatsItem extends StatelessWidget {
               textStyle: TextStyle(
                 fontWeight: FontDetails.semiBoldFontWeight,
                 fontSize: FontDetails.fontSizeM,
-                color: AppColors.black,
+                color: context.color.textColor,
               ),
               maxLines: 1,
             ),
@@ -53,7 +54,7 @@ class ChatsItem extends StatelessWidget {
           CustomTextWidget(
            text:  time,
             textStyle: TextStyle(
-              color: AppColors.mainTextColor,
+              color: ColorsLight.mainTextColor,
               fontSize: FontDetails.fontSizeXS,
               fontWeight: FontDetails.mediumFontWeight,
             ),
@@ -69,7 +70,7 @@ class ChatsItem extends StatelessWidget {
               child: CustomTextWidget(
                 text:  message,
                 textStyle: TextStyle(
-                  color: AppColors.mainTextColor,
+                  color: ColorsLight.mainTextColor,
                   fontSize: 13.sp,
                   fontWeight: unreadCount > 0 ? FontDetails.mediumFontWeight : FontWeight.normal,
                 ),
@@ -81,13 +82,13 @@ class ChatsItem extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
-                  color: AppColors.backgroundColorbuttonblue1, 
+                  color: ColorsDark.blueLight1, 
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: CustomTextWidget(
                   text: unreadCount.toString(),
                   textStyle: TextStyle(
-                    color: AppColors.white,
+                    color: ColorsLight.white,
                     fontSize: FontDetails.fontSizeXS,
                     fontWeight: FontDetails.boldFontWeight,
                   ),

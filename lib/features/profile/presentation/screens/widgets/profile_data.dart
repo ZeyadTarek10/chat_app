@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -20,7 +21,7 @@ class ProfileData extends StatelessWidget {
         CustomTextWidget(
           text: '$title :',
           textStyle: TextStyle(
-              color: AppColors.mainTextColor,
+              color: ColorsLight.mainTextColor,
               fontSize: FontDetails.fontSizeM,
               fontWeight: FontDetails.regularFontWeight),
         ),
@@ -28,7 +29,7 @@ class ProfileData extends StatelessWidget {
         CustomTextWidget(
           text: value,
           textStyle: TextStyle(
-              color: AppColors.black,
+              color: context.color.textColor,
               fontSize: FontDetails.fontSizeM,
               fontWeight: FontDetails.regularFontWeight),
         ),
@@ -36,13 +37,13 @@ class ProfileData extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.copy,
               size: 20.sp,
-              color: AppColors.black,
+              color: context.color.textColor,
               fontWeight: FontDetails.regularFontWeight),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: value)).then((_) {
               showSnackBar(context,
                   text: '$title copied_to_clipboard'.tr(),
-                  color: AppColors.backgroundColorbuttonblue1);
+                  color: ColorsDark.blueLight1);
             });
           },
         ),

@@ -14,12 +14,12 @@ class BuildDotOnbording extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.only(right: 6),
-      height: 8.h,
-      width: currentPage == index ? 8.w : 8.w,
+      height:  currentPage == index ? 10.w : 8.w,
+      width: currentPage == index ? 10.w : 8.w,
       decoration: BoxDecoration(
         color: currentPage == index
-            ? AppColors.backgroundColorbuttonblue2
-            : AppColors.backgroundColorbuttonblue2.withOpacity(0.3),
+            ? ColorsDark.blueLight2
+            : ColorsDark.blueLight2.withOpacity(0.3),
         borderRadius: BorderRadius.circular(4.r),
       ),
     );

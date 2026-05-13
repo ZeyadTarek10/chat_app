@@ -24,13 +24,13 @@ class HideChatHistoryMoreScreen extends StatelessWidget {
         children: [
           CupertinoSwitch(
             value: cubit.isHideChatHistory,
-            activeTrackColor: AppColors.backgroundColorbuttonblue1,
+            activeTrackColor: ColorsDark.blueLight1,
             onChanged: (val) => cubit.toggleSwitch('hide_chat', val),
           ),
           SizedBox(width: 8.w),
           Icon(CupertinoIcons.chevron_right,
           fontWeight: FontDetails.regularFontWeight,
-              color: AppColors.black, size: 20.sp),
+              color: ColorsLight.black, size: 20.sp),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/features/splash/presentation/views/widgets/animated_align_logo_splash.dart';
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.color.mainColor,
       body: SafeArea(
         child: Stack(
           children: [

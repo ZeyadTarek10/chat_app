@@ -40,4 +40,13 @@ class CacheHelper {
   Future<bool> saveDataList({required String key, required List<String> valList}) {
     return sharedPref.setStringList(key, valList);
   }
+
+  Future<dynamic> setBoolean(String key, bool booleanValue) async {
+    await sharedPref.setBool(key, booleanValue);
+  }
+
+   bool? getBoolean(String key) {
+    return sharedPref.getBool(key);
+  }
+
 }

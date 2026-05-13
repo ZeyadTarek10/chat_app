@@ -27,8 +27,8 @@ class StackCircleAvatar extends StatelessWidget {
     double totalWidth = ((widgetsToShow - 1) * overlapFactor) + avatarSize;
 
     return SizedBox(
-      height: avatarSize+2,
-      width: totalWidth+2,
+      height: avatarSize+5,
+      width: totalWidth+5,
       child: Stack(
         children: [
           ...List.generate(widgetsToShow, (index) {
@@ -48,17 +48,17 @@ class StackCircleAvatar extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.white, width: 2.w),
+                  border: Border.all(color: ColorsDark.white, width: 2.w),
                 ),
                 child: CircleAvatar(
                   radius: avatarSize / 2,
-                  backgroundColor: AppColors.backgroundColorCircleButtonblue3,
+                  backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                   backgroundImage: url.isNotEmpty ? NetworkImage(url) : null,
                   child: url.isEmpty
                       ? CustomTextWidget(
                           text: initial, 
                           textStyle: TextStyle(
-                            color: AppColors.white,
+                            color: ColorsDark.white,
                             fontSize: 14.sp,
                             fontWeight: FontDetails.boldFontWeight,
                           ),
@@ -77,7 +77,7 @@ class StackCircleAvatar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.white, width: 2.w),
+        border: Border.all(color: ColorsDark.white, width: 2.w),
       ),
       child: CircleAvatar(
         radius: size / 2,
@@ -86,7 +86,7 @@ class StackCircleAvatar extends StatelessWidget {
           text: '+$extraCount',
           textStyle: TextStyle(
             fontSize: 12.sp,
-            color: AppColors.black,
+            color: ColorsLight.black,
             fontWeight: FontDetails.boldFontWeight,
           ),
         ),

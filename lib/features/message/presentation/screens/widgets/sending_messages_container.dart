@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -25,35 +26,43 @@ class SendingMessagesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      color: AppColors.white,
+      color: context.color.mainColor,
       child: Row(
         children: [
-          IconButton(
-            onPressed: () {
-              context.read<MessageCubit>().toggleMenu();
-            },
-            icon: Icon(Icons.add,
-                color: AppColors.backgroundColorbuttonblue1,
-                size: FontDetails.fontSizeL),
+         Container(
+        decoration: BoxDecoration(
+          color: ColorsDark.white.withOpacity(0.2),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: context.color.mainColor!.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+            child: IconButton(
+              onPressed: () {
+                context.read<MessageCubit>().toggleMenu();
+              },
+              icon: Icon(Icons.add,
+                  color: ColorsDark.blueLight1,
+                  size: FontDetails.fontSizeL),
+            ),
           ),
+          SizedBox(width: 12.w),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: CustomTextFormFieldWidget(
-                fillColor: AppColors.mainTextColor.withOpacity(0.1),
-                controller: messageCubit.controller,
-                // onChange: (value) => handleSendMessage(context),
-                hint: 'type_a_message'.tr(),
-                hintColor: AppColors.mainTextColor,
-                withBorders: false,
-                validator: (value) {
-                  return null;
-                },
-              ),
+            child: CustomTextFormFieldWidget(
+              fillColor:  ColorsLight.mainTextColor.withOpacity(0.1),
+              controller: messageCubit.controller,
+              // onChange: (value) => handleSendMessage(context),
+              hint: 'type_a_message'.tr(),
+              hintColor: ColorsLight.mainTextColor,
+              withBorders: false,
+              validator: (value) {
+                return null;
+              },
             ),
           ),
           SizedBox(width: 12.w),

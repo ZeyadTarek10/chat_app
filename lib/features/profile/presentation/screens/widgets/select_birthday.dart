@@ -10,10 +10,10 @@ void selectBirthday(BuildContext context, TextEditingController birthdayControll
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: AppColors.backgroundColorbuttonblue2,
+            colorScheme: const ColorScheme.light(
+              primary: ColorsDark.blueLight2,
               onPrimary: Colors.white,
-              onSurface: AppColors.mainTextColor,
+              onSurface: ColorsLight.mainTextColor,
             ),
           ),
           child: child!,

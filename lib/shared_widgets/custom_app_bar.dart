@@ -1,21 +1,21 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 AppBar customAppBar(BuildContext context){
 return AppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: context.color.mainColor,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.googlebtnColor,
+              color: context.color.textColor!.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: IconButton(
               icon: Icon(Icons.arrow_back_ios_new,
-                  color: AppColors.black, size: 18.sp),
+                  color: context.color.textColor, size: 18.sp),
               onPressed: () => Navigator.pop(context),
             ),
           ),

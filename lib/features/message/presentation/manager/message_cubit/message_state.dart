@@ -16,6 +16,12 @@ final class MessageErrorState extends MessageState {
   MessageErrorState({required this.errMsg});
 }
 
+class ChatsMenuState extends MessageState {
+  final bool isMenuOpen;
+  ChatsMenuState(this.isMenuOpen);
+}
+
+
 final class MessageActionLoadingState extends MessageState {}
 final class MessageActionSuccessState extends MessageState {}
 final class MessageActionErrorState extends MessageState {

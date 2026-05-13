@@ -1,4 +1,3 @@
 class AppStrings {
   AppStrings._();
 }
-

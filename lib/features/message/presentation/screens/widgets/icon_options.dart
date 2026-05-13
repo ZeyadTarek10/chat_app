@@ -16,24 +16,24 @@ class IconOptions extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.all(12.r),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            AppColors.backgroundColorbuttonblue1,
-            AppColors.backgroundColorbuttonblue2,
+            ColorsDark.blueLight1,
+            ColorsDark.blueLight2,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, color: AppColors.white, size: FontDetails.fontSizeL),
+          child: Icon(icon, color: ColorsDark.white, size: FontDetails.fontSizeL),
         ),
         SizedBox(height: 8.h),
         CustomTextWidget(
           text: label,
           textStyle: TextStyle(
-            color: AppColors.black,
+            color: ColorsLight.black,
             fontSize: FontDetails.fontSizeXS,
             fontWeight: FontDetails.mediumFontWeight,
           ),

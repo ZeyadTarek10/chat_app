@@ -1,4 +1,6 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,13 +16,13 @@ class CustomDropDownButtonFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      icon: Icon(Icons.keyboard_arrow_down, color: AppColors.mainTextColor),
+      icon: const Icon(Icons.keyboard_arrow_down, color: ColorsLight.mainTextColor),
       decoration: InputDecoration(
         hintText: 'Select Gender',
-        hintStyle: TextStyle(color: AppColors.mainTextColor),
+        hintStyle: TextStyle(color: context.color.textColor),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.mainColor, width: 0.5.w),
+          borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
           borderRadius: BorderRadius.circular(8.r),
         ),
         // enabledBorder: OutlineInputBorder(
@@ -28,15 +30,15 @@ class CustomDropDownButtonFormField extends StatelessWidget {
         //   borderRadius: BorderRadius.circular(8.r),
         // ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.mainColor, width: 0.5.w),
+          borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
           borderRadius: BorderRadius.circular(8.r),
         ),
       ),
       items: ['male'.tr(), 'female'.tr()].map((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value,
-              style: TextStyle(fontSize: 16.sp, color: AppColors.black)),
+          child: CustomTextWidget(text: value,
+              textStyle: TextStyle(fontSize: 16.sp, color: context.color.textColor)),
         );
       }).toList(),
       onChanged: (newValue) {

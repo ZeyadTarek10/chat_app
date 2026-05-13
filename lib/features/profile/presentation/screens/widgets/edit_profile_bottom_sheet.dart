@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/core/validations/app_validation.dart';
@@ -71,6 +72,7 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                   textStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontDetails.semiBoldFontWeight,
+                    color: context.color.textColor,
                   ),
                 ),
               ),
@@ -79,7 +81,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                 text: 'name'.tr(),
                 textStyle: TextStyle(
                     fontSize: FontDetails.fontSizeS,
-                    fontWeight: FontDetails.regularFontWeight),
+                    fontWeight: FontDetails.regularFontWeight,
+                    color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
               CustomTextFormFieldWidget(
@@ -93,7 +96,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                 text: 'phone_number'.tr(),
                 textStyle: TextStyle(
                     fontSize: FontDetails.fontSizeS,
-                    fontWeight: FontDetails.regularFontWeight),
+                    fontWeight: FontDetails.regularFontWeight,
+                    color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
               CustomTextFormFieldWidget(
@@ -119,11 +123,11 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                         padding: EdgeInsets.zero,
                         flagWidth: 24.w,
                         textStyle: TextStyle(
-                            color: AppColors.mainTextColor,
+                            color: ColorsLight.mainTextColor,
                             fontSize: FontDetails.fontSizeS),
                       ),
                       Icon(Icons.keyboard_arrow_down,
-                          size: 20.sp, color: AppColors.mainTextColor),
+                          size: 20.sp, color: ColorsLight.mainTextColor),
                       SizedBox(width: 4.w),
                       Container(
                         height: 24.h,
@@ -140,7 +144,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                 text: 'gender'.tr(),
                 textStyle: TextStyle(
                     fontSize: FontDetails.fontSizeS,
-                    fontWeight: FontDetails.regularFontWeight),
+                    fontWeight: FontDetails.regularFontWeight,
+                    color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
               CustomDropDownButtonFormField(genderController: genderController),
@@ -149,7 +154,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                 text: 'birthday'.tr(),
                 textStyle: TextStyle(
                     fontSize: FontDetails.fontSizeS,
-                    fontWeight: FontDetails.regularFontWeight),
+                    fontWeight: FontDetails.regularFontWeight,
+                    color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
               GestureDetector(
@@ -162,8 +168,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                     hint: 'DD/MM/YYYY',
                     withBorders: true,
                     readOnly: true,
-                    suffixIcon: Icon(Icons.calendar_today_outlined,
-                        color: AppColors.mainTextColor),
+                    suffixIcon: const Icon(Icons.calendar_today_outlined,
+                        color: ColorsLight.mainTextColor),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'please_select_your_birthday'.tr();
@@ -178,7 +184,8 @@ class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
                 text: 'email'.tr(),
                 textStyle: TextStyle(
                     fontSize: FontDetails.fontSizeS,
-                    fontWeight: FontDetails.regularFontWeight),
+                    fontWeight: FontDetails.regularFontWeight,
+                    color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
               CustomTextFormFieldWidget(

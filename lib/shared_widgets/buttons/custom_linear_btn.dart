@@ -18,17 +18,17 @@ class CustomLinearButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: AppColors.backgroundColorbuttonblue1.withOpacity(0.3),
+      splashColor: ColorsDark.blueLight1.withOpacity(0.3),
       onTap: onPressed,
       borderRadius: BorderRadius.circular(30),
       child: Container(
         height: height ?? 44,
         width: width ?? 44,
         decoration: BoxDecoration(
-         gradient: LinearGradient(
+         gradient: const LinearGradient(
           colors: [
-            AppColors.backgroundColorbuttonblue1,
-            AppColors.backgroundColorbuttonblue2,
+            ColorsDark.blueLight1,
+            ColorsDark.blueLight2,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

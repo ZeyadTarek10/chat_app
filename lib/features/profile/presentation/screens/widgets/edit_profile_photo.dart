@@ -21,20 +21,20 @@ class EditProfilePhoto extends StatelessWidget {
           backgroundImage: user!.profilePicUrl != null
               ? NetworkImage(user!.profilePicUrl!) as ImageProvider
               : const AssetImage(AppImages.userCircle),
-          backgroundColor: AppColors.backgroundColorbuttonblue2,
+          backgroundColor: ColorsDark.blueLight2,
         ),
         Positioned(
           right: 0,
           top: 0,
           child: CircleAvatar(
             radius: 18.r,
-            backgroundColor: AppColors.backgroundColorbuttonblue2,
+            backgroundColor: ColorsDark.blueLight2,
             child: IconButton(
               onPressed: () {
                 // TODO: Edit Image;
               },
               icon: Icon(Icons.edit_outlined,
-                  color: Colors.white, size: 20.sp),
+                  color: ColorsDark.white, size: 20.sp),
             ),
           ),
         )

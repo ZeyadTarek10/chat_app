@@ -14,17 +14,17 @@ class AddMemberToGroupButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12.h),
       decoration: BoxDecoration(
-        color: AppColors.lightBlue,
+        color: ColorsDark.addMemberButtonLightBlue,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.add, color: AppColors.backgroundColorbuttonblue2),
+          const Icon(Icons.add, color: ColorsDark.blueLight2),
           CustomTextWidget(
               text: "add_members_to_group".tr(),
-              textStyle: TextStyle(
-                  color: AppColors.backgroundColorbuttonblue2)),
+              textStyle: const TextStyle(
+                  color: ColorsDark.blueLight2)),
         ],
       ),
     );

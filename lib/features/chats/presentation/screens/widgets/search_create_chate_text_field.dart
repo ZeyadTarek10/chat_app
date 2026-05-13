@@ -1,4 +1,6 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/core/validations/app_validation.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -33,6 +35,22 @@ class SearchCreateChateTextField extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CountryCodePicker(
+                   dialogBackgroundColor: context.color.navBarbg,
+                  dialogTextStyle: TextStyle(color: context.color.textColor),
+                  barrierColor: ColorsLight.mainTextColor,
+                  headerTextStyle: TextStyle(color: context.color.textColor, fontWeight: FontDetails.boldFontWeight, fontSize: FontDetails.fontSizeM),
+                  searchDecoration: const InputDecoration(
+                    prefixIconColor: ColorsLight.hintColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainColor)
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainTextColor)
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorsLight.mainTextColor),
+                    ),
+                  ),
                   onChanged: onChangedPicker,
                   initialSelection: 'EG',
                   showCountryOnly: false,
@@ -41,10 +59,10 @@ class SearchCreateChateTextField extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   flagWidth: 28.w,
                   textStyle: TextStyle(
-                      color: AppColors.mainTextColor, fontSize: 16.sp),
+                      color: ColorsLight.mainTextColor, fontSize: 16.sp),
                 ),
                 Icon(Icons.keyboard_arrow_down,
-                    size: 18.sp, color: AppColors.mainTextColor),
+                    size: 18.sp, color: ColorsLight.mainTextColor),
                 SizedBox(width: 5.w),
               ],
             ),

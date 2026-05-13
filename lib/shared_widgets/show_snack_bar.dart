@@ -9,7 +9,7 @@ void showSnackBar(BuildContext context, {required String text, required Color co
   SnackBar(
     content: CustomTextWidget(
       text:  text,
-      textStyle: TextStyle(color: AppColors.white, fontWeight: FontDetails.semiBoldFontWeight),
+      textStyle: TextStyle(color: ColorsDark.white, fontWeight: FontDetails.semiBoldFontWeight),
     ),
     behavior: SnackBarBehavior.floating,
     backgroundColor: color,

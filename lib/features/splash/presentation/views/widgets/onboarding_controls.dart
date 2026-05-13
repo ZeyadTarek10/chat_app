@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class OnboardingControls extends StatelessWidget {
         ClipPath(
           clipper: BottomWaveClipper(),
           child: Container(
-            color: const Color(0xFFF0F9FF),
+            color: context.color.onbordingWaveColor1,
             width: double.infinity,
             height: double.infinity,
           ),
@@ -42,7 +43,7 @@ class OnboardingControls extends StatelessWidget {
           child: ClipPath(
             clipper: BottomWaveClipper(),
             child: Container(
-              color: const Color(0xFFDDF3FF),
+              color: context.color.onbordingWaveColor2,
               width: double.infinity.w,
               height: double.infinity.h,
               padding: EdgeInsets.symmetric(horizontal: 24.0.w),
@@ -57,7 +58,7 @@ class OnboardingControls extends StatelessWidget {
                           text: "get_started".tr(),
                           textStyle: TextStyle(
                               fontSize: FontDetails.fontSizeM,
-                              color: AppColors.white,
+                              color: context.color.mainColor,
                               fontWeight: FontDetails.boldFontWeight))),
                   const Spacer(),
                   Row(
@@ -67,7 +68,7 @@ class OnboardingControls extends StatelessWidget {
                         onPressed: onSkip,
                         text: 'skip'.tr(),
                         textStyle: TextStyle(
-                            color: AppColors.backgroundColorbuttonblue2,
+                            color: ColorsDark.blueLight2,
                             fontSize: 14.sp),
                       ),
                       Row(
@@ -81,12 +82,12 @@ class OnboardingControls extends StatelessWidget {
                           text: 'next'.tr(),
                           onPressed: onNext,
                           style: TextButton.styleFrom(
-                            backgroundColor: AppColors.backgroundColorCircleButtonblue3,
+                            backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                             shape: const CircleBorder(),
                             padding: const EdgeInsets.all(16),
                           ),
                           textStyle: TextStyle(
-                              color: AppColors.mainColor, fontSize: FontDetails.fontSizeXS)),
+                              color: ColorsDark.blueDark, fontSize: FontDetails.fontSizeXS)),
                     ],
                   ),
                   SizedBox(height: 20.h),

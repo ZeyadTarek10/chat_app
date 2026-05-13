@@ -30,7 +30,7 @@ class CenterImageWithText extends StatelessWidget {
               textStyle: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontDetails.semiBoldFontWeight,
-                color: AppColors.mainColor, 
+                color: ColorsDark.blueDark, 
                 height: 1.3.h,
               ),
             ),

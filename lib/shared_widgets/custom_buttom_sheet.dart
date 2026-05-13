@@ -1,4 +1,4 @@
-import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomSheet {
@@ -17,7 +17,7 @@ class CustomBottomSheet {
             ),
           ),
           context: context,
-          backgroundColor: backgroundColor ?? AppColors.white,
+          backgroundColor: backgroundColor ?? context.color.navBarbg,
           isScrollControlled: true,
           barrierColor: Colors.transparent,
           builder: (context) {

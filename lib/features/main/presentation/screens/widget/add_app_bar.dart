@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
@@ -16,6 +17,7 @@ class AddAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: context.color.mainColor,
       flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
       elevation: 0,
       leading: Padding(
@@ -31,7 +33,7 @@ class AddAppBar extends StatelessWidget {
           onPressed: () {
             cubit.toggleSearch();
           },
-          icon: Icon(CupertinoIcons.search, color: AppColors.white, size: 26),
+          icon: const Icon(CupertinoIcons.search, color: ColorsLight.white, size: 26),
         ),
         
         AddButton(cubit: cubit),

@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
@@ -95,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.white,
+          backgroundColor: context.color.mainColor,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -109,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: 'login'.tr(),
                       textAlign: TextAlign.center,
                       textStyle: TextStyle(
+                          color: context.color.textColor,
                           fontSize: 28.sp,
                           fontWeight: FontDetails.boldFontWeight),
                     ),
@@ -144,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'login'.tr(),
                             textStyle: TextStyle(
                                 fontSize: FontDetails.fontSizeM,
-                                color: AppColors.white,
+                                color: ColorsDark.white,
                                 fontWeight: FontDetails.boldFontWeight))),
                     SizedBox(height: 30.h),
                     const DontHaveAnAcount(),

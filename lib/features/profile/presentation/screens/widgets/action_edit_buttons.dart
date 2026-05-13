@@ -37,10 +37,10 @@ class ActionEditButtons extends StatelessWidget {
           child: CustomElevatedButtonWidget(
             style: ElevatedButton.styleFrom(
               textStyle: TextStyle(
-                  color: AppColors.mainColor,
+                  color: ColorsDark.mainColor,
                   fontSize: FontDetails.fontSizeM,
                   fontWeight: FontDetails.semiBoldFontWeight),
-              foregroundColor: AppColors.mainColor,
+              foregroundColor: ColorsDark.mainColor,
               backgroundColor: const Color.fromARGB(255, 168, 229, 249),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.r)),
@@ -50,7 +50,7 @@ class ActionEditButtons extends StatelessWidget {
             btnWidth: 0.w,
             btnHeight: 50.h,
             text: 'cancel'.tr(),
-            textStyle: TextStyle(color: AppColors.white),
+            textStyle: const TextStyle(color: ColorsDark.white),
           ),
         ),
         SizedBox(width: 20.w),
@@ -58,11 +58,11 @@ class ActionEditButtons extends StatelessWidget {
           child: CustomElevatedButtonWidget(
             style: ElevatedButton.styleFrom(
               textStyle: TextStyle(
-                  color: AppColors.white,
+                  color: ColorsDark.white,
                   fontSize: FontDetails.fontSizeM,
                   fontWeight: FontDetails.semiBoldFontWeight),
-              backgroundColor: AppColors.backgroundColorbuttonblue2,
-              foregroundColor: AppColors.white,
+              backgroundColor: ColorsDark.blueLight2,
+              foregroundColor: ColorsDark.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.r)),
               elevation: 0,
@@ -89,7 +89,7 @@ class ActionEditButtons extends StatelessWidget {
             btnWidth: 0.w,
             btnHeight: 50.h,
             text: 'save'.tr(),
-            textStyle: TextStyle(color: AppColors.white),
+            textStyle: const TextStyle(color: ColorsDark.white),
           ),
         ),
       ],

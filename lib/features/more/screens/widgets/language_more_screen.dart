@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
@@ -17,27 +18,27 @@ class LanguageMoreScreen extends StatelessWidget {
       icon: Icons.text_format,
       title: 'language'.tr(),
       trailing: PopupMenuButton<Locale>(
-        color: Colors.white,
+        color: context.color.navBarbg,
         initialValue: context.locale,
         onSelected: (Locale newLocale) {
           context.setLocale(newLocale);
         },
         itemBuilder: (BuildContext context) =>
             <PopupMenuEntry<Locale>>[
-          const PopupMenuItem<Locale>(
-            value: Locale('en'),
-            child: CustomTextWidget(text: 'English'),
+         PopupMenuItem<Locale>(
+            value: const Locale('en'),
+            child: CustomTextWidget(text: 'English', textStyle: TextStyle(color: context.color.textColor),),
           ),
-          const PopupMenuItem<Locale>(
-            value: Locale('ar'),
-            child: CustomTextWidget(text:'العربية'),
+           PopupMenuItem<Locale>(
+            value: const Locale('ar'),
+            child: CustomTextWidget(text:'العربية', textStyle: TextStyle(color: context.color.textColor),),
           ),
         ],
         child: Container(
           padding:
               EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.mainTextColor),
+            border: Border.all(color: ColorsLight.mainTextColor),
             borderRadius: BorderRadius.circular(8.r),
           ),
           child: Row(
@@ -50,11 +51,11 @@ class LanguageMoreScreen extends StatelessWidget {
                 textStyle:  TextStyle(
                   fontSize: FontDetails.fontSizeS,
                   fontWeight: FontDetails.boldFontWeight,
-                  color: AppColors.black
+                  color: context.color.textColor
                 ),
               ),
               SizedBox(width: 4.w),
-            Icon(Icons.keyboard_arrow_down, size: 18.sp),
+            Icon(Icons.keyboard_arrow_down, size: 18.sp, color: context.color.textColor,),
             ],
           ),
         ),

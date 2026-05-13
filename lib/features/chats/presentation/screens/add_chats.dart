@@ -1,4 +1,5 @@
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -39,7 +40,9 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.color.mainColor,
       appBar: AppBar(
+        backgroundColor: context.color.mainColor,
         flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
         leading: GestureDetector(
           onTap: () => GoRouter.of(context).pop(),
@@ -47,30 +50,29 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
             child: Container(
               padding: EdgeInsets.all(8.r),
               decoration: BoxDecoration(
-                color: AppColors.white.withOpacity(0.2),
+                color: ColorsLight.white.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.arrow_back, color: AppColors.white),
+              child: const Icon(Icons.arrow_back, color: ColorsLight.white),
             ),
           ),
         ),
         title: CustomTextWidget(
           text: 'add_friend'.tr(),
           textStyle: TextStyle(
-            color: AppColors.white,
+            color: ColorsLight.white,
             fontSize: 18.sp,
             fontWeight: FontDetails.semiBoldFontWeight,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: AppColors.white,
       body: BlocConsumer<CreateChatsCubit, CreateChatsState>(
         listener: (context, state) {
           if (state is CreateChatsSuccessState) {
             GoRouter.of(context).pushReplacement(AppRoutes.home);
           } else if (state is CreateChatsErrorState) {
-            showSnackBar(context, text: state.errMsg, color: AppColors.red);
+            showSnackBar(context, text: state.errMsg, color: ColorsLight.error);
           }
         },
         builder: (context, state) {
