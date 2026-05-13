@@ -14,14 +14,18 @@ class StackAppBarImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool hasFirstImage = group.image.isNotEmpty && group.image[0].isNotEmpty;
-    final bool hasFirstName = group.memberNames.isNotEmpty && group.memberNames[0].isNotEmpty;
+    final bool hasFirstImage =
+        group.image.isNotEmpty && group.image[0].isNotEmpty;
+    final bool hasFirstName =
+        group.memberNames.isNotEmpty && group.memberNames[0].isNotEmpty;
 
-    final bool hasSecondImage = group.image.length > 1 && group.image[1].isNotEmpty;
-    final bool hasSecondName = group.memberNames.length > 1 && group.memberNames[1].isNotEmpty;
+    final bool hasSecondImage =
+        group.image.length > 1 && group.image[1].isNotEmpty;
+    final bool hasSecondName =
+        group.memberNames.length > 1 && group.memberNames[1].isNotEmpty;
 
     return SizedBox(
-      width: 50.w,
+      width: 53.w,
       height: 40.h,
       child: Stack(
         children: [
@@ -30,39 +34,40 @@ class StackAppBarImages extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.white, width: 2.w),
+                border: Border.all(color: ColorsDark.white, width: 2.w),
               ),
               child: CircleAvatar(
-                backgroundColor: AppColors.backgroundColorCircleButtonblue3,
+                backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                 radius: 18.r,
-                backgroundImage: hasFirstImage ? NetworkImage(group.image.first) : null,
+                backgroundImage:
+                    hasFirstImage ? NetworkImage(group.image.first) : null,
                 child: (!hasFirstImage && hasFirstName)
                     ? CustomTextWidget(
-                        text: group.memberNames.first[0].toUpperCase(), 
-                        textStyle: TextStyle(
-                            color: AppColors.white, fontSize: 20.sp),
+                        text: group.memberNames.first[0].toUpperCase(),
+                        textStyle:
+                            TextStyle(color: ColorsDark.white, fontSize: 20.sp),
                       )
                     : null,
               ),
             ),
           ),
-          
           Positioned(
             right: 0,
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.white, width: 2.w),
+                border: Border.all(color: ColorsDark.white, width: 2.w),
               ),
               child: CircleAvatar(
-                backgroundColor: AppColors.backgroundColorCircleButtonblue3,
+                backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                 radius: 18.r,
-                backgroundImage: hasSecondImage ? NetworkImage(group.image[1]) : null,
+                backgroundImage:
+                    hasSecondImage ? NetworkImage(group.image[1]) : null,
                 child: (!hasSecondImage && hasSecondName)
                     ? CustomTextWidget(
-                        text: group.memberNames[1][0].toUpperCase(), 
-                        textStyle: TextStyle(
-                            color: AppColors.white, fontSize: 20.sp),
+                        text: group.memberNames[1][0].toUpperCase(),
+                        textStyle:
+                            TextStyle(color: ColorsDark.white, fontSize: 20.sp),
                       )
                     : null,
               ),

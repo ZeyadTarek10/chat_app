@@ -1,4 +1,4 @@
-import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/nav_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +20,7 @@ class CustomBottomNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: context.color.navBarbg,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.r),
           topRight: Radius.circular(30.r),

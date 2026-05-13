@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -57,10 +58,10 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           textAlign: textAlign,
           textAlignVertical: TextAlignVertical.center,
           validator: validator,
-          cursorColor: AppColors.mainColor,
+          cursorColor: ColorsDark.blueDark,
           onEditingComplete: onEditingComplete,
           style: TextStyle(
-            color: textColor ?? AppColors.black,
+            color: textColor ?? context.color.textColor,
             fontSize: 16.sp,
             fontWeight: FontWeight.w500,
           ),
@@ -69,7 +70,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
             prefixIcon: prefixIcon,
             hintText: hint,
             hintStyle: TextStyle(
-              color: hintColor ?? AppColors.hintColor,
+              color: hintColor ?? ColorsLight.hintColor,
             ),
             filled: fillColor != null,
             fillColor: fillColor,
@@ -77,7 +78,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
             border: withBorders
                 ? OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: AppColors.mainTextColor, width: 0.5.w),
+                        BorderSide(color: ColorsLight.mainTextColor, width: 0.5.w),
                     borderRadius: BorderRadius.circular(8.r),
                   )
                 : OutlineInputBorder(
@@ -85,13 +86,13 @@ class CustomTextFormFieldWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.mainColor, width: 0.5.w),
+              borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
               borderRadius: BorderRadius.circular(8.r),
             ),
             errorBorder: withBorders
                 ? OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: AppColors.error, width: 0.5.w),
+                        BorderSide(color: ColorsLight.error, width: 0.5.w),
                     borderRadius: BorderRadius.circular(22.r),
                   )
                 : OutlineInputBorder(
@@ -101,7 +102,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
             focusedErrorBorder: withBorders
                 ? OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: AppColors.error, width: 0.5.w),
+                        BorderSide(color: ColorsLight.error, width: 0.5.w),
                     borderRadius: BorderRadius.circular(8.r),
                   )
                 : OutlineInputBorder(

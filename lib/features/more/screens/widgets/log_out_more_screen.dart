@@ -17,8 +17,8 @@ class LogOutMoreScreen extends StatelessWidget {
     return CustomMoreTile(
       icon: Icons.logout_rounded,
       title: 'logout'.tr(),
-      textColor: AppColors.red,
-      iconColor: AppColors.red,
+      textColor: ColorsLight.red,
+      iconColor: ColorsLight.red,
       trailing: const SizedBox(),
       onTap: () {
         cubit.logout();

@@ -14,17 +14,17 @@ class SearchItemAppBar extends StatelessWidget {
     return Container(
       height: 40.h,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: ColorsLight.white,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: TextField(
         autofocus: true, 
         decoration: InputDecoration(
           hintText: 'search'.tr(),
-          hintStyle: TextStyle(color: AppColors.hintColor),
+          hintStyle: const TextStyle(color: ColorsLight.hintColor),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-          prefixIcon: Icon(CupertinoIcons.search, color: AppColors.mainTextColor, size: 20.sp),
+          prefixIcon: Icon(CupertinoIcons.search, color: ColorsLight.mainTextColor, size: 20.sp),
         ),
         onChanged: (value) {
         },

@@ -23,7 +23,7 @@ class LoadingShimmer extends StatelessWidget {
         width: width,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.mainTextColor.withOpacity(0.3),
+          color: ColorsLight.mainTextColor.withOpacity(0.3),
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius ?? 14),
           ),

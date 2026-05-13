@@ -1,4 +1,5 @@
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
@@ -13,16 +14,16 @@ class HaveAnAcount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("have_an_account".tr(),
-            style: TextStyle(color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeS)),
+        CustomTextWidget(text: "have_an_account".tr(),
+            textStyle: TextStyle(color: ColorsLight.mainTextColor, fontSize: FontDetails.fontSizeS)),
         GestureDetector(
           onTap: () {
             GoRouter.of(context).pushReplacement(AppRoutes.login);
           },
-          child: Text(
-            'sign_in_here'.tr(),
-            style: TextStyle(
-                color: AppColors.backgroundColorbuttonblue2,
+          child: CustomTextWidget(
+            text: 'sign_in_here'.tr(),
+            textStyle: TextStyle(
+                color: ColorsDark.blueLight2,
                 fontSize: FontDetails.fontSizeS,
                 fontWeight: FontDetails.boldFontWeight),
           ),

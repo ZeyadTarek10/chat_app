@@ -19,10 +19,10 @@ class GoogleSignInButton extends StatelessWidget {
       ),
       label: CustomTextWidget(
        text:  'sign_in_with_google'.tr(),
-        textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: FontDetails.fontSizeM, fontWeight: FontDetails.mediumFontWeight),
+        textStyle: TextStyle(color: ColorsLight.mainTextColor, fontSize: FontDetails.fontSizeM, fontWeight: FontDetails.mediumFontWeight),
       ),
       style: OutlinedButton.styleFrom(
-        backgroundColor: AppColors.googlebtnColor,
+        backgroundColor: ColorsDark.googlebtnColor,
         side: BorderSide.none,
         padding: EdgeInsets.symmetric(vertical: 16.h),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),

@@ -16,7 +16,7 @@ class RememberedPassword extends StatelessWidget {
       children: [
         CustomTextWidget(
           text: "remembered_password".tr(),
-          textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14.sp),
+          textStyle: TextStyle(color: ColorsLight.mainTextColor, fontSize: 14.sp),
         ),
         GestureDetector(
           onTap: () {
@@ -25,7 +25,7 @@ class RememberedPassword extends StatelessWidget {
           child: Text(
             'login_to_your_account'.tr(),
             style: TextStyle(
-                color: AppColors.backgroundColorbuttonblue2,
+                color: ColorsDark.blueLight2,
                 fontSize: FontDetails.fontSizeS,
                 fontWeight: FontDetails.semiBoldFontWeight),
           ),

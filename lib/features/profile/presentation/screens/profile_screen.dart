@@ -1,4 +1,5 @@
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
@@ -36,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (state is LogoutSuccess) {
           GoRouter.of(context).pushReplacement(AppRoutes.login);
         } else if (state is ProfileError) {
-          showSnackBar(context, text: state.message, color: AppColors.red);
+          showSnackBar(context, text: state.message, color: ColorsLight.red);
         }
       },
       builder: (context, state) {
@@ -60,6 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 CustomTextWidget(
                   text: user.name,
                   textStyle: TextStyle(
+                    color: context.color.textColor,
                       fontSize: FontDetails.fontSizeL, fontWeight: FontDetails.boldFontWeight),
                 ),
                 SizedBox(height: 15.h),

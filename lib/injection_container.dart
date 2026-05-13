@@ -1,3 +1,4 @@
+import 'package:chat_app/config/app/cubit/app_cubit.dart';
 import 'package:chat_app/features/Login/data/data_sources/login_remote_data_source.dart';
 import 'package:chat_app/features/Login/data/repositories/login_repository_impl.dart';
 import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
@@ -27,6 +28,7 @@ import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubi
 import 'package:chat_app/features/message/data/data_sources/message_remote_data_source.dart';
 import 'package:chat_app/features/message/data/repositories/message_repo_impl.dart';
 import 'package:chat_app/features/message/domain/repositories/message_repo.dart';
+import 'package:chat_app/features/message/domain/use_cases/delete_room_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
@@ -74,6 +76,7 @@ Future<void> getItInit() async {
 
   /// Blocs
   getIt.registerFactory<CatFactCubit>(() => CatFactCubit(featureUc: getIt()));
+  getIt.registerFactory<AppCubit>(() => AppCubit());
   getIt.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: getIt()));
   getIt.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
@@ -92,7 +95,7 @@ Future<void> getItInit() async {
       getMessagesUseCase: getIt(),
       sendMessageUseCase: getIt(),
       readMessageUseCase: getIt(),
-      getUserByIdUseCase: getIt()));
+      getUserByIdUseCase: getIt(), deleteRoomUseCase: getIt(), clearChatMessagesUseCase: getIt()));
   getIt.registerFactory<GroupsCubit>(() => GroupsCubit(
       createGroupsUseCase: getIt(),
       getGroupsUseCase: getIt(), getAllUsersUseCase: getIt()));
@@ -136,6 +139,10 @@ Future<void> getItInit() async {
       () => GetAllUsersUseCase(groupsRepository: getIt()));
   getIt.registerLazySingleton<SendGroupMessageUseCase>(
       () => SendGroupMessageUseCase(messageGroupsRepository: getIt()));
+  getIt.registerLazySingleton<DeleteRoomUseCase>(
+      () => DeleteRoomUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<ClearChatMessagesUseCase>(
+      () => ClearChatMessagesUseCase(messageRepository: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>

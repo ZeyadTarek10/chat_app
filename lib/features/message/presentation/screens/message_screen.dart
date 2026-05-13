@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message2.dart';
@@ -43,8 +44,8 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF0F0F3),
-      appBar: AppBarMessage(context),
+      backgroundColor: context.color.chatBackgroundColor,
+      appBar: AppBarMessage(context, messageCubit, widget.roomId),
       body: Column(
         children: [
           Expanded(

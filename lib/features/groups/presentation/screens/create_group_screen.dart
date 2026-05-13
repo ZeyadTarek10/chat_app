@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -37,6 +38,7 @@ class CreateGroupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: context.color.mainColor,
         flexibleSpace: Image.asset(
           AppImages.bG,
           fit: BoxFit.cover,
@@ -47,17 +49,17 @@ class CreateGroupScreen extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(8.r),
               decoration: BoxDecoration(
-                color: AppColors.white.withOpacity(0.2),
+                color: ColorsDark.white.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.arrow_back, color: AppColors.white),
+              child: const Icon(Icons.arrow_back, color: ColorsDark.white),
             ),
           ),
         ),
         title: CustomTextWidget(
           text: 'create_group'.tr(),
           textStyle: TextStyle(
-            color: AppColors.white,
+            color: ColorsDark.white,
             fontSize: 18.sp,
             fontWeight: FontDetails.semiBoldFontWeight,
           ),
@@ -69,10 +71,10 @@ class CreateGroupScreen extends StatelessWidget {
           if (state is GroupsSuccess) {
             showSnackBar(context,
                 text: "the_group_was_successfully_created".tr(),
-                color: AppColors.green);
+                color: ColorsLight.green);
             GoRouter.of(context).pop();
           } else if (state is GroupsError) {
-            showSnackBar(context, text: state.error, color: AppColors.green);
+            showSnackBar(context, text: state.error, color: ColorsLight.error);
           }
         },
         builder: (context, state) {
@@ -87,7 +89,7 @@ class CreateGroupScreen extends StatelessWidget {
                     children: [
                       CustomTextWidget(
                           text: "name_group".tr(),
-                          textStyle: TextStyle(color: AppColors.mainTextColor)),
+                          textStyle: const TextStyle(color: ColorsLight.mainTextColor)),
                       SizedBox(height: 8.w),
                       CustomTextFormFieldWidget(
                         hint: "enter_name_group".tr(),

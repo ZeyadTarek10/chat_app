@@ -1,4 +1,5 @@
 import 'package:chat_app/config/themes/app_theme.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -38,9 +39,9 @@ class WelcomeMessage extends StatelessWidget {
           context.read<MessageCubit>().sendMessage(welcomeMsg, roomId);
         },
         child: Card(
-          color: AppColors.white.withOpacity(0.5),
+          color: ColorsDark.white.withOpacity(0.2),
           elevation: 3,
-          shadowColor: AppColors.white,
+          shadowColor: context.color.textColor!.withOpacity(0.2),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
           child: Padding(
             padding: EdgeInsets.all(20.r),

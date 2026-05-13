@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
@@ -27,7 +28,7 @@ class UserResultSearchItem extends StatelessWidget {
           child: (user.profilePicUrl == null || user.profilePicUrl!.isEmpty)
               ? CustomTextWidget(
                   text: user.name.isNotEmpty ? user.name[0].toUpperCase() : '',
-                  textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
+                  textStyle: TextStyle(color: ColorsLight.black, fontSize: 20.sp),
                 )
               : null,
         ),
@@ -39,7 +40,7 @@ class UserResultSearchItem extends StatelessWidget {
               CustomTextWidget(
                 text: user.name,
                 textStyle: TextStyle(
-                  color: AppColors.black,
+                  color: context.color.textColor,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -48,16 +49,22 @@ class UserResultSearchItem extends StatelessWidget {
               CustomTextWidget(
                 text: user.phone,
                 textStyle:
-                    TextStyle(color: AppColors.mainTextColor, fontSize: 13.sp),
+                    TextStyle(color: ColorsLight.mainTextColor, fontSize: 13.sp),
               ),
             ],
           ),
         ),
-        IconButton(
-          onPressed: onPressed,
-          icon: Icon(CupertinoIcons.person_add,
-              color: AppColors.backgroundColorbuttonblue1,
-              size: FontDetails.fontSizeL),
+        Container(
+          decoration: BoxDecoration(
+            color: ColorsLight.white.withOpacity(0.2),
+            shape: BoxShape.circle,
+          ),
+          child: IconButton(
+            onPressed: onPressed,
+            icon: Icon(CupertinoIcons.person_add,
+                color: ColorsDark.blueLight1,
+                size: FontDetails.fontSizeL),
+          ),
         )
       ],
     );

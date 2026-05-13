@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/data/models/user_model.dart';
@@ -15,7 +16,7 @@ class AppBarMessage2 extends StatelessWidget {
     return Container(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: context.color.mainColor,
             ),
             child: Row(
               children: [
@@ -26,7 +27,7 @@ class AppBarMessage2 extends StatelessWidget {
         child: (userModel.profilePicUrl == null || userModel.profilePicUrl!.isEmpty)
             ? CustomTextWidget(
                text: userModel.name.isNotEmpty ? userModel.name[0].toUpperCase() : '',
-                textStyle: TextStyle(color: AppColors.black, fontSize: 20.sp),
+                textStyle: TextStyle(color: ColorsLight.black, fontSize: 20.sp),
               )
             : null,          
                 ),
@@ -38,7 +39,7 @@ class AppBarMessage2 extends StatelessWidget {
                       CustomTextWidget(
                         text: userModel.name,
                         textStyle: TextStyle(
-                            color: AppColors.black,
+                            color:context.color.textColor,
                             fontWeight: FontDetails.boldFontWeight,
                             fontSize: 16.sp),
                       ),
@@ -53,12 +54,12 @@ class AppBarMessage2 extends StatelessWidget {
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.videocam_outlined,
-                      color: AppColors.black, size: 26.sp),
+                      color: context.color.textColor, size: 26.sp),
                 ),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.call_outlined,
-                      color:  AppColors.black, size: 22.sp),
+                      color:  context.color.textColor, size: 22.sp),
                 ),
               ],
             ),

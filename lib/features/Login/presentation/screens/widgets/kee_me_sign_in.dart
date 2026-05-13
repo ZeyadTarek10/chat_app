@@ -23,13 +23,13 @@ class KeepMeSignIn extends StatelessWidget {
             activeColor: const Color(0xFF4ADE80),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-            side: BorderSide(color: AppColors.mainTextColor, width: 1.5.w),
+            side: BorderSide(color: ColorsLight.mainTextColor, width: 1.5.w),
           ),
         ),
         SizedBox(width: 8.w),
         CustomTextWidget(
             text: 'keep_me_signed_in'.tr(),
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
       ],
     );
   }

@@ -30,7 +30,7 @@ class OnboardingPageContent extends StatelessWidget {
             textStyle: TextStyle(
               fontSize: 22.sp,
               fontWeight: FontDetails.boldFontWeight,
-              color: AppColors.mainColor,
+              color: ColorsDark.blueDark,
             ),
           ),
           SizedBox(height: 16.h),
@@ -39,7 +39,7 @@ class OnboardingPageContent extends StatelessWidget {
             textAlign: TextAlign.center,
             textStyle: TextStyle(
               fontSize: FontDetails.fontSizeS,
-              color: AppColors.mainColor.withOpacity(0.7),
+              color: ColorsDark.blueDark.withOpacity(0.7),
               height: 1.5.h,
             ),
           ),

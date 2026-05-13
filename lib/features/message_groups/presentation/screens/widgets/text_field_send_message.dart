@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,22 +14,15 @@ class TextFieldSendMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: CustomTextFormFieldWidget(
-        fillColor: AppColors.mainTextColor.withOpacity(0.1),
-        controller: controller,
-        hint: 'type_a_message'.tr(),
-        validator: (String? value) {
-          return null;
-        },
-        hintColor: AppColors.mainTextColor,
-        withBorders: false,
-      ),
+    return CustomTextFormFieldWidget(
+      fillColor: context.color.textColor!.withOpacity(0.1),
+      controller: controller,
+      hint: 'type_a_message'.tr(),
+      validator: (String? value) {
+        return null;
+      },
+      hintColor: ColorsLight.mainTextColor,
+      withBorders: false,
     );
   }
 }

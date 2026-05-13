@@ -25,3 +25,4 @@ class GetUserByIdUseCase {
     return messageRepository.getUserById(uid: uid);
   }
 }
+

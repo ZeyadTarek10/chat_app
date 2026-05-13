@@ -27,7 +27,7 @@ class FormLogin extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CustomTextWidget(text: 'email_address'.tr(), textAlign: TextAlign.start,
-            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+            textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
           controller: emailController,
@@ -41,7 +41,7 @@ class FormLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomTextWidget(text: 'password'.tr(),
-                textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: AppColors.mainTextColor)),
+                textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
             GestureDetector(
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.forgotPassword);
@@ -49,7 +49,7 @@ class FormLogin extends StatelessWidget {
               child: CustomTextWidget(
                 text: 'forgot_password'.tr(),
                 textStyle: TextStyle(
-                    color: AppColors.backgroundColorbuttonblue2,
+                    color: ColorsDark.blueLight2,
                     fontSize: FontDetails.fontSizeXS,
                     fontWeight: FontDetails.boldFontWeight),
               ),
@@ -67,7 +67,7 @@ class FormLogin extends StatelessWidget {
               isPasswordVisible
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
-              color: AppColors.hintColor,
+              color: ColorsLight.hintColor,
             ),
             onPressed: togglePasswordVisibility,
           ),

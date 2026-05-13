@@ -1,5 +1,10 @@
+import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/themes/app_theme.dart';
+import 'package:chat_app/core/helpers/shared_prefrences.dart';
+import 'package:chat_app/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/routes/app_routes.dart';
@@ -13,13 +18,26 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (_, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Task',
-          routerConfig: AppRoutes.router,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
+        return BlocProvider(
+          create: (context) => getIt<AppCubit>()
+            ..changeAppThemeMode('dark_mode', sharedMode: CacheHelper().getBoolean('mode') ?? false),
+          child: BlocBuilder<AppCubit, AppState>(
+                  buildWhen: (previos, current) {
+                    return previos != current;
+                  },
+                  builder: (context, state) {
+                    final cubit = context.read<AppCubit>();
+              return MaterialApp.router(
+                theme: cubit.isDark ? themeDark() : themeLight(),
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Task',
+                routerConfig: AppRoutes.router,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+              );
+            },
+          ),
         );
       },
     );

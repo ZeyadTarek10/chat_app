@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -33,19 +34,26 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                         ? member['name'][0].toUpperCase()
                         : '',
                     textStyle: TextStyle(
-                        color: AppColors.black,
+                        color: ColorsLight.black,
                         fontSize: 20.sp),
                   )
                 : null,
           ),
-          title: CustomTextWidget(text: member['name']!),
+          title: CustomTextWidget(text: member['name']!, textStyle: TextStyle(color: context.color.textColor)),
           subtitle:
-              CustomTextWidget(text: member['phone']!),
-          trailing: IconButton(
-            icon: Icon(Icons.close, color: AppColors.red),
-            onPressed: () {
-              cubit.removeMember(index);
-            },
+              CustomTextWidget(text: member['phone']!, textStyle: TextStyle(color: context.color.textColor)),
+          trailing: Container(
+            height: 35.h,
+            decoration: BoxDecoration(
+              color: ColorsDark.white.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.close, color: ColorsLight.red, size: 20.sp),
+              onPressed: () {
+                cubit.removeMember(index);
+              },
+            ),
           ),
         );
       },

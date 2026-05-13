@@ -9,6 +9,8 @@ abstract class MessageRemoteDataSource {
   Future<void> readMessage({required String roomId, required String msgId});
   Stream<List<MessageModel>> getMessages({required String roomId});
   Future<UserModel> getUserById({required String uid});
+  Future<void> deleteRoom({required String roomId});
+  Future<void> clearChatMessages({required String roomId});
 }
 
 class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
@@ -76,4 +78,30 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
       throw Exception("user_not_found".tr());
     }
   }
+
+  @override
+  Future<void> deleteRoom({required String roomId}) async {
+    await firestore.collection("chats").doc(roomId).delete();
+  }
+
+   @override
+  Future<void> clearChatMessages({required String roomId}) async {
+  try {
+    final messagesRef = firestore.collection("chats").doc(roomId).collection("messages");
+    final snapshots = await messagesRef.get();
+
+    WriteBatch batch = firestore.batch();
+    for (var doc in snapshots.docs) {
+      batch.delete(doc.reference);
+    }
+    await batch.commit();
+
+    await firestore.collection("chats").doc(roomId).set({
+      "last_message": "Chat cleared", 
+    }, SetOptions(merge: true));
+    
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
 }

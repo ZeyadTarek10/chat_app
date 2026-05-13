@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -69,7 +70,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.white,
+          backgroundColor: context.color.mainColor,
           appBar: customAppBar(context),
           body: SafeArea(
             child: SingleChildScrollView(
@@ -85,7 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       textStyle: TextStyle(
                           fontSize: FontDetails.fontSizeL,
                           fontWeight: FontDetails.boldFontWeight,
-                          color: AppColors.black),
+                          color: context.color.textColor),
                     ),
                     SizedBox(height: 12.h),
                     CustomTextWidget(
@@ -94,7 +95,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               .tr(),
                       textStyle: TextStyle(
                           fontSize: FontDetails.fontSizeS,
-                          color: AppColors.mainTextColor,
+                          color: ColorsLight.mainTextColor,
                           height: 1.5.h),
                     ),
                     SizedBox(height: 40.h),
@@ -121,7 +122,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             text: 'submit'.tr(),
                             textStyle: TextStyle(
                                 fontSize: FontDetails.fontSizeM,
-                                color: AppColors.white,
+                                color: ColorsLight.white,
                                 fontWeight: FontDetails.boldFontWeight))),
                     SizedBox(height: 24.h),
                     const RememberedPassword(),

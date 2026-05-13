@@ -40,7 +40,7 @@ class AnimatedAlignLogoSplash extends StatelessWidget {
                     textStyle: TextStyle(
                       fontSize: 35.sp,
                       fontWeight: FontDetails.blackFontWeight,
-                      color: AppColors.mainColor,
+                      color: ColorsDark.blueDark,
                       fontStyle: FontStyle.italic,
                     ),
                   ),

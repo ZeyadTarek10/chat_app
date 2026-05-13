@@ -13,11 +13,11 @@ class AttachmentMenu extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: ColorsDark.white,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.05),
+            color: ColorsLight.black.withOpacity(0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),

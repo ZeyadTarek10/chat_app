@@ -16,7 +16,7 @@ class DontHaveAnAcount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomTextWidget(text: "dont_have_an_account".tr(),
-            textStyle: TextStyle(color: AppColors.mainTextColor, fontSize: 14.sp)),
+            textStyle: TextStyle(color: ColorsLight.mainTextColor, fontSize: 14.sp)),
         GestureDetector(
           onTap: () {
             GoRouter.of(context).push(AppRoutes.signUp);
@@ -24,7 +24,7 @@ class DontHaveAnAcount extends StatelessWidget {
           child: CustomTextWidget(
             text: 'sign_up_here'.tr(),
             textStyle: TextStyle(
-                color: AppColors.backgroundColorbuttonblue2,
+                color: ColorsDark.blueLight2,
                 fontSize: 14.sp,
                 fontWeight: FontDetails.boldFontWeight),
           ),

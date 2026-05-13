@@ -1,5 +1,5 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/enum/nav_bar_enum.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/chats/presentation/screens/chats_screen.dart';
 import 'package:chat_app/features/groups/presentation/screens/groups_screen.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
@@ -40,7 +40,7 @@ class _RootState extends State<MainScreen> {
       builder: (context, state) {
         int currentIndex = BlocProvider.of<MainCubit>(context).currentNavBar.index;
         return Scaffold(
-          backgroundColor: AppColors.white,
+          backgroundColor: context.color.mainColor,
           appBar: customNavBar(context),
           body: PageView(
             controller: controller,

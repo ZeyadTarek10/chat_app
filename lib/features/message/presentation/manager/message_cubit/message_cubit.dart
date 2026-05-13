@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
+import 'package:chat_app/features/message/domain/use_cases/delete_room_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
@@ -16,6 +17,8 @@ final GetMessagesUseCase getMessagesUseCase;
   final SendMessageUseCase sendMessageUseCase;
   final ReadMessageUseCase readMessageUseCase;
   final GetUserByIdUseCase getUserByIdUseCase; 
+  final DeleteRoomUseCase deleteRoomUseCase;
+  final ClearChatMessagesUseCase clearChatMessagesUseCase;
   final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
 
@@ -28,6 +31,8 @@ final GetMessagesUseCase getMessagesUseCase;
     required this.sendMessageUseCase,
     required this.readMessageUseCase,
     required this.getUserByIdUseCase,
+    required this.deleteRoomUseCase,
+    required this.clearChatMessagesUseCase,
   }) : super(MessageInitial());
 
   void getMessages(String roomId) {
@@ -51,6 +56,7 @@ String formatMessageTime(DateTime? dateTime) {
 }
 
 bool _isMenuOpen = false;
+bool issMenuOpen = false;
   bool get isMenuOpen => _isMenuOpen; 
   
   void toggleMenu() {
@@ -64,6 +70,11 @@ bool _isMenuOpen = false;
          friendData: friendModel,
        ));
     } 
+  }
+
+  void toggleMenuState(bool isOpen) {
+    issMenuOpen = isOpen;
+    emit(ChatsMenuState(isMenuOpen));
   }
  Future<void> initChat(String roomId, String friendId) async {
     emit(MessageLoadingState());
@@ -92,6 +103,24 @@ bool _isMenuOpen = false;
     await readMessageUseCase.call(roomId, msgId);
   }
 
+  Future<void> deleteRoom({required String roomId}) async {
+    final result = await deleteRoomUseCase.call(roomId);
+    result.fold(
+      (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
+      (_) {},
+    );
+  }
+
+  Future<void> clearChat({required String roomId}) async {
+    final result = await clearChatMessagesUseCase.call(roomId);
+    result.fold(
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
+      (_) {
+      },
+    );
+  }
   @override
   Future<void> close() {
     _messagesSubscription?.cancel();

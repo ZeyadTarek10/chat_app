@@ -10,3 +10,8 @@ class LogoutFailure extends MoreState {
   final String errorMessage;
   LogoutFailure(this.errorMessage);
 }
+
+final class CubitState extends MoreState {
+  final bool isDark;
+  CubitState.themeChangeMode({required this.isDark});
+}

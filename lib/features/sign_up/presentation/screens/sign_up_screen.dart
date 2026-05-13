@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -5,7 +6,6 @@ import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/Login/presentation/screens/widgets/button_sign_in_with_google.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/widgets/check_box_sign_up.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/widgets/divider_sign_up.dart';
@@ -71,7 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
         return Form(
           key: signUpCubit.formKey,
           child: Scaffold(
-            backgroundColor: AppColors.white,
+            backgroundColor: context.color.mainColor,
             appBar: customAppBar(context),
             body: SafeArea(
               child: SingleChildScrollView(
@@ -84,6 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       text: 'signup'.tr(),
                       textAlign: TextAlign.center,
                       textStyle: TextStyle(
+                        color: context.color.textColor,
                           fontSize: 28.sp,
                           fontWeight: FontDetails.boldFontWeight),
                     ),

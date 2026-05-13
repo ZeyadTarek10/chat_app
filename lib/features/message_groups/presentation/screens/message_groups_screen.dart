@@ -1,10 +1,12 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
-import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/attachmenu_menu.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/send_icon.dart';
 import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/app_bar_groups_messages.dart';
+import 'package:chat_app/features/message_groups/presentation/screens/widgets/app_bar_groups_messages2.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/list_view_group_message_buble.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/text_field_send_message.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -59,8 +61,8 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF0F0F3),
-      appBar: AppBarMessage(context),
+      backgroundColor: context.color.chatBackgroundColor,
+      appBar: AppBarGroupsMessages2(context),
       body: BlocBuilder<MessegeGroupCubit, MessegeGroupState>(
         builder: (context, state) {
           return Column(
@@ -70,7 +72,7 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
                   child: Stack(fit: StackFit.expand, children: [
                 if (state is MessegeGroupLoaded)
                   if (state.messages.isEmpty)
-                    Center(child: CustomTextWidget(text: "start_chatting".tr()))
+                    Center(child: CustomTextWidget(text: "start_chatting".tr(), textStyle: TextStyle(color: context.color.textColor, fontWeight: FontDetails.boldFontWeight,fontSize: FontDetails.fontSizeM),))
                   else
                     ListViewGroupMessageBuble(
                       controller0: messegeGroupCubit.controller0,
@@ -91,17 +93,32 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
               ])),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-                color: AppColors.white,
+                color: context.color.mainColor,
                 child: Row(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        messegeGroupCubit.toggleMenu();
-                      },
-                      icon: Icon(Icons.add,
-                          color: AppColors.backgroundColorbuttonblue1,
-                          size: 28.sp),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorsDark.white.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: context.color.mainColor!.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          messegeGroupCubit.toggleMenu();
+                        },
+                        icon: Icon(Icons.add,
+                            color: ColorsDark.blueLight1,
+                            size: 28.sp),
+                      ),
                     ),
+                    SizedBox(width: 12.w),
                     Expanded(
                       child: TextFieldSendMessage(
                           controller: messegeGroupCubit.controller),

@@ -35,7 +35,7 @@ class GroupMessageBuble extends StatelessWidget {
             child: avatarUrl.isEmpty
                 ? CustomTextWidget(
                     text: text.isNotEmpty ? text[0].toUpperCase() : "",
-                    textStyle: TextStyle(color: AppColors.white),
+                    textStyle: const TextStyle(color: ColorsDark.white),
                   )
                 : null,
           ),
@@ -59,7 +59,7 @@ class GroupMessageBuble extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: ColorsDark.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.r),
                       topRight: Radius.circular(16.r),
@@ -73,7 +73,7 @@ class GroupMessageBuble extends StatelessWidget {
                       CustomTextWidget(
                         text: message,
                         textStyle: TextStyle(
-                            color: AppColors.black,
+                            color: ColorsLight.black,
                             fontSize: FontDetails.fontSizeS,
                             height: 1.3.h),
                       ),
@@ -130,7 +130,7 @@ class GroupsMessageBubleForYou extends StatelessWidget {
             CustomTextWidget(
               text: message,
               textStyle: TextStyle(
-                  color: AppColors.white,
+                  color: ColorsDark.white,
                   fontSize: FontDetails.fontSizeS,
                   height: 1.3.h),
             ),
@@ -145,7 +145,7 @@ class GroupsMessageBubleForYou extends StatelessWidget {
                 ),
                 SizedBox(width: 4.w),
                 Icon(Icons.done_all,
-                    color: isRead ? AppColors.mainColor : AppColors.white,
+                    color: isRead ? ColorsDark.mainColor : ColorsDark.white,
                     size: FontDetails.fontSizeS),
               ],
             ),

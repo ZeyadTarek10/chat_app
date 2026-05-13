@@ -12,18 +12,18 @@ class DividerSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-            child: Divider(color: AppColors.mainTextColor, thickness: 0.5)),
+        const Expanded(
+            child: Divider(color: ColorsLight.mainTextColor, thickness: 0.5)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: CustomTextWidget(
               text: 'or_sign_in_with'.tr(),
               textStyle: TextStyle(
-                  color: AppColors.mainTextColor,
+                  color: ColorsLight.mainTextColor,
                   fontSize: FontDetails.fontSizeXS)),
         ),
-        Expanded(
-            child: Divider(color: AppColors.mainTextColor, thickness: 0.5)),
+        const Expanded(
+            child: Divider(color: ColorsLight.mainTextColor, thickness: 0.5)),
       ],
     );
   }
