@@ -1,5 +1,6 @@
 import 'package:chat_app/config/app/cubit/app_cubit.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
@@ -43,48 +44,52 @@ class MoreScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 20.h),
-              const LanguageMoreScreen(),
-              DarkModeMoreScreen(cubit: cubit2),
-              // MuteNtificationMoreScreen(cubit: cubit),
-              // CustomMoreTile(
-              //   icon: CupertinoIcons.bell,
-              //   title: 'custom_notification'.tr(),
-              //   onTap: () {},
-              // ),
+               const CustomFadeInRight(
+                duration: 200,
+                child: LanguageMoreScreen()),
+              CustomFadeInRight(
+                duration: 250,
+                child: DarkModeMoreScreen(cubit: cubit2)),
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: 24.w),
-                child: Divider(color: Colors.grey.shade400, thickness: 0.5),
+                child: Divider(color: Colors.grey.shade400, thickness: 0.8),
               ),
-              CustomMoreTile(
-                icon: CupertinoIcons.person_add,
-                title: 'invite_friends'.tr(),
-                onTap: () {},
+              CustomFadeInRight(
+                duration: 400,
+                child: CustomMoreTile(
+                  icon: CupertinoIcons.person_add,
+                  title: 'invite_friends'.tr(),
+                  onTap: () {},
+                ),
               ),
-              CustomMoreTile(
-                icon: CupertinoIcons.group,
-                title: 'joined_groups'.tr(),
-                onTap: () {},
+              CustomFadeInRight(
+                duration: 450,
+                child: CustomMoreTile(
+                  icon: CupertinoIcons.group,
+                  title: 'joined_groups'.tr(),
+                  onTap: () {},
+                ),
               ),
-              // HideChatHistoryMoreScreen(cubit: cubit),
-              // SecurityMoreScreen(cubit: cubit),
-              // CustomMoreTile(
-              //   icon: CupertinoIcons.doc_text,
-              //   title: 'term_of_service'.tr(),
-              //   onTap: () {},
-              // ),
-              CustomMoreTile(
-                icon: CupertinoIcons.square_stack_3d_down_right,
-                title: 'about_app'.tr(),
-                onTap: () {},
+              CustomFadeInRight(
+                duration: 600,
+                child: CustomMoreTile(
+                  icon: CupertinoIcons.square_stack_3d_down_right,
+                  title: 'about_app'.tr(),
+                  onTap: () {},
+                ),
               ),
-              CustomMoreTile(
-                icon: CupertinoIcons.question_circle,
-                title: 'help_center'.tr(),
-                onTap: () {},
+              CustomFadeInRight(
+                duration: 650,
+                child: CustomMoreTile(
+                  icon: CupertinoIcons.question_circle,
+                  title: 'help_center'.tr(),
+                  onTap: () {},
+                ),
               ),
-              LogOutMoreScreen(cubit: cubit),
-              SizedBox(height: 20.h),
+              CustomFadeInRight(
+                duration: 800,
+                child: LogOutMoreScreen(cubit: cubit)),
             ],
           ),
         );

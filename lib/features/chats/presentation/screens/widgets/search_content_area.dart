@@ -38,7 +38,7 @@ class SearchContentArea extends StatelessWidget {
     }
 
     if (state is UsersSearchingState) {
-      return const Center(child: CircularProgressIndicator());
+      return Lottie.asset('assets/lottie/Loading Dots Blue.json');
     }
 
     if (state is UsersSearchSuccessState) {

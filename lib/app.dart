@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return BlocProvider(
           create: (context) => getIt<AppCubit>()
-            ..changeAppThemeMode('dark_mode', sharedMode: CacheHelper().getBoolean('mode') ?? false),
+            ..changeAppThemeMode('dark_mode', sharedMode: CacheHelper().getData(key: 'mode') ?? false),
           child: BlocBuilder<AppCubit, AppState>(
                   buildWhen: (previos, current) {
                     return previos != current;

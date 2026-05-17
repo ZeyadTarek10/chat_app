@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/icon_options.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,7 +14,7 @@ class AttachmentMenu extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: ColorsDark.white,
+        color: context.color.navBarbg,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(

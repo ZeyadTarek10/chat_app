@@ -16,6 +16,7 @@ class CustomBottomSheet {
               top: Radius.circular(20),
             ),
           ),
+          showDragHandle: true,
           context: context,
           backgroundColor: backgroundColor ?? context.color.navBarbg,
           isScrollControlled: true,

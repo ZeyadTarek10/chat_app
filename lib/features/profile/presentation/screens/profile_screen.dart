@@ -1,5 +1,6 @@
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
@@ -56,25 +57,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   height: 30.h,
                 ),
-                EditProfilePhoto(user: user),
+                CustomFadeInDown(
+                  duration: 800,
+                  child: EditProfilePhoto(user: user)),
                 SizedBox(height: 30.h),
-                CustomTextWidget(
-                  text: user.name,
-                  textStyle: TextStyle(
-                    color: context.color.textColor,
-                      fontSize: FontDetails.fontSizeL, fontWeight: FontDetails.boldFontWeight),
+                CustomFadeInDown(
+                  duration: 400,
+                  child: CustomTextWidget(
+                    text: user.name,
+                    textStyle: TextStyle(
+                      color: context.color.textColor,
+                        fontSize: FontDetails.fontSizeL, fontWeight: FontDetails.boldFontWeight),
+                  ),
                 ),
                 SizedBox(height: 15.h),
-                ProfileData(
-                    title: 'phone'.tr(),
-                    value: '(${user.countryCode}) ${user.phone}'),
-                ProfileData(title: 'gender'.tr(), value: user.gender),
-                ProfileData(title: 'birthday'.tr(), value: user.birthday),
-                ProfileData(title: 'email'.tr(), value: user.email),
+                CustomFadeInRight(
+                  duration: 400,
+                  child: ProfileData(
+                      title: 'phone'.tr(),
+                      value: '(${user.countryCode}) ${user.phone}'),
+                ),
+                CustomFadeInRight(
+                  duration: 400,
+                  child: ProfileData(title: 'gender'.tr(), value: user.gender)),
+                CustomFadeInRight(
+                  duration: 400,
+                  child: ProfileData(title: 'birthday'.tr(), value: user.birthday)),
+                CustomFadeInRight(
+                  duration: 400,
+                  child: ProfileData(title: 'email'.tr(), value: user.email)),
                 SizedBox(height: 10.h),
-                EditProfileButton(user: user),
+                CustomFadeInUp(
+                  duration: 400,
+                  child: EditProfileButton(user: user)),
                 SizedBox(height: 12.h),
-                const LogOutProfile(),
+                const CustomFadeInUp(
+                  duration: 800,
+                  child: LogOutProfile()),
               ],
             ),
           ),

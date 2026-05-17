@@ -4,13 +4,19 @@ import 'package:flutter_svg/svg.dart';
 class AppImages {
   static const String path = 'assets/images';
   static const String appLogoImg = '$path/Logo.png';
-  static const String appLogoImgHome = '$path/Logo E-Chat.png';
+  static const String appLogoImgHomeLight = '$path/Logo E-Chat_light.png';
+  static const String appLogoImgHomeDark = '$path/Logo E-Chat_dark.png';
+
   static const String googleLogoImg = '$path/google_logo.png';
   static const String chatRoundImg = '$path/Chat Round.png';
-  static const String onboundingImg = '$path/onbording.png';
-  static const String onboundingImg1 = '$path/onbording1.png';
-  static const String onboundingImg2 = '$path/onbording2.png';
-  static const String onboundingImg3 = '$path/onbording3.png';
+  static const String onboundingImgLight = '$path/onbording_light.png';
+  static const String onboundingImg1Light = '$path/onbording1_light.png';
+  static const String onboundingImg2Light = '$path/onbording2_light.png';
+  static const String onboundingImg3Light = '$path/onbording3_light.png';
+  static const String onboundingImgDark = '$path/onbording_dark.png';
+  static const String onboundingImg1Dark = '$path/onbording1_dark.png';
+  static const String onboundingImg2Dark = '$path/onbording2_dark.png';
+  static const String onboundingImg3Dark = '$path/onbording3_dark.png';
   static const String userCircle = '$path/User Circle.png';
   static const String buttonIcon = '$path/Button Icon.png';
   static const String cardsearch = '$path/Card Search.png';

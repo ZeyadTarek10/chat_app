@@ -26,7 +26,7 @@ class EditProfileButton extends StatelessWidget {
           context: context,
           widget: BlocProvider.value(
             value: BlocProvider.of<ProfileCubit>(context),
-            child: CreateDonorBottomSheet(currentUser: user!),
+            child: CreateBottomSheet(currentUser: user!),
           ),
         );
       },

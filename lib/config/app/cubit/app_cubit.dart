@@ -18,7 +18,7 @@ class AppCubit extends Cubit<AppState> {
         isDark = !isDark;
       }
 
-      await CacheHelper().setBoolean('mode', isDark);
+      await CacheHelper().saveData(key: 'mode', val: isDark);
       
       emit(ThemeChangeMode(isDark: isDark));
     }

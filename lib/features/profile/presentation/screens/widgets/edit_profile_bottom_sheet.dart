@@ -13,15 +13,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CreateDonorBottomSheet extends StatefulWidget {
-  const CreateDonorBottomSheet({super.key, required this.currentUser});
+class CreateBottomSheet extends StatefulWidget {
+  const CreateBottomSheet({super.key, required this.currentUser});
   final UserEntity currentUser;
 
   @override
-  State<CreateDonorBottomSheet> createState() => _CreateDonorBottomSheetState();
+  State<CreateBottomSheet> createState() => _CreateDonorBottomSheetState();
 }
 
-class _CreateDonorBottomSheetState extends State<CreateDonorBottomSheet> {
+class _CreateDonorBottomSheetState extends State<CreateBottomSheet> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController genderController = TextEditingController();

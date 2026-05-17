@@ -3,21 +3,33 @@ import 'package:flutter/material.dart';
 
 class MyAssets extends ThemeExtension<MyAssets> {
   const MyAssets({
-    required this.bigNavBar,
-    required this.homeBg,
+    required this.logoEChat,
+    required this.onbording,
+    required this.onbording1,
+    required this.onbording2,
+    required this.onbording3,
   });
 
-  final String? bigNavBar;
-  final String? homeBg;
+  final String? logoEChat;
+  final String? onbording;
+  final String? onbording1;
+  final String? onbording2;
+  final String? onbording3;
 
   @override
   ThemeExtension<MyAssets> copyWith({
-    String? bigNavBar,
-    String? homeBg,
+    String? logoEChat,
+    String? onbording,
+    String? onbording1,
+    String? onbording2,
+    String? onbording3,
   }) {
     return MyAssets(
-      bigNavBar: bigNavBar,
-      homeBg: homeBg,
+      logoEChat: logoEChat,
+      onbording: onbording,
+      onbording1: onbording1,
+      onbording2: onbording2,
+      onbording3: onbording3,
     );
   }
 
@@ -30,17 +42,26 @@ class MyAssets extends ThemeExtension<MyAssets> {
       return this;
     }
     return MyAssets(
-      bigNavBar: bigNavBar,
-      homeBg: homeBg,
+      logoEChat: logoEChat,
+      onbording: onbording,
+      onbording1: onbording1,
+      onbording2: onbording2,
+      onbording3: onbording3,
     );
   }
 
   static const MyAssets dark = MyAssets(
-    bigNavBar: AppImages.bG,
-    homeBg: AppImages.bG,
+    logoEChat: AppImages.appLogoImgHomeDark,
+    onbording: AppImages.onboundingImgDark,
+    onbording1: AppImages.onboundingImg1Dark,
+    onbording2: AppImages.onboundingImg2Dark,
+    onbording3: AppImages.onboundingImg3Dark,
   );
   static const MyAssets light = MyAssets(
-    bigNavBar: AppImages.bG,
-    homeBg: AppImages.bG,
+    logoEChat: AppImages.appLogoImgHomeLight,
+    onbording: AppImages.onboundingImgLight,
+    onbording1: AppImages.onboundingImg1Light,
+    onbording2: AppImages.onboundingImg2Light,
+    onbording3: AppImages.onboundingImg3Light,
   );
 }

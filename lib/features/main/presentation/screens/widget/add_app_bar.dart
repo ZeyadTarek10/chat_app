@@ -23,7 +23,7 @@ class AddAppBar extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 16.0),
         child: Image.asset(
-          AppImages.appLogoImgHome,
+          AppImages.appLogoImgHomeDark,
           fit: BoxFit.contain,
         ),
       ),

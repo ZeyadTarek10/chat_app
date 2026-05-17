@@ -2,6 +2,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NavItem extends StatelessWidget {
@@ -58,7 +59,7 @@ class NavItem extends StatelessWidget {
                 icon,
                 color: isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
                 size: 24.sp,
-              ),
+              ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.2),
               SizedBox(height: 4.h),
               CustomTextWidget(
                 text: label,
@@ -67,7 +68,7 @@ class NavItem extends StatelessWidget {
                   fontSize: FontDetails.fontSizeXS,
                   fontWeight: isSelected ? FontDetails.semiBoldFontWeight : FontDetails.mediumFontWeight,
                 ),
-              ),
+              ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.1),
             ],
           ),
         ),

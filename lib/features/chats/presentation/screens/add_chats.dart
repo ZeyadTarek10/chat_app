@@ -1,5 +1,6 @@
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -82,17 +83,20 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 25.h),
-                    SearchCreateChateTextField(
-                      phoneController: createChatsCubit.phoneController,
-                      onChangedPicker: (CountryCode countryCode) {
-                        createChatsCubit
-                            .updateCountryCode(countryCode.dialCode ?? '+20');
-                      },
-                      onChangeTextField: (value) {
-                        if (value.isNotEmpty && value.length > 9) {
-                          createChatsCubit.searchUsers(value.trim());
-                        }
-                      },
+                    CustomFadeInLeft(
+                      duration: 400,
+                      child: SearchCreateChateTextField(
+                        phoneController: createChatsCubit.phoneController,
+                        onChangedPicker: (CountryCode countryCode) {
+                          createChatsCubit
+                              .updateCountryCode(countryCode.dialCode ?? '+20');
+                        },
+                        onChangeTextField: (value) {
+                          if (value.isNotEmpty && value.length > 9) {
+                            createChatsCubit.searchUsers(value.trim());
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(height: 10.h),
                     Expanded(

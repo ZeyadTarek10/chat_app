@@ -22,7 +22,7 @@ class MoreCubit extends Cubit<MoreState> {
     } else {
       isDarkMode = !isDarkMode;
       await CacheHelper()
-          .setBoolean('mode', isDarkMode)
+          .saveData(key: 'mode', val: isDarkMode)
           .then((value) => emit(CubitState.themeChangeMode(isDark: isDarkMode)));
     }
   }

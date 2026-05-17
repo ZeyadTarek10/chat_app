@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -33,7 +34,7 @@ class IconOptions extends StatelessWidget {
         CustomTextWidget(
           text: label,
           textStyle: TextStyle(
-            color: ColorsLight.black,
+            color: context.color.textColor,
             fontSize: FontDetails.fontSizeXS,
             fontWeight: FontDetails.mediumFontWeight,
           ),

@@ -22,7 +22,7 @@ class ActionEditButtons extends StatelessWidget {
   });
 
   final GlobalKey<FormState> formKey;
-  final CreateDonorBottomSheet widget;
+  final CreateBottomSheet widget;
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController genderController;
