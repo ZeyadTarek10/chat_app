@@ -5,6 +5,7 @@ import 'package:chat_app/features/message/domain/repositories/message_repo.dart'
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chat_app/core/error/failures.dart';
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/core/network/netwok_info.dart';
 
 class MessageRepoImpl implements MessageRepository {
@@ -30,7 +31,8 @@ class MessageRepoImpl implements MessageRepository {
       await messageRemoteDataSource.sendMessage(
           messageModel: messageModel, roomId: roomId);
       return const Right(null);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -41,7 +43,8 @@ class MessageRepoImpl implements MessageRepository {
     try {
       await messageRemoteDataSource.readMessage(roomId: roomId, msgId: msgId);
       return const Right(null);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -54,7 +57,8 @@ class MessageRepoImpl implements MessageRepository {
           in messageRemoteDataSource.getMessages(roomId: roomId)) {
         yield Right(messages);
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       yield Left(ServerFailure(e.toString()));
     }
   }
@@ -64,7 +68,8 @@ class MessageRepoImpl implements MessageRepository {
     try {
       final user = await messageRemoteDataSource.getUserById(uid: uid);
       return Right(user);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -74,7 +79,8 @@ class MessageRepoImpl implements MessageRepository {
     try {
       await messageRemoteDataSource.deleteRoom(roomId: roomId);
       return const Right(null);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -85,7 +91,8 @@ class MessageRepoImpl implements MessageRepository {
     try {
       await messageRemoteDataSource.clearChatMessages(roomId: roomId);
       return const Right(null);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }

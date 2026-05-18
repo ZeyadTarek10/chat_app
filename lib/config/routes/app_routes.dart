@@ -30,6 +30,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
+  static bool get _isLoggedIn {
+    final cached = getIt<CacheHelper>().getData(key: 'isLoggedIn') ?? false;
+    return cached && FirebaseAuth.instance.currentUser != null;
+  }
+
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
   static const String login = '/login';
@@ -42,9 +47,7 @@ class AppRoutes {
   static const String messageGroups = '/messageGroups';
 
   static final GoRouter router = GoRouter(
-    initialLocation: (getIt<CacheHelper>().getData(key: 'isLoggedIn') ?? false)
-        ? AppRoutes.home
-        : AppRoutes.splash,
+    initialLocation: _isLoggedIn ? AppRoutes.home : AppRoutes.splash,
     routes: [
       GoRoute(
           path: AppRoutes.splash,

@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
@@ -49,7 +50,8 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
         (_) {
         }, 
       );
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       emit(MessegeGroupError(error: e.toString()));
     }
   }

@@ -5,6 +5,7 @@ import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubi
 import 'package:chat_app/features/main/presentation/screens/widget/add_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddAppBar extends StatelessWidget {
   const AddAppBar({
@@ -16,32 +17,48 @@ class AddAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: context.color.mainColor,
-      flexibleSpace: Image.asset(
-        AppImages.bG,
-        fit: BoxFit.cover,
-      ),
-      elevation: 0,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 10.0),
-        child: Image.asset(
-          AppImages.appLogoImgHomeDark,
-          fit: BoxFit.contain,
+    return Container(
+      height: 120.h,
+      decoration: BoxDecoration(
+        color: context.color.mainColor,
+        image: DecorationImage(
+          image: AssetImage(AppImages.bG),
+          fit: BoxFit.cover,
         ),
       ),
-      leadingWidth: 130,
-      actions: [
-        IconButton(
-          onPressed: () {
-            cubit.toggleSearch();
-          },
-          icon: const Icon(CupertinoIcons.search,
-              color: ColorsLight.white, size: 26),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                child: SizedBox(
+                  width: 104.w,
+                  child: Image.asset(
+                    AppImages.appLogoImgHomeDark,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  cubit.toggleSearch();
+                },
+                icon: const Icon(
+                  CupertinoIcons.search,
+                  color: ColorsLight.white,
+                  size: 26,
+                ),
+              ),
+              SizedBox(width: 8.w),
+              AddButton(cubit: cubit),
+              SizedBox(width: 8.w),
+            ],
+          ),
         ),
-        AddButton(cubit: cubit),
-        const SizedBox(width: 8),
-      ],
+      ),
     );
   }
 }

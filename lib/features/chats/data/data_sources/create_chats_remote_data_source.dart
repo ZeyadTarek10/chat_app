@@ -16,7 +16,7 @@ class ChatsRemoteDataSourceImpl implements ChatsRemoteDataSource {
   @override
   Future<ChatsModel> createChat({required String phone}) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    String myUid = FirebaseAuth.instance.currentUser!.uid;
+    String myUid = _requireUid();
 
     QuerySnapshot userEmail = await firestore
         .collection('users')
@@ -50,10 +50,18 @@ class ChatsRemoteDataSourceImpl implements ChatsRemoteDataSource {
     }
   }
 
+  String _requireUid() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("user_is_not_logged_in".tr());
+    }
+    return uid;
+  }
+
   @override
   Stream<List<ChatsModel>> getChatsList() {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    String myUid = FirebaseAuth.instance.currentUser!.uid;
+    String myUid = _requireUid();
 
     return firestore
         .collection('chats')

@@ -1,4 +1,5 @@
 import 'package:chat_app/core/error/failures.dart';
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/data/data_source/message_groups_remote_data_source.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
@@ -18,7 +19,8 @@ class MessageGroupsRepositoryImpl implements MessageGroupsRepository {
       final send = await messageGroupsRemoteDataSource.sendGroupMessage(
           message: message, groupId: groupId, type: type);
       return right(send);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));
     }
   }
@@ -27,7 +29,8 @@ class MessageGroupsRepositoryImpl implements MessageGroupsRepository {
   Stream<Either<Failure, List<MessageEntity>>> getGroupMessages(String groupId) async* {
     try {
       yield* messageGroupsRemoteDataSource.getGroupMessages(groupId).map((messages) => Right(messages));
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       yield Left(ServerFailure(e.toString()));
     }
   }
@@ -37,7 +40,8 @@ class MessageGroupsRepositoryImpl implements MessageGroupsRepository {
     try {
       await messageGroupsRemoteDataSource.markMessageAsRead(groupId, messageId);
       return right(null);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));
     }
   }

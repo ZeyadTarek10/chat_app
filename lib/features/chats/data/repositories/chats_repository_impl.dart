@@ -1,4 +1,5 @@
 import 'package:chat_app/core/error/failures.dart';
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/chats/data/data_sources/create_chats_remote_data_source.dart';
 import 'package:chat_app/features/chats/domain/entities/chats_entity.dart';
 import 'package:chat_app/features/chats/domain/repositories/chats_repositories.dart';
@@ -21,7 +22,8 @@ class ChatsRepositoryImpl implements ChatsRepositories {
           await chatsRemoteDataSource.createChat(phone: phone);
 
       return Right(createChat);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -33,7 +35,8 @@ class ChatsRepositoryImpl implements ChatsRepositories {
         final chatList = modelsList.map((model) => model as ChatsEntity).toList();
         yield Right(chatList);
       }
-    } catch (error) {
+    } catch (error, stackTrace) {
+      printFirebaseError(error, stackTrace);
       yield Left(ServerFailure(error.toString()));
     }
   }
@@ -44,7 +47,8 @@ class ChatsRepositoryImpl implements ChatsRepositories {
       final users = await chatsRemoteDataSource.searchUserByPhone(phone: phone);
       
       return Right(users);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return Left(ServerFailure(e.toString()));
     }
   }

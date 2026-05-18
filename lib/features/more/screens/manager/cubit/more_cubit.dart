@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,8 @@ class MoreCubit extends Cubit<MoreState> {
       await cacheHelper.saveData(key: 'isLoggedIn', val: false);
       
       emit(LogoutSuccess());
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       emit(LogoutFailure('Failed to logout: ${e.toString()}'));
     }
   }

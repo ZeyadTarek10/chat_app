@@ -1,3 +1,4 @@
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/message/data/models/message_model.dart';
 import 'package:chat_app/features/sign_up/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,7 +35,8 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
         "last_message_time":
             messageModel.createdAt ?? FieldValue.serverTimestamp(),
       });
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       throw Exception(e.toString());
     }
   }
@@ -100,7 +102,8 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
       "last_message": "Chat cleared", 
     }, SetOptions(merge: true));
     
-  } catch (e) {
+  } catch (e, stackTrace) {
+    printFirebaseError(e, stackTrace);
     throw Exception(e.toString());
   }
 }

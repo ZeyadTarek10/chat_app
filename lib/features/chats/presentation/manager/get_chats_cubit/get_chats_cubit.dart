@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:chat_app/core/error/firebase_error_logger.dart';
+import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/features/chats/domain/entities/chats_entity.dart';
 import 'package:chat_app/features/chats/domain/use_cases/get_chat_use_case.dart';
+import 'package:chat_app/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,21 +37,63 @@ String formatChatTime(DateTime? dateTime) {
   }
 }
 
-  void fetchChats() {
+  Future<void> fetchChats() async {
     emit(GetChatsLoading());
 
+    final user = await _waitForUser();
+    if (user == null) {
+      emit(GetChatsError(errMsg: 'user_is_not_logged_in'.tr()));
+      return;
+    }
+
+    try {
+      await user.getIdToken(true);
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
+      await _clearSession();
+      emit(GetChatsError(errMsg: 'user_is_not_logged_in'.tr()));
+      return;
+    }
+
+    await chatSubscription?.cancel();
     chatSubscription = getChatsUseCase.call().listen((eitherResult) {
       eitherResult.fold(
-        (failure) {
+        (failure) async {
+          if (failure.massage.contains('permission-denied')) {
+            await _clearSession();
+          }
           emit(GetChatsError(errMsg: failure.massage));
         },
         (chatsList) {
           emit(GetChatsSuccess(chatsList: chatsList));
         },
       );
-    }, onError: (error) {
+    }, onError: (error) async {
+      printFirebaseError(error);
+      if (error.toString().contains('permission-denied')) {
+        await _clearSession();
+      }
       emit(GetChatsError(errMsg: error.toString()));
     });
+  }
+
+  Future<User?> _waitForUser() async {
+    final current = FirebaseAuth.instance.currentUser;
+    if (current != null) return current;
+
+    try {
+      return await FirebaseAuth.instance
+          .authStateChanges()
+          .firstWhere((user) => user != null)
+          .timeout(const Duration(seconds: 5));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> _clearSession() async {
+    await FirebaseAuth.instance.signOut();
+    await getIt<CacheHelper>().saveData(key: 'isLoggedIn', val: false);
   }
 
   @override

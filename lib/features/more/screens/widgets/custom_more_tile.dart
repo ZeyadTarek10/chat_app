@@ -27,7 +27,7 @@ class CustomMoreTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
-      leading: Icon(icon, color: iconColor ?? context.color.textColor, fontWeight: FontDetails.regularFontWeight, size: 20.sp),
+      leading: Icon(icon, color: iconColor ?? context.color.textColor, size: 20.sp),
       title: CustomTextWidget(
         text: title,
         textStyle: TextStyle(
@@ -36,7 +36,7 @@ class CustomMoreTile extends StatelessWidget {
           color: textColor ?? context.color.textColor,
         ),
       ),
-      trailing: trailing ?? Icon(CupertinoIcons.chevron_right, color: context.color.textColor, fontWeight: FontDetails.regularFontWeight, size: 20.sp),
+      trailing: trailing ?? Icon(CupertinoIcons.chevron_right, color: context.color.textColor, size: 20.sp),
       onTap: onTap,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:chat_app/core/error/failures.dart';
+import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/groups/data/data_sources/groups_remote_data_source.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
 import 'package:chat_app/features/groups/domain/repositories/groups_repository.dart';
@@ -22,7 +23,8 @@ class GroupsRepositoryImp implements GroupsRepository {
           memberNames: memberNames,
           image: image);
       return right(group);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));
     }
   }
@@ -34,6 +36,7 @@ Stream<Either<Failure, List<GroupsEntity>>> getGroups() {
       return Right(groupsModelList); 
     },
   ).handleError((e) {
+    printFirebaseError(e);
     return Left(ServerFailure(e.toString()));
   });
 }
@@ -43,7 +46,8 @@ Stream<Either<Failure, List<GroupsEntity>>> getGroups() {
     try {
       final users = await remoteDataSource.getAllUsers();
       return right(users);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));
     }
   }

@@ -1,87 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Chat App</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>Chat App</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-
-	<!-- Camera & Photo Library -->
-	<key>NSCameraUsageDescription</key>
-	<string>Used to take photos and videos to send in chat</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to select photos and videos to send in chat</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Used to save received media to your photo library</string>
-
-	<!-- Microphone (voice messages) -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Used to record voice messages</string>
-
-	<!-- Contacts (invite contacts) -->
-	<key>NSContactsUsageDescription</key>
-	<string>Used to find and invite your contacts</string>
-
-	<!-- Location (share location in chat) -->
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to share your location in chat</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Used to share your location in chat</string>
-
-	<!-- Notifications -->
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
-
-	<!-- Firebase Auth - Face ID -->
-	<key>NSFaceIDUsageDescription</key>
-	<string>Used for secure authentication</string>
-
-	<!-- Network access description (required by some App Store reviewers) -->
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Used to connect to Firebase services</string>
-
-</dict>
+	<dict>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleDisplayName</key>
+		<string>Chat App</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>Chat App</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(FLUTTER_BUILD_NAME)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleVersion</key>
+		<string>$(FLUTTER_BUILD_NUMBER)</string>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UISupportedInterfaceOrientations~ipad</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<!-- Camera & Photo Library -->
+		<key>NSCameraUsageDescription</key>
+		<string>Used to take photos and videos to send in chat</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Used to select photos and videos to send in chat</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Used to save received media to your photo library</string>
+		<!-- Microphone (voice messages) -->
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Used to record voice messages</string>
+		<!-- Contacts (invite contacts) -->
+		<key>NSContactsUsageDescription</key>
+		<string>Used to find and invite your contacts</string>
+		<!-- Location (share location in chat) -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Used to share your location in chat</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Used to share your location in chat</string>
+		<!-- Notifications -->
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
+		<!-- Firebase Auth - Face ID -->
+		<key>NSFaceIDUsageDescription</key>
+		<string>Used for secure authentication</string>
+		<!-- Network access description (required by some App Store reviewers) -->
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>Used to connect to Firebase services</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
+	</dict>
 </plist>

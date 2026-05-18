@@ -37,8 +37,7 @@ class ProfileData extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.copy,
               size: 20.sp,
-              color: context.color.textColor,
-              fontWeight: FontDetails.regularFontWeight),
+              color: context.color.textColor),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: value)).then((_) {
               showSnackBar(context,

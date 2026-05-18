@@ -1,5 +1,4 @@
 import 'package:chat_app/core/utils/app_colors.dart';
-import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
 import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -29,7 +28,6 @@ class SecurityMoreScreen extends StatelessWidget {
           ),
           SizedBox(width: 8.w),
           Icon(CupertinoIcons.chevron_right,
-              fontWeight: FontDetails.regularFontWeight,
               color: ColorsLight.black, size: 20.sp),
         ],
       ),
