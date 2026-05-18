@@ -34,7 +34,7 @@ class AnimatedAlignLogoSplash extends StatelessWidget {
                 opacity: showDetails ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 600),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
+                  padding: const EdgeInsets.only(left: 12.0, right: 8.0),
                   child: CustomTextWidget(
                     text: 'E-Chat',
                     textStyle: TextStyle(

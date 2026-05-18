@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
@@ -106,50 +107,68 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(height: 100.h),
-                    CustomTextWidget(
-                      text: 'login'.tr(),
-                      textAlign: TextAlign.center,
-                      textStyle: TextStyle(
-                          color: context.color.textColor,
-                          fontSize: 28.sp,
-                          fontWeight: FontDetails.boldFontWeight),
+                    CustomFadeInDown(
+                      duration: 600,
+                      child: CustomTextWidget(
+                        text: 'login'.tr(),
+                        textAlign: TextAlign.center,
+                        textStyle: TextStyle(
+                            color: context.color.textColor,
+                            fontSize: 28.sp,
+                            fontWeight: FontDetails.boldFontWeight),
+                      ),
                     ),
                     SizedBox(height: 40.h),
-                    const GoogleSignInButton(),
+                    const CustomFadeInDown(
+                      duration: 300,
+                      child: GoogleSignInButton(),
+                    ),
                     SizedBox(height: 30.h),
                     const DividerSignIn(),
                     SizedBox(height: 30.h),
-                    FormLogin(
-                        emailController: loginCubit.emailController,
-                        passwordController: loginCubit.passwordController,
-                        isPasswordVisible: loginCubit.isPasswordVisible,
-                        togglePasswordVisibility:
-                            loginCubit.togglePasswordVisibility),
+                    CustomFadeInLeft(
+                      duration: 300,
+                      child: FormLogin(
+                          emailController: loginCubit.emailController,
+                          passwordController: loginCubit.passwordController,
+                          isPasswordVisible: loginCubit.isPasswordVisible,
+                          togglePasswordVisibility:
+                              loginCubit.togglePasswordVisibility),
+                    ),
                     SizedBox(height: 10.h),
-                    KeepMeSignIn(
-                      value: loginCubit.isKeepMeSignedIn,
-                      onChanged: loginCubit.toggleKeepMeSignedIn,
+                    CustomFadeInRight(
+                      duration: 300,
+                      child: KeepMeSignIn(
+                        value: loginCubit.isKeepMeSignedIn,
+                        onChanged: loginCubit.toggleKeepMeSignedIn,
+                      ),
                     ),
                     SizedBox(height: 20.h),
-                    CustomLinearButton(
-                        onPressed: () async {
-                          if (loginCubit.formKey.currentState!.validate()) {
-                            loginCubit.signInUser(
-                                email: loginCubit.emailController.text.trim(),
-                                password: loginCubit.passwordController.text.trim(),
-                                isKeepMeSignedIn: loginCubit.isKeepMeSignedIn);
-                          }
-                        },
-                        height: 50.h,
-                        width: double.infinity,
-                        child: CustomTextWidget(
-                            text: 'login'.tr(),
-                            textStyle: TextStyle(
-                                fontSize: FontDetails.fontSizeM,
-                                color: ColorsDark.white,
-                                fontWeight: FontDetails.boldFontWeight))),
+                    CustomFadeInUp(
+                      duration: 300,
+                      child: CustomLinearButton(
+                          onPressed: () async {
+                            if (loginCubit.formKey.currentState!.validate()) {
+                              loginCubit.signInUser(
+                                  email: loginCubit.emailController.text.trim(),
+                                  password: loginCubit.passwordController.text.trim(),
+                                  isKeepMeSignedIn: loginCubit.isKeepMeSignedIn);
+                            }
+                          },
+                          height: 50.h,
+                          width: double.infinity,
+                          child: CustomTextWidget(
+                              text: 'login'.tr(),
+                              textStyle: TextStyle(
+                                  fontSize: FontDetails.fontSizeM,
+                                  color: ColorsDark.white,
+                                  fontWeight: FontDetails.boldFontWeight))),
+                    ),
                     SizedBox(height: 30.h),
-                    const DontHaveAnAcount(),
+                    const CustomFadeInUp(
+                      duration: 600,
+                      child: DontHaveAnAcount(),
+                    ),
                     SizedBox(height: 20.h),
                   ],
                 ),

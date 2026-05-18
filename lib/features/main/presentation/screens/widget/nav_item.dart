@@ -32,41 +32,46 @@ class NavItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
-          margin: EdgeInsets.symmetric(horizontal: 5.w),
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
           padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
-          gradient:   isSelected
-      ? const LinearGradient(
-          colors: [
-            ColorsDark.blueLight1,
-            ColorsDark.blueLight2,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        )
-      : const LinearGradient(
-          colors: [
-            Colors.transparent,
-            Colors.transparent,
-          ],
-        ),
-        borderRadius: BorderRadius.circular(16.r),
+            gradient: isSelected
+                ? const LinearGradient(
+                    colors: [
+                      ColorsDark.blueLight1,
+                      ColorsDark.blueLight2,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : const LinearGradient(
+                    colors: [
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
+            borderRadius: BorderRadius.circular(10.r),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 icon,
-                color: isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
+                color:
+                    isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
                 size: 24.sp,
               ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.2),
               SizedBox(height: 4.h),
               CustomTextWidget(
                 text: label,
                 textStyle: TextStyle(
-                  color: isSelected ? ColorsLight.white : ColorsLight.mainTextColor,
+                  color: isSelected
+                      ? ColorsLight.white
+                      : ColorsLight.mainTextColor,
                   fontSize: FontDetails.fontSizeXS,
-                  fontWeight: isSelected ? FontDetails.semiBoldFontWeight : FontDetails.mediumFontWeight,
+                  fontWeight: isSelected
+                      ? FontDetails.semiBoldFontWeight
+                      : FontDetails.mediumFontWeight,
                 ),
               ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.1),
             ],

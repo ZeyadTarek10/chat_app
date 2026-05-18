@@ -1,6 +1,7 @@
 import 'package:chat_app/config/app/cubit/app_cubit.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +21,28 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return BlocProvider(
           create: (context) => getIt<AppCubit>()
-            ..changeAppThemeMode('dark_mode', sharedMode: CacheHelper().getData(key: 'mode') ?? false),
+            ..changeAppThemeMode('dark_mode',
+                sharedMode: CacheHelper().getData(key: 'mode') ?? false),
           child: BlocBuilder<AppCubit, AppState>(
-                  buildWhen: (previos, current) {
-                    return previos != current;
-                  },
-                  builder: (context, state) {
-                    final cubit = context.read<AppCubit>();
+            buildWhen: (previos, current) {
+              return previos != current;
+            },
+            builder: (context, state) {
+              final cubit = context.read<AppCubit>();
               return MaterialApp.router(
-                theme: cubit.isDark ? themeDark() : themeLight(),
+                theme: themeLight().copyWith(
+                  textTheme: themeLight().textTheme.apply(
+                        fontFamily:
+                            FontFamilyHelper.getLocalizedFontFamily(context),
+                      ),
+                ),
+                darkTheme: themeDark().copyWith(
+                  textTheme: themeDark().textTheme.apply(
+                        fontFamily:
+                            FontFamilyHelper.getLocalizedFontFamily(context),
+                      ),
+                ),
+                themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Task',
                 routerConfig: AppRoutes.router,

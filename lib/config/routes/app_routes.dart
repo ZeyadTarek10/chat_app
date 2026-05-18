@@ -1,3 +1,4 @@
+import 'package:chat_app/config/routes/based_rout.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:chat_app/features/chats/data/data_sources/create_chats_remote_data_source.dart';
@@ -56,25 +57,34 @@ class AppRoutes {
       GoRoute(
           path: AppRoutes.login,
           name: 'login',
-          builder: (context, state) {
-            return BlocProvider(
-              create: (context) => getIt<LoginCubit>(),
-              child: const LoginScreen(),
+          pageBuilder: (context, state) {
+            return fadeScaleTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) => getIt<LoginCubit>(),
+                child: const LoginScreen(),
+              ),
             );
           }),
       GoRoute(
           path: AppRoutes.forgotPassword,
           name: 'forgotPassword',
-          builder: (context, state) => BlocProvider(
-                create: (context) => getIt<ForgetPasswordCubit>(),
-                child: const ForgotPasswordScreen(),
+          pageBuilder: (context, state) => fadeScaleTransitionPage(
+                key: state.pageKey,
+                child: BlocProvider(
+                  create: (context) => getIt<ForgetPasswordCubit>(),
+                  child: const ForgotPasswordScreen(),
+                ),
               )),
       GoRoute(
           path: AppRoutes.signUp,
           name: 'signUp',
-          builder: (context, state) => BlocProvider(
-                create: (context) => getIt<SignUpCubit>(),
-                child: const SignupScreen(),
+          pageBuilder: (context, state) => fadeScaleTransitionPage(
+                key: state.pageKey,
+                child: BlocProvider(
+                  create: (context) => getIt<SignUpCubit>(),
+                  child: const SignupScreen(),
+                ),
               )),
       GoRoute(
         path: AppRoutes.home,
@@ -92,7 +102,8 @@ class AppRoutes {
             ),
             BlocProvider(
                 create: (context) => getIt<GetChatsCubit>()..fetchChats()),
-            BlocProvider(create: (context) => getIt<GroupsCubit>()..fetchGroups()),
+            BlocProvider(
+                create: (context) => getIt<GroupsCubit>()..fetchGroups()),
           ],
           child: const MainScreen(),
         ),
@@ -100,15 +111,18 @@ class AppRoutes {
       GoRoute(
         path: AppRoutes.addChats,
         name: 'addChats',
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<CreateChatsCubit>(),
-          child: const AddFriendScreen(),
+        pageBuilder: (context, state) => fadeScaleTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => getIt<CreateChatsCubit>(),
+            child: const AddFriendScreen(),
+          ),
         ),
       ),
       GoRoute(
           path: AppRoutes.message,
           name: 'message',
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final args = state.extra as Map<String, dynamic>;
             final String friendId = args['friendId'];
 
@@ -116,41 +130,45 @@ class AppRoutes {
 
             final roomId = generateRoomId(myUid, friendId);
 
-            return BlocProvider(
-              create: (context) =>
-                  getIt<MessageCubit>()..initChat(roomId, friendId),
-              child: MessageScreen(
-                roomId: roomId,
-                friendId: friendId,
+            return fadeScaleTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) =>
+                    getIt<MessageCubit>()..initChat(roomId, friendId),
+                child: MessageScreen(
+                  roomId: roomId,
+                  friendId: friendId,
+                ),
               ),
             );
           }),
       GoRoute(
         path: AppRoutes.addGroups,
         name: 'addGroups',
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<GroupsCubit>(),
-          child: const CreateGroupScreen(),
+        pageBuilder: (context, state) => fadeScaleTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => getIt<GroupsCubit>(),
+            child: const CreateGroupScreen(),
+          ),
         ),
       ),
-   GoRoute(
-  path: AppRoutes.messageGroups,
-  name: 'messageGroups',
-  builder: (context, state) {
-    if (state.extra is! GroupsEntity) {
-      return const Scaffold(
-        body: Center(child: Text('Error: Invalid Group Data')),
-      );
-    }
+      GoRoute(
+        path: AppRoutes.messageGroups,
+        name: 'messageGroups',
+        pageBuilder: (context, state) {
+          final group = state.extra as GroupsEntity;
 
-    final group = state.extra as GroupsEntity;
-    
-    return BlocProvider(
-      create: (context) => getIt<MessegeGroupCubit>()..getMessages(group.id),
-      child: MessageGroupsScreen(group: group),
-    );
-  },
-)
+          return fadeScaleTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (context) =>
+                  getIt<MessegeGroupCubit>()..getMessages(group.id),
+              child: MessageGroupsScreen(group: group),
+            ),
+          );
+        },
+      )
     ],
   );
 }

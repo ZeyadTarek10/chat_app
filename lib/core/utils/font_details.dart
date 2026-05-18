@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,4 +20,21 @@ class FontDetails {
   static double fontSizeM = 16.sp;
   static double fontSizeL = 23.sp;
   static double fontSizeXL = 30.sp;
+}
+
+class FontFamilyHelper {
+  FontFamilyHelper._();
+
+  static const String cairoArabic = 'Cairo';
+  static const String robotoEnglish = 'Roboto';
+
+  static String getLocalizedFontFamily(BuildContext context) {
+    final currentLanguage = context.locale.languageCode; 
+
+    if (currentLanguage == 'ar') {
+      return cairoArabic;
+    } else {
+      return robotoEnglish;
+    }
+  }
 }
