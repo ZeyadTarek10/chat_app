@@ -47,7 +47,7 @@ class UserResultSearchItem extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               CustomTextWidget(
-                text: user.phone,
+                text: '(${user.countryCode}) ${user.phone}',
                 textStyle:
                     TextStyle(color: ColorsLight.mainTextColor, fontSize: 13.sp),
               ),

@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -8,6 +9,7 @@ import 'package:chat_app/features/groups/presentation/screens/widgets/add_member
 import 'package:chat_app/features/groups/presentation/screens/widgets/add_members_sheet.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/create_group_button.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/list_view_builder_add_member_group.dart';
+import 'package:chat_app/shared_widgets/custom_buttom_sheet.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
@@ -22,16 +24,13 @@ class CreateGroupScreen extends StatelessWidget {
 
   void showAddMembersSheet(BuildContext context) {
     context.read<GroupsCubit>().fetchAvailableUsers();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
-      builder: (_) => BlocProvider.value(
-        value: context.read<GroupsCubit>(),
-        child: const AddMembersSheet(),
-      ),
-    );
+    CustomBottomSheet.showModalBottomSheetContainer(
+          context: context,
+          widget: BlocProvider.value(
+            value: BlocProvider.of<GroupsCubit>(context),
+            child: const AddMembersSheet(),
+          ),
+        );
   }
 
   @override
@@ -87,21 +86,30 @@ class CreateGroupScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextWidget(
-                          text: "name_group".tr(),
-                          textStyle: const TextStyle(color: ColorsLight.mainTextColor)),
+                      CustomFadeInRight(
+                        duration: 600,
+                        child: CustomTextWidget(
+                            text: "name_group".tr(),
+                            textStyle: const TextStyle(color: ColorsLight.mainTextColor)),
+                      ),
                       SizedBox(height: 8.w),
-                      CustomTextFormFieldWidget(
-                        hint: "enter_name_group".tr(),
-                        onChange: (val) => cubit.updateName(val),
-                        withBorders: true,
-                        validator: (String? value) =>
-                            AppValidator.nameValidation(value),
+                      CustomFadeInRight(
+                        duration: 600,
+                        child: CustomTextFormFieldWidget(
+                          hint: "enter_name_group".tr(),
+                          onChange: (val) => cubit.updateName(val),
+                          withBorders: true,
+                          validator: (String? value) =>
+                              AppValidator.nameValidation(value),
+                        ),
                       ),
                       SizedBox(height: 25.h),
-                      GestureDetector(
-                        onTap: () => showAddMembersSheet(context),
-                        child: const AddMemberToGroupButton(),
+                      CustomFadeInDown(
+                        duration: 200,
+                        child: GestureDetector(
+                          onTap: () => showAddMembersSheet(context),
+                          child: const AddMemberToGroupButton(),
+                        ),
                       ),
                       Expanded(
                         child: ListViewBuilderAddMemberGroup(cubit: cubit),
@@ -110,7 +118,9 @@ class CreateGroupScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              CreateGroupButton(cubit: cubit),
+              CustomFadeInUp(
+                duration: 200,
+                child: CreateGroupButton(cubit: cubit)),
             ],
           );
         },

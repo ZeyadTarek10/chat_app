@@ -18,12 +18,15 @@ class AddAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: context.color.mainColor,
-      flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
+      flexibleSpace: Image.asset(
+        AppImages.bG,
+        fit: BoxFit.cover,
+      ),
       elevation: 0,
       leading: Padding(
-        padding: const EdgeInsets.only(left: 16.0),
+        padding: const EdgeInsets.only(left: 16.0, right: 10.0),
         child: Image.asset(
-          AppImages.appLogoImgHome,
+          AppImages.appLogoImgHomeDark,
           fit: BoxFit.contain,
         ),
       ),
@@ -33,9 +36,9 @@ class AddAppBar extends StatelessWidget {
           onPressed: () {
             cubit.toggleSearch();
           },
-          icon: const Icon(CupertinoIcons.search, color: ColorsLight.white, size: 26),
+          icon: const Icon(CupertinoIcons.search,
+              color: ColorsLight.white, size: 26),
         ),
-        
         AddButton(cubit: cubit),
         const SizedBox(width: 8),
       ],

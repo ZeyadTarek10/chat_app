@@ -39,7 +39,7 @@ class FormSignUp extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CustomTextWidget(
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
             text: 'full_name'.tr(),
             textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
@@ -53,7 +53,7 @@ class FormSignUp extends StatelessWidget {
         SizedBox(height: 20.h),
 
         CustomTextWidget(
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
             text: 'phone_number'.tr(),
             textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
@@ -113,7 +113,7 @@ class FormSignUp extends StatelessWidget {
         SizedBox(height: 20.h),
 
         CustomTextWidget(
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
             text: 'email_address'.tr(),
             textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
@@ -128,7 +128,7 @@ class FormSignUp extends StatelessWidget {
         
         CustomTextWidget(
             text: 'password'.tr(),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
             textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(
@@ -149,7 +149,7 @@ class FormSignUp extends StatelessWidget {
         
         CustomTextWidget(
             text: 'confirm_password'.tr(),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
             textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsLight.mainTextColor)),
         SizedBox(height: 8.h),
         CustomTextFormFieldWidget(

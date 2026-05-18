@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -81,51 +82,65 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
-                    CustomTextWidget(
-                      text: 'forgot_password'.tr(),
-                      textStyle: TextStyle(
-                          fontSize: FontDetails.fontSizeL,
-                          fontWeight: FontDetails.boldFontWeight,
-                          color: context.color.textColor),
+                    CustomFadeInRight(
+                      duration: 400,
+                      child: CustomTextWidget(
+                        text: 'forgot_password'.tr(),
+                        textStyle: TextStyle(
+                            fontSize: FontDetails.fontSizeL,
+                            fontWeight: FontDetails.boldFontWeight,
+                            color: context.color.textColor),
+                      ),
                     ),
                     SizedBox(height: 12.h),
-                    CustomTextWidget(
-                      text:
-                          "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password"
-                              .tr(),
-                      textStyle: TextStyle(
-                          fontSize: FontDetails.fontSizeS,
-                          color: ColorsLight.mainTextColor,
-                          height: 1.5.h),
+                    CustomFadeInRight(
+                      duration: 400,
+                      child: CustomTextWidget(
+                        text:
+                            "enter_the_email_address_registered_with_your_account_Well_send_you_a_link_to_reset_your_password"
+                                .tr(),
+                        textStyle: TextStyle(
+                            fontSize: FontDetails.fontSizeS,
+                            color: ColorsLight.mainTextColor,
+                            height: 1.5.h),
+                      ),
                     ),
                     SizedBox(height: 40.h),
-                    CustomTextFormFieldWidget(
-                      controller: forgetPasswordCubit.emailController,
-                      hint: 'Rhebhek@gmail.com',
-                      withBorders: true,
-                      textInputType: TextInputType.emailAddress,
-                      validator: (value) => AppValidator.emailValidation(value),
+                    CustomFadeInLeft(
+                      duration: 400,
+                      child: CustomTextFormFieldWidget(
+                        controller: forgetPasswordCubit.emailController,
+                        hint: 'Rhebhek@gmail.com',
+                        withBorders: true,
+                        textInputType: TextInputType.emailAddress,
+                        validator: (value) => AppValidator.emailValidation(value),
+                      ),
                     ),
                     SizedBox(height: 30.h),
-                    CustomLinearButton(
-                        onPressed: () {
-                          if (forgetPasswordCubit.formKey.currentState!.validate()) {
-                            BlocProvider.of<ForgetPasswordCubit>(context)
-                                .resetPassword(
-                              email: forgetPasswordCubit.emailController.text.trim(),
-                            );
-                          }
-                        },
-                        height: 50.h,
-                        width: double.infinity.w,
-                        child: CustomTextWidget(
-                            text: 'submit'.tr(),
-                            textStyle: TextStyle(
-                                fontSize: FontDetails.fontSizeM,
-                                color: ColorsLight.white,
-                                fontWeight: FontDetails.boldFontWeight))),
+                    CustomFadeInUp(
+                      duration: 300,
+                      child: CustomLinearButton(
+                          onPressed: () {
+                            if (forgetPasswordCubit.formKey.currentState!.validate()) {
+                              BlocProvider.of<ForgetPasswordCubit>(context)
+                                  .resetPassword(
+                                email: forgetPasswordCubit.emailController.text.trim(),
+                              );
+                            }
+                          },
+                          height: 50.h,
+                          width: double.infinity.w,
+                          child: CustomTextWidget(
+                              text: 'submit'.tr(),
+                              textStyle: TextStyle(
+                                  fontSize: FontDetails.fontSizeM,
+                                  color: ColorsLight.white,
+                                  fontWeight: FontDetails.boldFontWeight))),
+                    ),
                     SizedBox(height: 24.h),
-                    const RememberedPassword(),
+                    const CustomFadeInUp(
+                      duration: 600,
+                      child: RememberedPassword()),
                   ],
                 ),
               ),

@@ -1,4 +1,6 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/search_item_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,8 @@ class SearchAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsLight.mainColor, 
+      backgroundColor: context.color.mainColor,
+      flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
       elevation: 0,
       automaticallyImplyLeading: false, 
       title: const SearchItemAppBar(),
