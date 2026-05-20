@@ -7,6 +7,7 @@ abstract class MessageGroupsRepository {
     required String message,
     required String groupId,
     String? type,
+    MessageEntity? replyMessage,
   });
   Stream<Either<Failure, List<MessageEntity>>> getGroupMessages(String groupId);
   Future<Either<Failure, void>> markMessageAsRead(String groupId, String messageId);

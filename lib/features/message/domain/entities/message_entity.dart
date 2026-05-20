@@ -6,6 +6,7 @@ class MessageEntity {
   String? fromId;
   String? type;
   String? read;
+  MessageEntity? replyMessage;
 
   MessageEntity({
     required this.id,
@@ -15,5 +16,6 @@ class MessageEntity {
     required this.fromId,
     required this.type,
     required this.read,
+    required this.replyMessage,
   });
 }

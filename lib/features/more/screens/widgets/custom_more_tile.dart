@@ -25,6 +25,7 @@ class CustomMoreTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isRtl = Directionality.of(context) == TextDirection.rtl;
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
       leading: Icon(icon, color: iconColor ?? context.color.textColor, size: 20.sp),
@@ -36,7 +37,11 @@ class CustomMoreTile extends StatelessWidget {
           color: textColor ?? context.color.textColor,
         ),
       ),
-      trailing: trailing ?? Icon(CupertinoIcons.chevron_right, color: context.color.textColor, size: 20.sp),
+      trailing: trailing ?? Icon(
+        isRtl ? CupertinoIcons.chevron_left : CupertinoIcons.chevron_right, 
+        color: context.color.textColor, 
+        size: 20.sp,
+      ),
       onTap: onTap,
     );
   }

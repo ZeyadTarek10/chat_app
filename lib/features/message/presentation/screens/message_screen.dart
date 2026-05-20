@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/app_bar_message2.dart';
@@ -27,6 +28,8 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   late MessageCubit messageCubit;
+  MessageEntity? replyMessage;
+  final focusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,6 +42,7 @@ class _MessageScreenState extends State<MessageScreen> {
     super.dispose();
     messageCubit.controller.dispose();
     messageCubit.controller0.dispose();
+    focusNode.dispose();
   }
 
   @override
@@ -51,45 +55,50 @@ class _MessageScreenState extends State<MessageScreen> {
           Expanded(
             child: Stack(
               children: [
-                Positioned.fill(child: BlocBuilder<MessageCubit, MessageState>(
-                  buildWhen: (previous, current) {
-                    return current is MessageLoadingState ||
-                        current is MessageErrorState ||
-                        current is MessageLoadedState;
-                  },
-                  builder: (context, state) {
-                    if (state is MessageLoadingState) {
-                      return const CustomLoading();
-                    } else if (state is MessageErrorState) {
-                      return Center(child: CustomTextWidget(text: state.errMsg));
-                    }
-                    if (state is MessageLoadedState) {
-                      final messages = state.messages;
-                      final friendData = state.friendData;
-                
-                      return Column(
-                        children: [
-                          if (friendData != null)
-                            AppBarMessage2(
-                              userModel: friendData as UserModel,
+                Positioned.fill(
+                  child: BlocBuilder<MessageCubit, MessageState>(
+                    buildWhen: (previous, current) {
+                      return current is MessageLoadingState ||
+                          current is MessageErrorState ||
+                          current is MessageLoadedState;
+                    },
+                    builder: (context, state) {
+                      if (state is MessageLoadingState) {
+                        return const CustomLoading();
+                      } else if (state is MessageErrorState) {
+                        return Center(
+                            child: CustomTextWidget(text: state.errMsg));
+                      }
+                      if (state is MessageLoadedState) {
+                        final messages = state.messages;
+                        final friendData = state.friendData;
+
+                        return Column(
+                          children: [
+                            if (friendData != null)
+                              AppBarMessage2(
+                                userModel: friendData as UserModel,
+                              ),
+                            Expanded(
+                              child: messages.isEmpty
+                                  ? WelcomeMessage(
+                                      userModel: friendData as UserModel,
+                                      roomId: widget.roomId,
+                                    )
+                                  : ListViewBuilderMessages(
+                                      messageCubit: messageCubit,
+                                      messages: messages,
+                                      widget: widget,
+                                      focusNode: focusNode,
+                                    ),
                             ),
-                          Expanded(
-                            child: messages.isEmpty
-                                ? WelcomeMessage(
-                                    userModel: friendData as UserModel,
-                                    roomId: widget.roomId,
-                                  )
-                                : ListViewBuilderMessages(
-                                    messageCubit: messageCubit,
-                                    messages: messages,
-                                    widget: widget),
-                          ),
-                        ],
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                ),),
+                          ],
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                ),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -108,7 +117,10 @@ class _MessageScreenState extends State<MessageScreen> {
               ],
             ),
           ),
-          SendingMessagesContainer(messageCubit: messageCubit, widget: widget),
+          SendingMessagesContainer(
+            widget: widget,
+            focusNode: focusNode,
+          ),
         ],
       ),
     );

@@ -9,7 +9,21 @@ final class MessageLoadingState extends MessageState {}
 final class MessageLoadedState extends MessageState {
   final List<MessageEntity> messages;
   final UserEntity? friendData;
-  MessageLoadedState({required this.messages, this.friendData});
+  final MessageEntity? replyMessage;
+  MessageLoadedState({required this.messages, this.friendData, this.replyMessage});
+
+  MessageLoadedState copyWith({
+    List<MessageEntity>? messages,
+    UserEntity? friendData,
+    MessageEntity? replyMessage,
+    bool clearReply = false, 
+  }) {
+    return MessageLoadedState(
+      messages: messages ?? this.messages,
+      friendData: friendData ?? this.friendData,
+      replyMessage: clearReply ? null : (replyMessage ?? this.replyMessage),
+    );
+  }
 }
 final class MessageErrorState extends MessageState {
   final String errMsg;

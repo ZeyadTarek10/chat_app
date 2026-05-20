@@ -42,25 +42,31 @@ class CreateGroupScreen extends StatelessWidget {
           AppImages.bG,
           fit: BoxFit.cover,
         ),
-        leading: GestureDetector(
-          onTap: () => GoRouter.of(context).pop(),
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: ColorsDark.white.withOpacity(0.2),
-                shape: BoxShape.circle,
+        leading: Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: GestureDetector(
+            onTap: () => GoRouter.of(context).pop(),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(8.r),
+                decoration: BoxDecoration(
+                  color: ColorsDark.white.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.arrow_back, color: ColorsDark.white),
               ),
-              child: const Icon(Icons.arrow_back, color: ColorsDark.white),
             ),
           ),
         ),
-        title: CustomTextWidget(
-          text: 'create_group'.tr(),
-          textStyle: TextStyle(
-            color: ColorsDark.white,
-            fontSize: 18.sp,
-            fontWeight: FontDetails.semiBoldFontWeight,
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: CustomTextWidget(
+            text: 'create_group'.tr(),
+            textStyle: TextStyle(
+              color: ColorsDark.white,
+              fontSize: 18.sp,
+              fontWeight: FontDetails.semiBoldFontWeight,
+            ),
           ),
         ),
         centerTitle: true,

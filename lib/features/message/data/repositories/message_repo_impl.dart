@@ -26,7 +26,7 @@ class MessageRepoImpl implements MessageRepository {
         toId: message.toId,
         fromId: message.fromId,
         type: message.type,
-        read: message.read,
+        read: message.read, replyMessage: message.replyMessage,
       );
       await messageRemoteDataSource.sendMessage(
           messageModel: messageModel, roomId: roomId);

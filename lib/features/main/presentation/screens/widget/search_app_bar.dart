@@ -21,20 +21,26 @@ class SearchAppBar extends StatelessWidget {
       flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
       elevation: 0,
       automaticallyImplyLeading: false, 
-      title: const SearchItemAppBar(),
+      title: Padding(
+        padding: EdgeInsets.only(bottom: 8.h),
+        child: const SearchItemAppBar(),
+      ),
       actions: [
-        IconButton(
-          icon: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: ColorsLight.white.withOpacity(0.2),
-                    shape: BoxShape.circle,
+        Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: IconButton(
+            icon: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: ColorsLight.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.close, color: ColorsLight.white),
                   ),
-                  child: const Icon(Icons.close, color: ColorsLight.white),
-                ),
-          onPressed: () {
-            cubit.toggleSearch(); 
-          },
+            onPressed: () {
+              cubit.toggleSearch(); 
+            },
+          ),
         ),
         SizedBox(width: 8.w),
       ],

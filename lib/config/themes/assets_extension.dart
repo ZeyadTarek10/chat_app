@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class MyAssets extends ThemeExtension<MyAssets> {
   const MyAssets({
     required this.logoEChat,
+    required this.iconSplash,
     required this.onbording,
     required this.onbording1,
     required this.onbording2,
@@ -11,6 +12,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
   });
 
   final String? logoEChat;
+  final String? iconSplash;
   final String? onbording;
   final String? onbording1;
   final String? onbording2;
@@ -19,6 +21,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
   @override
   ThemeExtension<MyAssets> copyWith({
     String? logoEChat,
+    String? iconSplash,
     String? onbording,
     String? onbording1,
     String? onbording2,
@@ -26,6 +29,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
   }) {
     return MyAssets(
       logoEChat: logoEChat,
+      iconSplash: iconSplash,
       onbording: onbording,
       onbording1: onbording1,
       onbording2: onbording2,
@@ -43,6 +47,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
     }
     return MyAssets(
       logoEChat: logoEChat,
+      iconSplash: iconSplash,
       onbording: onbording,
       onbording1: onbording1,
       onbording2: onbording2,
@@ -52,6 +57,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
 
   static const MyAssets dark = MyAssets(
     logoEChat: AppImages.appLogoImgHomeDark,
+    iconSplash: AppImages.iconSplashDark,
     onbording: AppImages.onboundingImgDark,
     onbording1: AppImages.onboundingImg1Dark,
     onbording2: AppImages.onboundingImg2Dark,
@@ -59,6 +65,7 @@ class MyAssets extends ThemeExtension<MyAssets> {
   );
   static const MyAssets light = MyAssets(
     logoEChat: AppImages.appLogoImgHomeLight,
+    iconSplash: AppImages.iconSplashLight,
     onbording: AppImages.onboundingImgLight,
     onbording1: AppImages.onboundingImg1Light,
     onbording2: AppImages.onboundingImg2Light,

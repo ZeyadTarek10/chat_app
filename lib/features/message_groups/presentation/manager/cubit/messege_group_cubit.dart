@@ -42,13 +42,38 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     });
   }
 
-  Future<void> sendMessage(String message, String groupId) async {
+  void selectReplyMessage(MessageEntity message) {
+    if (state is MessegeGroupLoaded) {
+      emit((state as MessegeGroupLoaded).copyWith(replyMessage: message));
+    }
+  }
+
+  void cancelReply() {
+    if (state is MessegeGroupLoaded) {
+      emit((state as MessegeGroupLoaded).copyWith(clearReply: true));
+    }
+  }
+
+  Future<void> sendGroupTextMessage(String groupId) async {
+    final text = controller.text.trim();
+    if (text.isEmpty) return;
+
+    MessageEntity? currentReply;
+    if (state is MessegeGroupLoaded) {
+      currentReply = (state as MessegeGroupLoaded).replyMessage;
+    }
+
+    controller.clear();
+    cancelReply();
+    if (controller0.hasClients) {
+      controller0.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    }
+
     try {
-      final result = await sendMessageUseCase(message, groupId, "text");
+      final result = await sendMessageUseCase(text, groupId, "text", currentReply);
       result.fold(
         (failure) => emit(MessegeGroupError(error: failure.massage)),
-        (_) {
-        }, 
+        (_) {}, 
       );
     } catch (e, stackTrace) {
       printFirebaseError(e, stackTrace);

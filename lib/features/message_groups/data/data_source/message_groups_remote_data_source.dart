@@ -1,9 +1,10 @@
 import 'package:chat_app/features/message/data/models/message_model.dart';
+import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class MessageGroupsRemoteDataSource {
-  Future<void> sendGroupMessage({required String message, required String groupId, String? type});
+  Future<void> sendGroupMessage({required String message, required String groupId, String? type, MessageEntity? replyMessage,});
   Stream<List<MessageModel>> getGroupMessages(String groupId);
   Future<void> markMessageAsRead(String groupId, String messageId);
 }
@@ -12,7 +13,7 @@ class MessageGroupsRemoteDataSourceImpl implements MessageGroupsRemoteDataSource
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
-  Future<void> sendGroupMessage({required String message, required String groupId, String? type}) async {
+  Future<void> sendGroupMessage({required String message, required String groupId, String? type, MessageEntity? replyMessage}) async {
     
     String msgId = FirebaseFirestore.instance.collection("groups").doc(groupId).collection("messages").doc().id; 
     String myUid = FirebaseAuth.instance.currentUser!.uid;
@@ -24,7 +25,7 @@ class MessageGroupsRemoteDataSourceImpl implements MessageGroupsRemoteDataSource
       toId: "",
       fromId: myUid,
       type: type ?? "text",
-      read: "",
+      read: "", replyMessage: replyMessage,
     );
 
     await FirebaseFirestore.instance

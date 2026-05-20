@@ -15,34 +15,43 @@ class CustomDropDownButtonFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> genderOptions = ['male'.tr(), 'female'.tr()];
+
+    String? initialValue;
+    if (genderController.text.isNotEmpty && genderOptions.contains(genderController.text)) {
+      initialValue = genderController.text;
+    }
+
     return DropdownButtonFormField<String>(
-      icon: const Icon(Icons.keyboard_arrow_down, color: ColorsLight.mainTextColor),
+      value: initialValue, 
+      dropdownColor: context.color.navBarbg,
+      icon: const Icon(Icons.keyboard_arrow_down, color: ColorsLight.mainTextColor), 
       decoration: InputDecoration(
         hintText: 'Select Gender',
-        hintStyle: TextStyle(color: context.color.textColor),
+        hintStyle: TextStyle(color: context.color.textColor), 
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
           borderRadius: BorderRadius.circular(8.r),
         ),
-        // enabledBorder: OutlineInputBorder(
-        //   borderSide: BorderSide(color: AppColors.mainColor, width: 1.w),
-        //   borderRadius: BorderRadius.circular(8.r),
-        // ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
           borderRadius: BorderRadius.circular(8.r),
         ),
       ),
-      items: ['male'.tr(), 'female'.tr()].map((String value) {
+      items: genderOptions.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: CustomTextWidget(text: value,
-              textStyle: TextStyle(fontSize: 16.sp, color: context.color.textColor)),
+          child: CustomTextWidget(
+            text: value,
+            textStyle: TextStyle(fontSize: 16.sp, color: context.color.textColor),
+          ),
         );
       }).toList(),
       onChanged: (newValue) {
-        genderController.text = newValue!;
+        if (newValue != null) {
+          genderController.text = newValue;
+        }
       },
       validator: (value) {
         if (value == null || value.isEmpty) {

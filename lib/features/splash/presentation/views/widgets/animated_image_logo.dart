@@ -1,6 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/core/utils/app_images.dart';
 
 class AnimatedImageLogo extends StatelessWidget {
   const AnimatedImageLogo({super.key, required this.fillFraction});
@@ -14,7 +13,7 @@ class AnimatedImageLogo extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Image.asset(
-          AppImages.appLogoImg,
+          context.images.iconSplash!,
           width: logSize,
           height: logSize,
           fit: BoxFit.contain,
@@ -31,7 +30,7 @@ class AnimatedImageLogo extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 heightFactor: value,
                 child: Image.asset(
-                  AppImages.appLogoImg,
+                  context.images.iconSplash!,
                   width: logSize,
                   height: logSize,
                   fit: BoxFit.contain,

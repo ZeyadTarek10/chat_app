@@ -8,7 +8,18 @@ final class MessegeGroupInitial extends MessegeGroupState {}
 class MessegeGroupLoading extends MessegeGroupState {}
 class MessegeGroupLoaded extends MessegeGroupState {
   final List<MessageEntity> messages;
-  MessegeGroupLoaded({required this.messages});
+  final MessageEntity? replyMessage;
+  MessegeGroupLoaded({required this.messages, this.replyMessage});
+  MessegeGroupLoaded copyWith({
+    List<MessageEntity>? messages,
+    MessageEntity? replyMessage,
+    bool clearReply = false,
+  }) {
+    return MessegeGroupLoaded(
+      messages: messages ?? this.messages,
+      replyMessage: clearReply ? null : (replyMessage ?? this.replyMessage),
+    );
+  }
 }
 class MessegeGroupError extends MessegeGroupState {
   final String error;

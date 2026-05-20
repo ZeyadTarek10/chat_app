@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -60,7 +61,10 @@ class MoreScreen extends StatelessWidget {
                 child: CustomMoreTile(
                   icon: CupertinoIcons.person_add,
                   title: 'invite_friends'.tr(),
-                  onTap: () {},
+                  onTap: () {
+                    final params = ShareParams(uri: Uri.parse('https://E-Chat.com'));
+                    SharePlus.instance.share(params);
+                  },
                 ),
               ),
               CustomFadeInRight(

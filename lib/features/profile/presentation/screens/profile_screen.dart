@@ -17,19 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<ProfileCubit>(context).getUserData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
         return SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22.w),
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: Column(
               children: [
                 SizedBox(
@@ -75,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   duration: 400,
                   child: ProfileData(
                       title: 'phone'.tr(),
-                      value: '(${user.countryCode}) ${user.phone}'),
+                      value: '\u202A(${user.countryCode}) ${user.phone}\u202C'),
                 ),
                 CustomFadeInRight(
                   duration: 400,

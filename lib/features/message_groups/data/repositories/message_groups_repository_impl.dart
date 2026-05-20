@@ -14,10 +14,10 @@ class MessageGroupsRepositoryImpl implements MessageGroupsRepository {
 
   @override
   Future<Either<Failure, void>> sendGroupMessage(
-      {required String message, required String groupId, String? type}) async {
+      {required String message, required String groupId, String? type, MessageEntity? replyMessage,}) async {
     try {
       final send = await messageGroupsRemoteDataSource.sendGroupMessage(
-          message: message, groupId: groupId, type: type);
+          message: message, groupId: groupId, type: type, replyMessage: replyMessage,);
       return right(send);
     } catch (e, stackTrace) {
       printFirebaseError(e, stackTrace);

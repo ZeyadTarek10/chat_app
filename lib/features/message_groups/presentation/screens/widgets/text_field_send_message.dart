@@ -7,14 +7,17 @@ import 'package:flutter/material.dart';
 class TextFieldSendMessage extends StatelessWidget {
   const TextFieldSendMessage({
     super.key,
-    required this.controller,
+    required this.controller, this.focusNode,
   });
 
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return CustomTextFormFieldWidget(
+      textInputType: TextInputType.multiline,
+      focusNode: focusNode,
       fillColor: context.color.textColor!.withOpacity(0.1),
       controller: controller,
       hint: 'type_a_message'.tr(),

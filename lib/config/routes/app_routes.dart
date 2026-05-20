@@ -25,7 +25,6 @@ import 'package:chat_app/features/splash/presentation/views/onbording_screen.dar
 import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -101,7 +100,7 @@ class AppRoutes {
               create: (context) => getIt<MoreCubit>(),
             ),
             BlocProvider(
-              create: (context) => getIt<ProfileCubit>(),
+              create: (context) => getIt<ProfileCubit>()..getUserData(),
             ),
             BlocProvider(
                 create: (context) => getIt<GetChatsCubit>()..fetchChats()),

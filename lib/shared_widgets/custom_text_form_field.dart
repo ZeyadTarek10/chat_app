@@ -23,7 +23,8 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       this.onChange,
       required this.validator,
       this.prefixIcon,
-      this.onEditingComplete});
+      this.onEditingComplete,
+      this.focusNode});
 
   final TextEditingController? controller;
   final String hint;
@@ -42,6 +43,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final Color? textColor;
   final void Function(String)? onChange;
   final void Function()? onEditingComplete;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +51,12 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          focusNode: focusNode,
           readOnly: readOnly,
           obscureText: obscureText,
           controller: controller,
           keyboardType: textInputType,
+          maxLines: obscureText ? 1 : null,
           textInputAction: textInputAction,
           onChanged: onChange,
           textAlign: textAlign,
@@ -87,6 +91,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
                   ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorsDark.blueDark, width: 0.5.w),
+
               borderRadius: BorderRadius.circular(8.r),
             ),
             errorBorder: withBorders

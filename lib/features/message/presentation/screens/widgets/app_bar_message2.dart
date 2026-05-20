@@ -44,7 +44,7 @@ class AppBarMessage2 extends StatelessWidget {
                             fontSize: 16.sp),
                       ),
                       CustomTextWidget(
-                        text: '(${userModel.countryCode})${userModel.phone}',
+                        text: '\u202A(${userModel.countryCode}) ${userModel.phone}\u202C',
                         textStyle: TextStyle(
                             color: Colors.grey.shade600, fontSize: FontDetails.fontSizeXS),
                       ),

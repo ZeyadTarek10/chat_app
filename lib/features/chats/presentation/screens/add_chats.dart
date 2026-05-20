@@ -45,25 +45,30 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
       appBar: AppBar(
         backgroundColor: context.color.mainColor,
         flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
-        leading: GestureDetector(
-          onTap: () => GoRouter.of(context).pop(),
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: ColorsLight.white.withOpacity(0.2),
-                shape: BoxShape.circle,
+        leading: Padding(
+          padding: EdgeInsets.only(bottom: 8.h),          child: GestureDetector(
+            onTap: () => GoRouter.of(context).pop(),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(8.r),
+                decoration: BoxDecoration(
+                  color: ColorsLight.white.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.arrow_back, color: ColorsLight.white),
               ),
-              child: const Icon(Icons.arrow_back, color: ColorsLight.white),
             ),
           ),
         ),
-        title: CustomTextWidget(
-          text: 'add_friend'.tr(),
-          textStyle: TextStyle(
-            color: ColorsLight.white,
-            fontSize: 18.sp,
-            fontWeight: FontDetails.semiBoldFontWeight,
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: CustomTextWidget(
+            text: 'add_friend'.tr(),
+            textStyle: TextStyle(
+              color: ColorsLight.white,
+              fontSize: 18.sp,
+              fontWeight: FontDetails.semiBoldFontWeight,
+            ),
           ),
         ),
         centerTitle: true,

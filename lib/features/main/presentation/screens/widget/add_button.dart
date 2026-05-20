@@ -35,7 +35,10 @@ class AddButton extends StatelessWidget {
                 ),
                 child: const Icon(Icons.close, color: ColorsLight.white),
               )
-            : Icon(Icons.add, color: ColorsLight.white, size: 28.sp),
+            : Padding(
+              padding: EdgeInsets.only(bottom: 8.h),
+              child: Icon(Icons.add, color: ColorsLight.white, size: 28.sp),
+            ),
         offset: const Offset(0, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
