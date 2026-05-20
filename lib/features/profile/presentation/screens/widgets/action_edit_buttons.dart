@@ -36,10 +36,6 @@ class ActionEditButtons extends StatelessWidget {
         Expanded(
           child: CustomElevatedButtonWidget(
             style: ElevatedButton.styleFrom(
-              textStyle: TextStyle(
-                  color: ColorsDark.mainColor,
-                  fontSize: FontDetails.fontSizeM,
-                  fontWeight: FontDetails.semiBoldFontWeight),
               foregroundColor: ColorsDark.mainColor,
               backgroundColor: const Color.fromARGB(255, 168, 229, 249),
               shape: RoundedRectangleBorder(
@@ -50,17 +46,18 @@ class ActionEditButtons extends StatelessWidget {
             btnWidth: 0.w,
             btnHeight: 50.h,
             text: 'cancel'.tr(),
-            textStyle: const TextStyle(color: ColorsDark.white),
+            textStyle: TextStyle(
+              color: ColorsDark.white, 
+              fontSize: FontDetails.fontSizeS,
+              fontWeight: FontDetails.semiBoldFontWeight,
+            ),
           ),
         ),
         SizedBox(width: 20.w),
+        
         Expanded(
           child: CustomElevatedButtonWidget(
             style: ElevatedButton.styleFrom(
-              textStyle: TextStyle(
-                  color: ColorsDark.white,
-                  fontSize: FontDetails.fontSizeM,
-                  fontWeight: FontDetails.semiBoldFontWeight),
               backgroundColor: ColorsDark.blueLight2,
               foregroundColor: ColorsDark.white,
               shape: RoundedRectangleBorder(
@@ -89,7 +86,11 @@ class ActionEditButtons extends StatelessWidget {
             btnWidth: 0.w,
             btnHeight: 50.h,
             text: 'save'.tr(),
-            textStyle: const TextStyle(color: ColorsDark.white),
+            textStyle: TextStyle(
+              color: ColorsDark.white,
+              fontSize: FontDetails.fontSizeS,
+              fontWeight: FontDetails.semiBoldFontWeight,
+            ),
           ),
         ),
       ],

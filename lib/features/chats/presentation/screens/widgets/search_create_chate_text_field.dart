@@ -35,7 +35,7 @@ class SearchCreateChateTextField extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CountryCodePicker(
-                   dialogBackgroundColor: context.color.navBarbg,
+                  dialogBackgroundColor: context.color.navBarbg,
                   dialogTextStyle: TextStyle(color: context.color.textColor),
                   barrierColor: ColorsLight.mainTextColor,
                   headerTextStyle: TextStyle(color: context.color.textColor, fontWeight: FontDetails.boldFontWeight, fontSize: FontDetails.fontSizeM),

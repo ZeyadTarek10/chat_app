@@ -21,7 +21,7 @@ class AddAppBar extends StatelessWidget {
       height: 120.h,
       decoration: BoxDecoration(
         color: context.color.mainColor,
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage(AppImages.bG),
           fit: BoxFit.cover,
         ),
@@ -32,7 +32,7 @@ class AddAppBar extends StatelessWidget {
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                padding: EdgeInsets.only(bottom: 8.h, left: 8.w, right: 8.w),
                 child: SizedBox(
                   width: 104.w,
                   child: Image.asset(
@@ -46,10 +46,13 @@ class AddAppBar extends StatelessWidget {
                 onPressed: () {
                   cubit.toggleSearch();
                 },
-                icon: const Icon(
-                  CupertinoIcons.search,
-                  color: ColorsLight.white,
-                  size: 26,
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 8.h),
+                  child: const Icon(
+                    CupertinoIcons.search,
+                    color: ColorsLight.white,
+                    size: 26,
+                  ),
                 ),
               ),
               SizedBox(width: 8.w),

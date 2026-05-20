@@ -24,9 +24,6 @@ class MyApp extends StatelessWidget {
             ..changeAppThemeMode('dark_mode',
                 sharedMode: CacheHelper().getData(key: 'mode') ?? false),
           child: BlocBuilder<AppCubit, AppState>(
-            buildWhen: (previos, current) {
-              return previos != current;
-            },
             builder: (context, state) {
               final cubit = context.read<AppCubit>();
               return MaterialApp.router(

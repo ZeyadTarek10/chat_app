@@ -110,5 +110,9 @@
     "start_chatting": "Start chatting",
     "there_is_an_error": "There is an error",
     "without_name": "Without name",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "replying_to": "Replying to",
+    "you":"You",
+    "friend": "Friend",
+    "say_hello_to":"Say Hello to"
 }

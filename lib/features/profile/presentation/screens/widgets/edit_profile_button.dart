@@ -33,12 +33,12 @@ class EditProfileButton extends StatelessWidget {
       text: 'edit_profile'.tr(),
       icon: Icon(Icons.edit_outlined, size: FontDetails.fontSizeL),
       textStyle: TextStyle(
-          fontSize: FontDetails.fontSizeM,
+          fontSize: FontDetails.fontSizeS,
           fontWeight: FontDetails.mediumFontWeight),
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorsDark.blueLight1,
         foregroundColor: ColorsDark.white,
-        minimumSize: Size(double.infinity, 50.h),
+        minimumSize: Size(250.w, 45.h),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)),
         elevation: 0,

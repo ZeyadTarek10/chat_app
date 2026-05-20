@@ -16,37 +16,42 @@ class ProfileData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CustomTextWidget(
-          text: '$title :',
-          textStyle: TextStyle(
-              color: ColorsLight.mainTextColor,
-              fontSize: FontDetails.fontSizeM,
-              fontWeight: FontDetails.regularFontWeight),
-        ),
-        SizedBox(width: 15.w),
-        CustomTextWidget(
-          text: value,
-          textStyle: TextStyle(
-              color: context.color.textColor,
-              fontSize: FontDetails.fontSizeM,
-              fontWeight: FontDetails.regularFontWeight),
-        ),
-        const Spacer(),
-        IconButton(
-          icon: Icon(Icons.copy,
-              size: 20.sp,
-              color: context.color.textColor),
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: value)).then((_) {
-              showSnackBar(context,
-                  text: '$title copied_to_clipboard'.tr(),
-                  color: ColorsDark.blueLight1);
-            });
-          },
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: Row(
+        children: [
+          CustomTextWidget(
+            text: '$title :',
+            textStyle: TextStyle(
+                color: ColorsLight.mainTextColor,
+                fontSize: FontDetails.fontSizeM,
+                fontWeight: FontDetails.regularFontWeight),
+          ),
+          SizedBox(width: 15.w),
+          Expanded(
+            child: CustomTextWidget(
+              text: value,
+              maxLines: 2,
+              textStyle: TextStyle(
+                  color: context.color.textColor,
+                  fontSize: FontDetails.fontSizeM,
+                  fontWeight: FontDetails.regularFontWeight),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.copy,
+                size: 20.sp,
+                color: context.color.textColor),
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: value)).then((_) {
+                showSnackBar(context,
+                    text:'$title${'copied_to_clipboard'.tr()}',
+                    color: ColorsDark.blueLight1);
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }

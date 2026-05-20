@@ -20,14 +20,13 @@ class LogOutProfile extends StatelessWidget {
       text: 'logout'.tr(),
       icon: Icon(Icons.logout, size: FontDetails.fontSizeL),
       textStyle: TextStyle(
-          fontSize: FontDetails.fontSizeM,
+          fontSize: FontDetails.fontSizeS,
           fontWeight: FontDetails.mediumFontWeight),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xffFEECEB),
         foregroundColor: const Color(0xffF6695E),
-        minimumSize: Size(double.infinity, 50.h),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r)),
+        minimumSize: Size(250.w, 45.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
         elevation: 0,
       ),
     );

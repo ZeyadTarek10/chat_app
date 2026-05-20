@@ -110,5 +110,9 @@
     "start_chatting": "ابدأ الدردشة",
     "there_is_an_error": "هناك خطأ:",
     "without_name": "بدون اسم",
-    "unknown": "غير معروف"
+    "unknown": "غير معروف",
+    "replying_to": "الرد على",
+    "you":"انت",
+    "friend": "صديق",
+    "say_hello_to":"قل مرحبا ل "
 }

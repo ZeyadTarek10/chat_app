@@ -8,6 +8,7 @@ import 'package:chat_app/features/message/domain/use_cases/send_message_use_case
 import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'message_state.dart';
@@ -43,7 +44,18 @@ final GetMessagesUseCase getMessagesUseCase;
       if (!isClosed) {
         result.fold(
           (failure) => emit(MessageErrorState(errMsg: failure.massage)),
-          (messages) => emit(MessageLoadedState(messages: messages, friendData: friendModel)),
+          (messages) {
+            MessageEntity? currentReply;
+            if (state is MessageLoadedState) {
+              currentReply = (state as MessageLoadedState).replyMessage;
+            }
+
+            emit(MessageLoadedState(
+              messages: messages, 
+              friendData: friendModel,
+              replyMessage: currentReply, 
+            ));
+          },
         );
       }
     });
@@ -89,6 +101,18 @@ bool issMenuOpen = false;
       }
     );
   }
+
+  void selectReplyMessage(MessageEntity message) {
+    if (state is MessageLoadedState) {
+      emit((state as MessageLoadedState).copyWith(replyMessage: message));
+    }
+  }
+
+  void cancelReply() {
+    if (state is MessageLoadedState) {
+      emit((state as MessageLoadedState).copyWith(clearReply: true));
+    }
+  }
   
 
   Future<void> sendMessage(MessageEntity message, String roomId) async {
@@ -97,6 +121,49 @@ bool issMenuOpen = false;
       (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
       (_) {},
     );
+  }
+
+  Future<void> sendTextMessage({required String roomId, required String friendId}) async {
+    final text = controller.text.trim();
+    if (text.isEmpty) return;
+
+    MessageEntity? currentReply;
+    if (state is MessageLoadedState) {
+      currentReply = (state as MessageLoadedState).replyMessage;
+    }
+
+    String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+    
+    final newMessage = MessageEntity(
+      id: msgId,
+      message: text,
+      createdAt: DateTime.now(),
+      toId: friendId,
+      fromId: FirebaseAuth.instance.currentUser!.uid,
+      type: "text",
+      read: "",
+      replyMessage: currentReply,
+    );
+
+    controller.clear();
+    cancelReply();
+    _scrollToBottom();
+
+    final result = await sendMessageUseCase.call(newMessage, roomId);
+    result.fold(
+      (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
+      (_) {},
+    );
+  }
+
+  void _scrollToBottom() {
+    if (controller0.hasClients) {
+      controller0.animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
   }
 
   Future<void> readMessage(String roomId, String msgId) async {

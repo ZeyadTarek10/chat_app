@@ -11,6 +11,7 @@ class MyColor extends ThemeExtension<MyColor> {
     required this.bluePinkLight,
     required this.textColor,
     required this.textFormBorder,
+    required this.textSplashColor,
     required this.navBarbg,
     required this.navBarSelectedTab,
     required this.containerShadow1,
@@ -26,6 +27,7 @@ class MyColor extends ThemeExtension<MyColor> {
   final Color? bluePinkLight;
   final Color? textColor;
   final Color? textFormBorder;
+  final Color? textSplashColor;
   final Color? navBarbg;
   final Color? navBarSelectedTab;
   final Color? containerShadow1;
@@ -40,6 +42,7 @@ class MyColor extends ThemeExtension<MyColor> {
     Color? bluePinkLight,
     Color? textColor,
     Color? textFormBorder,
+    Color? textSplashColor,
     Color? navBarbg,
     Color? navBarSelectedTab,
     Color? containerShadow1,
@@ -56,6 +59,7 @@ class MyColor extends ThemeExtension<MyColor> {
       bluePinkLight: bluePinkLight,
       textColor: textColor,
       textFormBorder: textFormBorder,
+      textSplashColor: textSplashColor,
       navBarbg: navBarbg,
       navBarSelectedTab: navBarSelectedTab,
       containerShadow1: containerShadow1,
@@ -80,6 +84,7 @@ class MyColor extends ThemeExtension<MyColor> {
       bluePinkLight: bluePinkLight,
       textColor: textColor,
       textFormBorder: textFormBorder,
+      textSplashColor: textSplashColor,
       navBarbg: navBarbg,
       navBarSelectedTab: navBarSelectedTab,
       containerShadow1: containerShadow1,
@@ -98,6 +103,7 @@ class MyColor extends ThemeExtension<MyColor> {
     bluePinkLight: ColorsDark.blueLight1,
     textColor: ColorsDark.white,
     textFormBorder: ColorsDark.blueLight1,
+    textSplashColor: ColorsDark.white,
     navBarbg: ColorsDark.navBarDark,
     navBarSelectedTab: ColorsDark.white,
     containerShadow1: ColorsDark.black1,
@@ -114,6 +120,7 @@ class MyColor extends ThemeExtension<MyColor> {
     bluePinkLight: ColorsLight.pinkLight,
     textColor: ColorsLight.black,
     textFormBorder: ColorsLight.pinkLight,
+    textSplashColor: ColorsDark.blueDark,
     navBarbg: ColorsLight.mainColor,
     navBarSelectedTab: ColorsLight.pinkDark,
     containerShadow1: ColorsLight.white,

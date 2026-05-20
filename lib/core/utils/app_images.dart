@@ -6,7 +6,8 @@ class AppImages {
   static const String appLogoImg = '$path/Logo.png';
   static const String appLogoImgHomeLight = '$path/Logo E-Chat_light.png';
   static const String appLogoImgHomeDark = '$path/Logo E-Chat_dark.png';
-
+  static const String iconSplashLight = '$path/icon_splash_light.png';
+  static const String iconSplashDark = '$path/icon_splash_dark.png';
   static const String googleLogoImg = '$path/google_logo.png';
   static const String chatRoundImg = '$path/Chat Round.png';
   static const String onboundingImgLight = '$path/onbording_light.png';

@@ -31,9 +31,11 @@ dependencies:
   modal_progress_hud_nsn: ^0.5.1
   permission_handler: ^11.3.1
   pretty_dio_logger: ^1.4.0
+  share_plus: ^13.1.0
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
   sqflite: ^2.3.3+1
+  swipe_to: ^1.0.6
   url_launcher: ^6.3.0
 
 dev_dependencies:
@@ -68,13 +70,13 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/images/Logo E-Chat_light.png"
+  image: "assets/images/native_splash_icon_light.png"
   color_dark: "#212121"
-  image_dark: "assets/images/Logo E-Chat_dark.png"
+  image_dark: "assets/images/native_splash_icon_dark.png"
   android_12:
-    image: "assets/images/Logo E-Chat_light.png"
+    image: "assets/images/native_splash_icon_light.png"
     color: "#FFFFFF"
-    image_dark: "assets/images/Logo E-Chat_dark.png"
+    image_dark: "assets/images/native_splash_icon_dark.png"
     color_dark: "#212121"
   android: true
   ios: true
@@ -93,7 +95,7 @@ flutter:
     - assets/fonts/
 
   fonts:
-  # Arabic Font
+    # Arabic Font
     - family: Cairo
       fonts:
         - asset: assets/fonts/arabic/cairo/Cairo-Bold.ttf

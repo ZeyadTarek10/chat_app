@@ -5,6 +5,7 @@ import 'package:chat_app/features/message/presentation/screens/widgets/message_b
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swipe_to/swipe_to.dart';
 
 class ListViewBuilderMessages extends StatelessWidget {
   const ListViewBuilderMessages({
@@ -12,11 +13,13 @@ class ListViewBuilderMessages extends StatelessWidget {
     required this.messageCubit,
     required this.messages,
     required this.widget,
+    required this.focusNode,
   });
 
   final MessageCubit messageCubit;
   final List<MessageEntity> messages;
   final MessageScreen widget;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,8 @@ class ListViewBuilderMessages extends StatelessWidget {
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final msg = messages[index];
-        final time = context.read<MessageCubit>().formatMessageTime(msg.createdAt);
+        final time =
+            context.read<MessageCubit>().formatMessageTime(msg.createdAt);
 
         final myUid = FirebaseAuth.instance.currentUser!.uid;
         if (msg.toId == myUid && msg.read == "") {
@@ -34,17 +38,20 @@ class ListViewBuilderMessages extends StatelessWidget {
         }
         bool isMe = msg.fromId == myUid;
         bool isRead = msg.read != null && msg.read!.isNotEmpty;
-        return isMe
-            ? MessageBubleForYou(
-                message: msg.message ?? "",
-                time: time,
-                isRead: isRead,
-              )
-            : MessageBuble(
-                message: msg.message ?? "",
-                time: time,
-              );
+        return SwipeTo(
+          key: ValueKey(msg.id),
+          onLeftSwipe: isMe ? (direction) => _handleSwipe(msg) : null,
+          onRightSwipe: !isMe ? (direction) => _handleSwipe(msg) : null,
+          child: isMe
+              ? MessageBubleForMe(message: msg.message ?? "", time: time, isRead: isRead, replyMessage: msg.replyMessage)
+              : MessageBuble(message: msg.message ?? "", time: time, replyMessage: msg.replyMessage),
+        );
       },
     );
+  }
+
+  void _handleSwipe(MessageEntity msg) {
+    messageCubit.selectReplyMessage(msg);
+    focusNode.requestFocus(); 
   }
 }
