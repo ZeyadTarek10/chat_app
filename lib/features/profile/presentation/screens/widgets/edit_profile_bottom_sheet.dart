@@ -1,3 +1,7 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -8,10 +12,7 @@ import 'package:chat_app/features/profile/presentation/screens/widgets/select_bi
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:ui' as ui;
 
 class CreateBottomSheet extends StatefulWidget {
   const CreateBottomSheet({super.key, required this.currentUser});
@@ -100,42 +101,45 @@ class _CreateDonorBottomSheetState extends State<CreateBottomSheet> {
                     color: context.color.textColor),
               ),
               SizedBox(height: 8.h),
-              CustomTextFormFieldWidget(
-                controller: phoneController,
-                hint: '100000000',
-                withBorders: true,
-                textInputType: TextInputType.phone,
-                validator: (value) => AppValidator.phoneValidation(value),
-                prefixIcon: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CountryCodePicker(
-                        onChanged: (CountryCode countryCode) {
-                          (countryCode.dialCode ?? '+20');
-                        },
-                        initialSelection: 'EG',
-                        favorite: const ['+20', 'EG', '+44', 'GB'],
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        alignLeft: false,
-                        padding: EdgeInsets.zero,
-                        flagWidth: 24.w,
-                        textStyle: TextStyle(
-                            color: ColorsLight.mainTextColor,
-                            fontSize: FontDetails.fontSizeS),
-                      ),
-                      Icon(Icons.keyboard_arrow_down,
-                          size: 20.sp, color: ColorsLight.mainTextColor),
-                      SizedBox(width: 4.w),
-                      Container(
-                        height: 24.h,
-                        width: 1.w,
-                        color: Colors.grey.withOpacity(0.5),
-                      ),
-                      SizedBox(width: 8.w),
-                    ],
+              Directionality(
+                textDirection: ui.TextDirection.ltr,
+                child:  CustomTextFormFieldWidget(
+                  controller: phoneController,
+                  hint: '100000000',
+                  withBorders: true,
+                  textInputType: TextInputType.phone,
+                  validator: (value) => AppValidator.phoneValidation(value),
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CountryCodePicker(
+                          onChanged: (CountryCode countryCode) {
+                            (countryCode.dialCode ?? '+20');
+                          },
+                          initialSelection: 'EG',
+                          favorite: const ['+20', 'EG', '+44', 'GB'],
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: false,
+                          padding: EdgeInsets.zero,
+                          flagWidth: 24.w,
+                          textStyle: TextStyle(
+                              color: ColorsLight.mainTextColor,
+                              fontSize: FontDetails.fontSizeS),
+                        ),
+                        Icon(Icons.keyboard_arrow_down,
+                            size: 20.sp, color: ColorsLight.mainTextColor),
+                        SizedBox(width: 4.w),
+                        Container(
+                          height: 24.h,
+                          width: 1.w,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                        SizedBox(width: 8.w),
+                      ],
+                    ),
                   ),
                 ),
               ),

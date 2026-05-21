@@ -43,8 +43,8 @@ class ListViewBuilderMessages extends StatelessWidget {
           onLeftSwipe: isMe ? (direction) => _handleSwipe(msg) : null,
           onRightSwipe: !isMe ? (direction) => _handleSwipe(msg) : null,
           child: isMe
-              ? MessageBubleForMe(message: msg.message ?? "", time: time, isRead: isRead, replyMessage: msg.replyMessage)
-              : MessageBuble(message: msg.message ?? "", time: time, replyMessage: msg.replyMessage),
+              ? MessageBubleForMe(type: msg.type ?? "text",message: msg.message ?? "", time: time, isRead: isRead, replyMessage: msg.replyMessage)
+              : MessageBuble(type: msg.type ?? "text",message: msg.message ?? "", time: time, replyMessage: msg.replyMessage),
         );
       },
     );

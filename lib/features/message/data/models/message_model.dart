@@ -21,7 +21,7 @@ class MessageModel extends MessageEntity {
             : DateTime.now(),
         toId: json['to_id'],
         fromId: json['from_id'],
-        type: json['type'],
+        type: json['type']?? 'text',
         read: json['read'], 
         replyMessage: json['reply_message'] != null 
             ? MessageModel.fromJson(json['reply_message'] as Map<String, dynamic>) 

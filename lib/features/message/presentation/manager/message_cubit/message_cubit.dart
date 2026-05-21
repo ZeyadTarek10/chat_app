@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
+import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/domain/use_cases/delete_room_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
@@ -10,14 +12,15 @@ import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'message_state.dart';
 
 class MessageCubit extends Cubit<MessageState> {
-final GetMessagesUseCase getMessagesUseCase;
+  final GetMessagesUseCase getMessagesUseCase;
   final SendMessageUseCase sendMessageUseCase;
   final ReadMessageUseCase readMessageUseCase;
-  final GetUserByIdUseCase getUserByIdUseCase; 
+  final GetUserByIdUseCase getUserByIdUseCase;
   final DeleteRoomUseCase deleteRoomUseCase;
   final ClearChatMessagesUseCase clearChatMessagesUseCase;
   final TextEditingController controller = TextEditingController();
@@ -27,6 +30,8 @@ final GetMessagesUseCase getMessagesUseCase;
 
   StreamSubscription? _messagesSubscription;
 
+  final UploadImageUseCase uploadImageUseCase;
+
   MessageCubit({
     required this.getMessagesUseCase,
     required this.sendMessageUseCase,
@@ -34,12 +39,13 @@ final GetMessagesUseCase getMessagesUseCase;
     required this.getUserByIdUseCase,
     required this.deleteRoomUseCase,
     required this.clearChatMessagesUseCase,
+    required this.uploadImageUseCase,
   }) : super(MessageInitial());
 
   void getMessages(String roomId) {
     emit(MessageLoadingState());
 
-    _messagesSubscription?.cancel(); 
+    _messagesSubscription?.cancel();
     _messagesSubscription = getMessagesUseCase.call(roomId).listen((result) {
       if (!isClosed) {
         result.fold(
@@ -51,9 +57,9 @@ final GetMessagesUseCase getMessagesUseCase;
             }
 
             emit(MessageLoadedState(
-              messages: messages, 
+              messages: messages,
               friendData: friendModel,
-              replyMessage: currentReply, 
+              replyMessage: currentReply,
             ));
           },
         );
@@ -61,45 +67,39 @@ final GetMessagesUseCase getMessagesUseCase;
     });
   }
 
-String formatMessageTime(DateTime? dateTime) {
-  if (dateTime == null) return "";
+  String formatMessageTime(DateTime? dateTime) {
+    if (dateTime == null) return "";
 
-  return DateFormat('hh:mm a').format(dateTime);
-}
+    return DateFormat('hh:mm a').format(dateTime);
+  }
 
-bool _isMenuOpen = false;
-bool issMenuOpen = false;
-  bool get isMenuOpen => _isMenuOpen; 
-  
+  bool _isMenuOpen = false;
+  bool issMenuOpen = false;
+  bool get isMenuOpen => _isMenuOpen;
+
   void toggleMenu() {
     _isMenuOpen = !_isMenuOpen;
-    
+
     if (state is MessageLoadedState) {
-       final currentMessages = (state as MessageLoadedState).messages;
-       
-       emit(MessageLoadedState(
-         messages: List.from(currentMessages),
-         friendData: friendModel,
-       ));
-    } 
+      emit((state as MessageLoadedState).copyWith());
+    }
   }
 
   void toggleMenuState(bool isOpen) {
     issMenuOpen = isOpen;
     emit(ChatsMenuState(isMenuOpen));
   }
- Future<void> initChat(String roomId, String friendId) async {
+
+  Future<void> initChat(String roomId, String friendId) async {
     emit(MessageLoadingState());
 
-    final userResult = await getUserByIdUseCase.call(friendId); 
-    
+    final userResult = await getUserByIdUseCase.call(friendId);
+
     userResult.fold(
-      (failure) => emit(MessageErrorState(errMsg: failure.massage)),
-      (user) {
-        friendModel = user;
-       getMessages(roomId);
-      }
-    );
+        (failure) => emit(MessageErrorState(errMsg: failure.massage)), (user) {
+      friendModel = user;
+      getMessages(roomId);
+    });
   }
 
   void selectReplyMessage(MessageEntity message) {
@@ -113,17 +113,19 @@ bool issMenuOpen = false;
       emit((state as MessageLoadedState).copyWith(clearReply: true));
     }
   }
-  
 
   Future<void> sendMessage(MessageEntity message, String roomId) async {
     final result = await sendMessageUseCase.call(message, roomId);
     result.fold(
-      (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
       (_) {},
     );
   }
 
-  Future<void> sendTextMessage({required String roomId, required String friendId}) async {
+  Future<void> sendTextMessage(
+      {required String roomId, required String friendId}) async {
     final text = controller.text.trim();
     if (text.isEmpty) return;
 
@@ -133,7 +135,7 @@ bool issMenuOpen = false;
     }
 
     String msgId = DateTime.now().millisecondsSinceEpoch.toString();
-    
+
     final newMessage = MessageEntity(
       id: msgId,
       message: text,
@@ -151,8 +153,58 @@ bool issMenuOpen = false;
 
     final result = await sendMessageUseCase.call(newMessage, roomId);
     result.fold(
-      (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
       (_) {},
+    );
+  }
+
+  Future<void> sendImageMessage(
+      {required String roomId,
+      required String friendId,
+      required ImageSource source}) async {
+    MessageEntity? currentReply;
+    if (state is MessageLoadedState) {
+      currentReply = (state as MessageLoadedState).replyMessage;
+    }
+
+    final XFile? pickedFile = await PickImageUtils().pickImage(source);
+    if (pickedFile == null) return;
+
+    toggleMenu();
+
+    if (state is MessageLoadedState) {
+      emit((state as MessageLoadedState).copyWith(clearReply: true));
+    }
+
+    emit(MessageActionLoadingState());
+
+    final uploadResult = await uploadImageUseCase.call(pickedFile);
+
+    uploadResult.fold(
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
+      (uploadEntity) async {
+        final String? imageUrl = uploadEntity.photo;
+        if (imageUrl == null || imageUrl.isEmpty) return;
+
+        String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+
+        final newImageMessage = MessageEntity(
+          id: msgId,
+          message: imageUrl,
+          createdAt: DateTime.now(),
+          toId: friendId,
+          fromId: FirebaseAuth.instance.currentUser!.uid,
+          type: "image",
+          read: "",
+          replyMessage: currentReply,
+        );
+
+        await sendMessage(newImageMessage, roomId);
+      },
     );
   }
 
@@ -173,7 +225,9 @@ bool issMenuOpen = false;
   Future<void> deleteRoom({required String roomId}) async {
     final result = await deleteRoomUseCase.call(roomId);
     result.fold(
-      (failure) { if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage)); },
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
       (_) {},
     );
   }
@@ -184,10 +238,10 @@ bool issMenuOpen = false;
       (failure) {
         if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
       },
-      (_) {
-      },
+      (_) {},
     );
   }
+
   @override
   Future<void> close() {
     _messagesSubscription?.cancel();

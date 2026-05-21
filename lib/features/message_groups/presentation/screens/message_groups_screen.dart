@@ -3,12 +3,12 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
-import 'package:chat_app/features/message/presentation/screens/widgets/attachmenu_menu.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/reply_message_widget.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/send_icon.dart';
 import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/app_bar_groups_messages.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/app_bar_groups_messages2.dart';
+import 'package:chat_app/features/message_groups/presentation/screens/widgets/attachment_group_menu.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/list_view_group_message_buble.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/widgets/text_field_send_message.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
@@ -96,11 +96,11 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
                 else
                   const CustomLoading(),
                 if (messegeGroupCubit.isMenuOpen)
-                  const Positioned(
+                  Positioned(
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: AttachmentMenu(),
+                    child: AttachmentGroupMenu(groupId: widget.group.id),
                   ),
               ])),
               Container(
@@ -128,7 +128,10 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
                           children: [
                             Expanded(
                               child: ReplyMessageWidget(
-                                  message: currentReply,
+                                  message: currentReply.type == "image"
+                                      ? currentReply.copyWith(
+                                          message: "🖼 ${'photo'.tr()}")
+                                      : currentReply,
                                   friendName: replySenderName,
                                   onCancelReply: () =>
                                       messegeGroupCubit.cancelReply()),

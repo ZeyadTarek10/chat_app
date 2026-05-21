@@ -11,9 +11,9 @@ class PickImageUtils {
 
   static const PickImageUtils _instance = PickImageUtils._();
 
-  Future<XFile?> pickImage() async {
+  Future<XFile?> pickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: source);
 
       if (image != null) {
         return XFile(image.path);

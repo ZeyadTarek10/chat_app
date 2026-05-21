@@ -4,6 +4,8 @@ import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
+
 class StackCircleAvatar extends StatelessWidget {
   final List<String> images;      
   final List<String> memberNames; 
@@ -27,8 +29,8 @@ class StackCircleAvatar extends StatelessWidget {
     double totalWidth = ((widgetsToShow - 1) * overlapFactor) + avatarSize;
 
     return SizedBox(
-      height: avatarSize+5,
-      width: totalWidth+5,
+      height: avatarSize + 5,
+      width: totalWidth + 5,
       child: Stack(
         children: [
           ...List.generate(widgetsToShow, (index) {
@@ -53,17 +55,43 @@ class StackCircleAvatar extends StatelessWidget {
                 child: CircleAvatar(
                   radius: avatarSize / 2,
                   backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
-                  backgroundImage: url.isNotEmpty ? NetworkImage(url) : null,
-                  child: url.isEmpty
-                      ? CustomTextWidget(
-                          text: initial, 
+                  child: url.isNotEmpty
+                      ? ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: url,
+                            width: avatarSize,
+                            height: avatarSize,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Center(
+                              child: CustomTextWidget(
+                                text: initial,
+                                textStyle: TextStyle(
+                                  color: ColorsDark.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontDetails.boldFontWeight,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: CustomTextWidget(
+                                text: initial,
+                                textStyle: TextStyle(
+                                  color: ColorsDark.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontDetails.boldFontWeight,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : CustomTextWidget(
+                          text: initial,
                           textStyle: TextStyle(
                             color: ColorsDark.white,
                             fontSize: 14.sp,
                             fontWeight: FontDetails.boldFontWeight,
                           ),
-                        )
-                      : null,
+                        ),
                 ),
               ),
             );

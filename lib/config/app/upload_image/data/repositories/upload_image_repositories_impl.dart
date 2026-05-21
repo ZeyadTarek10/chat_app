@@ -4,6 +4,7 @@ import 'package:chat_app/config/app/upload_image/domain/repositories/upload_imag
 import 'package:chat_app/core/error/failures.dart';
 import 'package:chat_app/core/network/netwok_info.dart';
 import 'package:dartz/dartz.dart';
+import 'package:share_plus/share_plus.dart';
 
 class UploadImageRepositoriesImpl implements UploadImageRepositories {
   final NetworkInfo networkInfo;
@@ -13,29 +14,12 @@ class UploadImageRepositoriesImpl implements UploadImageRepositories {
       {required this.networkInfo, required this.uploadImageDataSource});
 
   @override
-  Future<Either<Failure, UploadImageEntities>> postImage() async {
+  Future<Either<Failure, UploadImageEntities>> postImage(XFile imageXFile) async {
     try {
-      final response = await uploadImageDataSource.postImage();
+      final response = await uploadImageDataSource.postImage(imageXFile);
       return Right(response);
     } catch (error) {
       return Left(ServerFailure(error.toString()));
     }
   }
 }
-
-
-// class UploadImageRepo {
-//   const UploadImageRepo(this._dataSource);
-
-//   final UploadImageDataSource _dataSource;
-
-//   Future<ApiResult<UploadImageResourse>> uploadImage(XFile imageFile) async {
-//     try {
-//       final response = await _dataSource.uploadImage(imageFile: imageFile);
-
-//       return ApiResult.success(response);
-//     } catch (e) {
-//       return const ApiResult.failure('Please, try agian we have error');
-//     }
-//   }
-// }

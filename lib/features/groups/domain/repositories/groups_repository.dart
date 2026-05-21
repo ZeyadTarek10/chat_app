@@ -10,4 +10,5 @@ abstract class GroupsRepository {
       required List<String> image});
   Stream<Either<Failure,List<GroupsEntity>>> getGroups();
   Future<Either<Failure, List<Map<String, dynamic>>>> getAllUsers();
+  Future<Either<Failure, void>> resetGroupUnreadCount(String groupId);
 }

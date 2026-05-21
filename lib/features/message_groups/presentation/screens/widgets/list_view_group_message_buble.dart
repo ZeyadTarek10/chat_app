@@ -80,16 +80,19 @@ class ListViewGroupMessageBuble extends StatelessWidget {
                   time: time,
                   isRead: msg.read != null && msg.read!.isNotEmpty,
                   replyMessage: msg.replyMessage,
-                  senderName: replySenderName,
+                  replySenderName: replySenderName,
+                  type: msg.type ?? "text",
                 )
               : GroupMessageBuble(
                   message: msg.message ?? "",
                   time: time,
-                  senderName: replySenderName,
+                  senderName: senderName,
+                  replySenderName: replySenderName,
                   avatarUrl: avatarUrl,
                   text:
                       senderName.isNotEmpty ? senderName[0].toUpperCase() : "",
                   replyMessage: msg.replyMessage,
+                  type: msg.type ?? "text",
                 ),
         );
       },

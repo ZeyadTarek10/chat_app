@@ -6,29 +6,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IconOptions extends StatelessWidget {
-  const IconOptions({super.key, required this.icon, required this.label});
+  const IconOptions(
+      {super.key,
+      required this.icon,
+      required this.label,
+      required this.onPressed});
 
   final IconData icon;
   final String label;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.all(12.r),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            ColorsDark.blueLight1,
-            ColorsDark.blueLight2,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: ColorsDark.white, size: FontDetails.fontSizeL),
+        GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            padding: EdgeInsets.all(12.r),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  ColorsDark.blueLight1,
+                  ColorsDark.blueLight2,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+                icon,
+                color: ColorsDark.white,
+                size: FontDetails.fontSizeL,
+              ),
+            ),
         ),
         SizedBox(height: 8.h),
         CustomTextWidget(

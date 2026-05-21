@@ -114,5 +114,9 @@
     "replying_to": "الرد على",
     "you":"انت",
     "friend": "صديق",
-    "say_hello_to":"قل مرحبا ل "
+    "say_hello_to":"قل مرحبا ل ",
+    "photo": "صورة",
+    "group_members": "اعضاء الجروب",
+    "member": "عضو",
+    "admin": "مشرف المجموعة"
 }

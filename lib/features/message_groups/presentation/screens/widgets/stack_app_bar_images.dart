@@ -1,7 +1,9 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StackAppBarImages extends StatelessWidget {
@@ -39,18 +41,46 @@ class StackAppBarImages extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                 radius: 18.r,
-                backgroundImage:
-                    hasFirstImage ? NetworkImage(group.image.first) : null,
-                child: (!hasFirstImage && hasFirstName)
-                    ? CustomTextWidget(
-                        text: group.memberNames.first[0].toUpperCase(),
-                        textStyle:
-                            TextStyle(color: ColorsDark.white, fontSize: 20.sp),
+                child: hasFirstImage
+                    ? ClipOval( 
+                        child: CachedNetworkImage(
+                          imageUrl: group.image.first,
+                          fit: BoxFit.cover,
+                          width: 36.r, 
+                          height: 36.r, 
+                          placeholder: (context, url) => Center(
+                            child: CustomTextWidget(
+                              text: group.memberNames.first[0].toUpperCase(),
+                              textStyle: TextStyle(
+                                color: ColorsDark.white,
+                                fontSize: 16.sp, 
+                                fontWeight: FontDetails.boldFontWeight,
+                              ),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Center(
+                            child: CustomTextWidget(
+                              text: group.memberNames.first[0].toUpperCase(),
+                              textStyle: TextStyle(
+                                color: ColorsDark.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontDetails.boldFontWeight,
+                              ),
+                            ),
+                          ),
+                        ),
                       )
-                    : null,
+                    : (!hasFirstImage && hasFirstName)
+                        ? CustomTextWidget(
+                            text: group.memberNames.first[0].toUpperCase(),
+                            textStyle: TextStyle(
+                                color: ColorsDark.white, fontSize: 16.sp),
+                          )
+                        : null,
               ),
             ),
           ),
+          
           Positioned(
             right: 0,
             child: Container(
@@ -61,15 +91,42 @@ class StackAppBarImages extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
                 radius: 18.r,
-                backgroundImage:
-                    hasSecondImage ? NetworkImage(group.image[1]) : null,
-                child: (!hasSecondImage && hasSecondName)
-                    ? CustomTextWidget(
-                        text: group.memberNames[1][0].toUpperCase(),
-                        textStyle:
-                            TextStyle(color: ColorsDark.white, fontSize: 20.sp),
+                child: hasSecondImage
+                    ? ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: group.image[1],
+                          fit: BoxFit.cover,
+                          width: 36.r,
+                          height: 36.r,
+                          placeholder: (context, url) => Center(
+                            child: CustomTextWidget(
+                              text: group.memberNames[1][0].toUpperCase(),
+                              textStyle: TextStyle(
+                                color: ColorsDark.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontDetails.boldFontWeight,
+                              ),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Center(
+                            child: CustomTextWidget(
+                              text: group.memberNames[1][0].toUpperCase(),
+                              textStyle: TextStyle(
+                                color: ColorsDark.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontDetails.boldFontWeight,
+                              ),
+                            ),
+                          ),
+                        ),
                       )
-                    : null,
+                    : (!hasSecondImage && hasSecondName)
+                        ? CustomTextWidget(
+                            text: group.memberNames[1][0].toUpperCase(),
+                            textStyle: TextStyle(
+                                color: ColorsDark.white, fontSize: 16.sp),
+                          )
+                        : null,
               ),
             ),
           ),

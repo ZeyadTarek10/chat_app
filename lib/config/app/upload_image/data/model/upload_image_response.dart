@@ -7,8 +7,8 @@ class UploadImageModel extends UploadImageEntities {
   });
 
   factory UploadImageModel.fromJson(Map<String, dynamic> json) => UploadImageModel(
-        body: json['body'],
-        photo: json['photo']
+        body: json['msg'] ?? '',
+        photo: json['data'] != null ? json['data']['url'] : null,
       );
 
   Map<String, dynamic> toJson() => {

@@ -68,6 +68,8 @@ class _MessageScreenState extends State<MessageScreen> {
                       } else if (state is MessageErrorState) {
                         return Center(
                             child: CustomTextWidget(text: state.errMsg));
+                      } else if (state is MessageActionLoadingState) {
+                        return const CustomLoading();
                       }
                       if (state is MessageLoadedState) {
                         final messages = state.messages;
@@ -108,7 +110,10 @@ class _MessageScreenState extends State<MessageScreen> {
                       bool isMenuOpen = context.read<MessageCubit>().isMenuOpen;
 
                       if (isMenuOpen) {
-                        return const AttachmentMenu();
+                        return AttachmentMenu(
+                          roomId: widget.roomId,
+                          friendId: widget.friendId,
+                        );
                       }
                       return const SizedBox.shrink();
                     },

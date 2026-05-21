@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -21,16 +22,38 @@ class UserResultSearchItem extends StatelessWidget {
         CircleAvatar(
           radius: 26.r,
           backgroundColor: Colors.grey[200],
-          backgroundImage:
-              (user.profilePicUrl != null && user.profilePicUrl!.isNotEmpty)
-                  ? NetworkImage(user.profilePicUrl!)
-                  : null,
-          child: (user.profilePicUrl == null || user.profilePicUrl!.isEmpty)
-              ? CustomTextWidget(
-                  text: user.name.isNotEmpty ? user.name[0].toUpperCase() : '',
-                  textStyle: TextStyle(color: ColorsLight.black, fontSize: 20.sp),
+          child: (user.profilePicUrl != null && user.profilePicUrl!.isNotEmpty)
+              ? ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: user.profilePicUrl!,
+                    width: 52.r,
+                    height: 52.r,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Center(
+                      child: CustomTextWidget(
+                        text: user.name.isNotEmpty
+                            ? user.name[0].toUpperCase()
+                            : '',
+                        textStyle: TextStyle(
+                            color: ColorsLight.black, fontSize: 20.sp),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Center(
+                      child: CustomTextWidget(
+                        text: user.name.isNotEmpty
+                            ? user.name[0].toUpperCase()
+                            : '',
+                        textStyle: TextStyle(
+                            color: ColorsLight.black, fontSize: 20.sp),
+                      ),
+                    ),
+                  ),
                 )
-              : null,
+              : CustomTextWidget(
+                  text: user.name.isNotEmpty ? user.name[0].toUpperCase() : '',
+                  textStyle:
+                      TextStyle(color: ColorsLight.black, fontSize: 20.sp),
+                ),
         ),
         SizedBox(width: 15.w),
         Expanded(
@@ -48,8 +71,8 @@ class UserResultSearchItem extends StatelessWidget {
               SizedBox(height: 4.h),
               CustomTextWidget(
                 text: '\u202A(${user.countryCode}) ${user.phone}\u202C',
-                textStyle:
-                    TextStyle(color: ColorsLight.mainTextColor, fontSize: 13.sp),
+                textStyle: TextStyle(
+                    color: ColorsLight.mainTextColor, fontSize: 13.sp),
               ),
             ],
           ),
@@ -62,8 +85,7 @@ class UserResultSearchItem extends StatelessWidget {
           child: IconButton(
             onPressed: onPressed,
             icon: Icon(CupertinoIcons.person_add,
-                color: ColorsDark.blueLight1,
-                size: FontDetails.fontSizeL),
+                color: ColorsDark.blueLight1, size: FontDetails.fontSizeL),
           ),
         )
       ],

@@ -60,13 +60,17 @@ class ReplyMessageWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
                   
-                  CustomTextWidget(
-                    text: message.message ?? "",
-                    textStyle: TextStyle(
-                      color: ColorsLight.mainTextColor,
-                      fontSize: FontDetails.fontSizeS,
-                    ),
-                    maxLines: 1,
+                  Row(
+                    children: [
+                      CustomTextWidget(
+                        text: message.message ?? "",
+                        textStyle: TextStyle(
+                          color: ColorsLight.mainTextColor,
+                          fontSize: FontDetails.fontSizeS,
+                        ),
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                 ],
               ),

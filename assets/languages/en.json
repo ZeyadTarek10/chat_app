@@ -114,5 +114,9 @@
     "replying_to": "Replying to",
     "you":"You",
     "friend": "Friend",
-    "say_hello_to":"Say Hello to"
+    "say_hello_to":"Say Hello to",
+    "photo": "Photo",
+    "group_members": "Group Members",
+    "member":"Member",
+    "admin":"Admin"
 }
