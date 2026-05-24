@@ -18,4 +18,18 @@ class UserEntity {
     required this.birthday,
     this.profilePicUrl,
   });
+
+  UserEntity copyWith({String? profilePicUrl}) {
+    return UserEntity(
+      uid: uid,
+      name: name,
+      email: email,
+      phone: phone,
+      countryCode: countryCode,
+      gender: gender,
+      birthday: birthday,
+      profilePicUrl: profilePicUrl ?? this.profilePicUrl,
+    );
+  }
+  
 }

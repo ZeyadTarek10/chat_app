@@ -11,6 +11,7 @@ abstract class GroupsRemoteDataSource {
       required List<String> image});
   Stream<List<GroupsModel>> getGroups();
   Future<List<Map<String, dynamic>>> getAllUsers();
+  Future<void> resetGroupUnreadCount(String groupId);
 }
 
 class GroupsRemoteDataSourceImpl implements GroupsRemoteDataSource {
@@ -36,6 +37,10 @@ class GroupsRemoteDataSourceImpl implements GroupsRemoteDataSource {
       memberNames.add(myName);
       image.add(myImage);
     }
+    Map<String, int> initialUnreadCounts = {};
+    for (String memberId in members) {
+      initialUnreadCounts[memberId] = 0;
+    }
     GroupsModel groupModel = GroupsModel(
       id: groupId,
       name: groupName,
@@ -46,6 +51,7 @@ class GroupsRemoteDataSourceImpl implements GroupsRemoteDataSource {
       createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
       lastMessage: "the_group_was_successfully_created".tr(),
       lastMessageTime: DateTime.now().millisecondsSinceEpoch.toString(),
+      unreadCounts: initialUnreadCounts,
     );
 
     await FirebaseFirestore.instance
@@ -88,5 +94,13 @@ class GroupsRemoteDataSourceImpl implements GroupsRemoteDataSource {
       }
     }
     return usersList;
+  }
+
+  @override
+  Future<void> resetGroupUnreadCount(String groupId) async {
+    String myUid = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance.collection('groups').doc(groupId).update({
+      'unread_counts.$myUid': 0,
+    });
   }
 }

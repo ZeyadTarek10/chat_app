@@ -5,7 +5,6 @@ import 'package:chat_app/features/sign_up/data/models/user_model.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chat_app/core/error/failures.dart';
-import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/core/network/netwok_info.dart';
 
 class ProfileRepositoryImpl implements ProfileRepositories {
@@ -21,8 +20,7 @@ class ProfileRepositoryImpl implements ProfileRepositories {
     try {
       final response = await profileRemoteDataSource.getUser();
       return Right(response);
-    } catch (error, stackTrace) {
-      printFirebaseError(error, stackTrace);
+    } catch (error) {
       return Left(ServerFailure(error.toString()));
     }
   }
@@ -32,8 +30,7 @@ class ProfileRepositoryImpl implements ProfileRepositories {
     try {
       await profileRemoteDataSource.updateUser(user as UserModel);
       return const Right(null);
-    } catch (error, stackTrace) {
-      printFirebaseError(error, stackTrace);
+    } catch (error) {
       return Left(ServerFailure(error.toString()));
     }
   }
@@ -44,9 +41,19 @@ class ProfileRepositoryImpl implements ProfileRepositories {
       await profileRemoteDataSource.logout();
       await cacheHelper.saveData(key: 'isLoggedIn', val: false);
       return const Right(null);
-    } catch (error, stackTrace) {
-      printFirebaseError(error, stackTrace);
+    } catch (error) {
       return Left(ServerFailure(error.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateProfilePicture({required String newImageUrl, required String uid}) async {
+    try {
+      await profileRemoteDataSource.updateProfilePicture(newImageUrl: newImageUrl, uid: uid);
+      return const Right(null); 
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
+

@@ -30,22 +30,35 @@ class GroupsRepositoryImp implements GroupsRepository {
   }
 
   @override
-Stream<Either<Failure, List<GroupsEntity>>> getGroups() {
-  return remoteDataSource.getGroups().map<Either<Failure, List<GroupsEntity>>>(
-    (groupsModelList) {
-      return Right(groupsModelList); 
-    },
-  ).handleError((e) {
-    printFirebaseError(e);
-    return Left(ServerFailure(e.toString()));
-  });
-}
+  Stream<Either<Failure, List<GroupsEntity>>> getGroups() {
+    return remoteDataSource
+        .getGroups()
+        .map<Either<Failure, List<GroupsEntity>>>(
+      (groupsModelList) {
+        return Right(groupsModelList);
+      },
+    ).handleError((e) {
+      printFirebaseError(e);
+      return Left(ServerFailure(e.toString()));
+    });
+  }
 
   @override
   Future<Either<Failure, List<Map<String, dynamic>>>> getAllUsers() async {
     try {
       final users = await remoteDataSource.getAllUsers();
       return right(users);
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetGroupUnreadCount(String groupId) async {
+    try {
+      await remoteDataSource.resetGroupUnreadCount(groupId);
+      return right(null);
     } catch (e, stackTrace) {
       printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));

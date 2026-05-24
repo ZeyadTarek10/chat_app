@@ -25,3 +25,10 @@ class MessegeGroupError extends MessegeGroupState {
   final String error;
   MessegeGroupError({required this.error});
 }
+
+final class MessegeGroupActionLoading extends MessegeGroupState {}
+final class MessegeGroupActionSuccess extends MessegeGroupState {}
+final class MessegeGroupActionError extends MessegeGroupState {
+  final String error;
+  MessegeGroupActionError({required this.error});
+}

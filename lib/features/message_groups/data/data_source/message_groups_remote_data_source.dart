@@ -25,7 +25,8 @@ class MessageGroupsRemoteDataSourceImpl implements MessageGroupsRemoteDataSource
       toId: "",
       fromId: myUid,
       type: type ?? "text",
-      read: "", replyMessage: replyMessage,
+      read: "", 
+      replyMessage: replyMessage,
     );
 
     await FirebaseFirestore.instance
@@ -35,10 +36,25 @@ class MessageGroupsRemoteDataSourceImpl implements MessageGroupsRemoteDataSource
         .doc(msgId)
         .set(messagesModel.toJson());
 
-    await FirebaseFirestore.instance.collection("groups").doc(groupId).update({
-      "last_message": type == "text" ? message : "Image ",
-      "last_message_time": DateTime.now().millisecondsSinceEpoch.toString(),
-    });
+    DocumentSnapshot groupDoc = await FirebaseFirestore.instance.collection("groups").doc(groupId).get();
+    
+    if (groupDoc.exists) {
+      var data = groupDoc.data() as Map<String, dynamic>;
+      List<dynamic> members = data['members'] ?? [];
+
+      Map<String, dynamic> updates = {
+        "last_message": type == "text" ? message : "📷 Image", 
+        "last_message_time": DateTime.now().millisecondsSinceEpoch.toString(),
+      };
+
+      for (String memberId in members) { 
+        if (memberId != myUid) {
+          updates['unread_counts.$memberId'] = FieldValue.increment(1);
+        }
+      }
+
+      await FirebaseFirestore.instance.collection('groups').doc(groupId).update(updates);
+    }
   }
 
   @override

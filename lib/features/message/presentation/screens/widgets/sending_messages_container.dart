@@ -37,21 +37,24 @@ class SendingMessagesContainer extends StatelessWidget {
                 return Padding(
                   padding: EdgeInsets.only(bottom: 8.h),
                   child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 8.h),
-                        margin: EdgeInsets.only(bottom: 8.h),
-                        decoration: BoxDecoration(
-                          color: ColorsDark.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border(
-                            left: BorderSide(
-                              color: ColorsDark.blueLight1,
-                              width: 4.w,
-                            ),
-                          ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                    margin: EdgeInsets.only(bottom: 8.h),
+                    decoration: BoxDecoration(
+                      color: ColorsDark.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border(
+                        left: BorderSide(
+                          color: ColorsDark.blueLight1,
+                          width: 4.w,
                         ),
+                      ),
+                    ),
                     child: ReplyMessageWidget(
-                      message: state.replyMessage!,
+                      message: state.replyMessage!.type == "image"
+                          ? state.replyMessage!
+                              .copyWith(message: "🖼 ${'photo'.tr()}")
+                          : state.replyMessage!,
                       friendName: state.friendData?.name ?? "friend".tr(),
                       onCancelReply: () => messageCubit.cancelReply(),
                     ),
@@ -95,7 +98,6 @@ class SendingMessagesContainer extends StatelessWidget {
                   hint: 'type_a_message'.tr(),
                   hintColor: ColorsLight.mainTextColor,
                   withBorders: true,
-                  
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Enter messege";
@@ -118,5 +120,4 @@ class SendingMessagesContainer extends StatelessWidget {
       ),
     );
   }
-
 }

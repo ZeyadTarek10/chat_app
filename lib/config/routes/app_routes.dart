@@ -1,3 +1,4 @@
+import 'package:chat_app/config/app/upload_image/presentation/manager/cubit/upload_image_cubit.dart';
 import 'package:chat_app/config/routes/based_rout.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
@@ -106,6 +107,7 @@ class AppRoutes {
                 create: (context) => getIt<GetChatsCubit>()..fetchChats()),
             BlocProvider(
                 create: (context) => getIt<GroupsCubit>()..fetchGroups()),
+            BlocProvider(create: (context) => getIt<UploadImageCubit>()),
           ],
           child: const MainScreen(),
         ),

@@ -7,4 +7,8 @@ abstract class ProfileRepositories {
   Future<Either<Failure, UserEntity>> getUser();
   Future<Either<Failure, void>> updateUserProfile(UserEntity user);
   Future<Either<Failure, void>> logout();
+  Future<Either<Failure, void>> updateProfilePicture({
+    required String newImageUrl,
+    required String uid,
+  });
 }

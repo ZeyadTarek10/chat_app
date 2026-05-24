@@ -7,6 +7,7 @@ abstract class ProfileRemoteDataSource {
   Future<UserModel> getUser();
   Future<void> updateUser(UserModel user);
   Future<void> logout();
+  Future<void> updateProfilePicture({required String newImageUrl, required String uid});
 }
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
@@ -40,5 +41,13 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   @override
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
+  }
+  
+  @override
+  Future<void> updateProfilePicture({required String newImageUrl, required String uid}) async{
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'profile_pic_url': newImageUrl});
   }
 }

@@ -8,7 +8,7 @@ class GroupsEntity {
   final String createdAt;
   final String lastMessage;
   final String lastMessageTime;
-  final int? unreadCount;
+  final Map<String, int>? unreadCounts;
 
   GroupsEntity({
     required this.id,
@@ -18,6 +18,6 @@ class GroupsEntity {
     required this.image,
     required this.createdAt,
     required this.lastMessage,
-    required this.lastMessageTime, required this.memberNames, this.unreadCount,
+    required this.lastMessageTime, required this.memberNames, this.unreadCounts,
   });
 }

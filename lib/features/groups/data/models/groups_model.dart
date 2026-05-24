@@ -9,7 +9,7 @@ class GroupsModel extends GroupsEntity {
     required super.image,
     required super.createdAt,
     required super.lastMessage,
-    required super.lastMessageTime, required super.memberNames, super.unreadCount
+    required super.lastMessageTime, required super.memberNames, super.unreadCounts,
   });
 
   factory GroupsModel.fromJson(Map<String, dynamic> json) => GroupsModel(
@@ -22,7 +22,9 @@ class GroupsModel extends GroupsEntity {
       createdAt: json["created_at"] ?? "",
       lastMessage: json["last_message"] ?? "",
       lastMessageTime: json["last_message_time"] ?? "",
-      unreadCount: json["unread_count"] ?? 0,
+      unreadCounts: json["unread_counts"] != null
+            ? Map<String, int>.from(json["unread_counts"] as Map)
+            : {},
     );
 
   Map<String, dynamic> toJson() => {
@@ -35,5 +37,6 @@ class GroupsModel extends GroupsEntity {
       'created_at': createdAt,
       'last_message': lastMessage,
       'last_message_time': lastMessageTime,
+      'unread_counts': unreadCounts,
       };
 }

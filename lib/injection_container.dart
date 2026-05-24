@@ -1,4 +1,9 @@
 import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/app/upload_image/data/data_source/upload_image_remote_data_source.dart';
+import 'package:chat_app/config/app/upload_image/data/repositories/upload_image_repositories_impl.dart';
+import 'package:chat_app/config/app/upload_image/domain/repositories/upload_image_repositories.dart';
+import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
+import 'package:chat_app/config/app/upload_image/presentation/manager/cubit/upload_image_cubit.dart';
 import 'package:chat_app/features/Login/data/data_sources/login_remote_data_source.dart';
 import 'package:chat_app/features/Login/data/repositories/login_repository_impl.dart';
 import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
@@ -43,6 +48,7 @@ import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_
 import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:chat_app/features/profile/domain/repositories/profile_repositories.dart';
 import 'package:chat_app/features/profile/domain/use_cases/profile_use_case.dart';
+import 'package:chat_app/features/profile/domain/use_cases/update_profile_picture_use_case.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_source.dart';
 import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_impl.dart';
@@ -86,7 +92,8 @@ Future<void> getItInit() async {
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(
       getProfileUseCase: getIt(),
       updateProfileUseCase: getIt(),
-      logoutUseCase: getIt()));
+      logoutUseCase: getIt(),
+      updateProfilePictureUseCase: getIt()));
   getIt.registerFactory<CreateChatsCubit>(() => CreateChatsCubit(
       createChatsUseCase: getIt(), searchUsersUseCase: getIt()));
   getIt.registerFactory<GetChatsCubit>(
@@ -95,12 +102,21 @@ Future<void> getItInit() async {
       getMessagesUseCase: getIt(),
       sendMessageUseCase: getIt(),
       readMessageUseCase: getIt(),
-      getUserByIdUseCase: getIt(), deleteRoomUseCase: getIt(), clearChatMessagesUseCase: getIt()));
+      getUserByIdUseCase: getIt(),
+      deleteRoomUseCase: getIt(),
+      clearChatMessagesUseCase: getIt(),
+      uploadImageUseCase: getIt()));
   getIt.registerFactory<GroupsCubit>(() => GroupsCubit(
       createGroupsUseCase: getIt(),
-      getGroupsUseCase: getIt(), getAllUsersUseCase: getIt()));
+      getGroupsUseCase: getIt(),
+      getAllUsersUseCase: getIt()));
   getIt.registerFactory<MessegeGroupCubit>(() => MessegeGroupCubit(
-      sendMessageUseCase: getIt(), repository: getIt()));
+      sendMessageUseCase: getIt(),
+      repository: getIt(),
+      uploadImageUseCase: getIt(),
+      groupsRepository: getIt()));
+  getIt.registerFactory<UploadImageCubit>(
+      () => UploadImageCubit(featureUc: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(
@@ -143,6 +159,10 @@ Future<void> getItInit() async {
       () => DeleteRoomUseCase(messageRepository: getIt()));
   getIt.registerLazySingleton<ClearChatMessagesUseCase>(
       () => ClearChatMessagesUseCase(messageRepository: getIt()));
+  getIt.registerLazySingleton<UploadImageUseCase>(
+      () => UploadImageUseCase(uploadImageRepositories: getIt()));
+  getIt.registerLazySingleton<UpdateProfilePictureUseCase>(
+      () => UpdateProfilePictureUseCase(profileRepositories: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>
@@ -164,8 +184,11 @@ Future<void> getItInit() async {
       MessageRepoImpl(networkInfo: getIt(), messageRemoteDataSource: getIt()));
   getIt.registerLazySingleton<GroupsRepository>(
       () => GroupsRepositoryImp(remoteDataSource: getIt()));
-  getIt.registerLazySingleton<MessageGroupsRepository>(
-      () => MessageGroupsRepositoryImpl(messageGroupsRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<MessageGroupsRepository>(() =>
+      MessageGroupsRepositoryImpl(messageGroupsRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<UploadImageRepositories>(() =>
+      UploadImageRepositoriesImpl(
+          networkInfo: getIt(), uploadImageDataSource: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(
@@ -186,6 +209,8 @@ Future<void> getItInit() async {
       () => GroupsRemoteDataSourceImpl());
   getIt.registerLazySingleton<MessageGroupsRemoteDataSource>(
       () => MessageGroupsRemoteDataSourceImpl());
+  getIt.registerLazySingleton<UploadImageRemoteDataSource>(
+      () => UploadImageRemoteDataSourceImpl(image: getIt()));
 
   /// Core
   getIt.registerLazySingleton<NetworkInfo>(

@@ -1,28 +1,35 @@
 
 import 'dart:async';
 
+import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
+import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
+import 'package:chat_app/features/groups/domain/repositories/groups_repository.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:image_picker/image_picker.dart';
 part 'messege_group_state.dart';
 
 class MessegeGroupCubit extends Cubit<MessegeGroupState> {
   final SendGroupMessageUseCase sendMessageUseCase;
   final MessageGroupsRepository repository; 
+  final GroupsRepository groupsRepository;
    final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
+  final UploadImageUseCase uploadImageUseCase;
   
   StreamSubscription? _messagesSubscription;
 
-  MessegeGroupCubit({ required this.sendMessageUseCase, required this.repository}) : super(MessegeGroupInitial());
+  MessegeGroupCubit({ required this.sendMessageUseCase, required this.repository, required this.uploadImageUseCase, required this.groupsRepository}) : super(MessegeGroupInitial());
 
   void getMessages(String groupId) {
     _messagesSubscription?.cancel();
+
+    groupsRepository.resetGroupUnreadCount(groupId);
     
     _messagesSubscription = repository.getGroupMessages(groupId).listen((result) {
       result.fold(
@@ -81,6 +88,51 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     }
   }
 
+  Future<void> sendGroupImageMessage({required String groupId, required ImageSource source}) async {
+    MessageEntity? currentReply;
+    if (state is MessegeGroupLoaded) {
+      currentReply = (state as MessegeGroupLoaded).replyMessage;
+    }
+
+    final XFile? pickedFile = await PickImageUtils().pickImage(source);
+    if (pickedFile == null) return;
+
+    toggleMenu(); 
+
+    if (state is MessegeGroupLoaded) {
+       emit((state as MessegeGroupLoaded).copyWith(clearReply: true));
+    }
+
+    emit(MessegeGroupActionLoading());
+
+    final uploadResult = await uploadImageUseCase.call(pickedFile);
+    
+    uploadResult.fold(
+      (failure) {
+        if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+      },
+      (uploadEntity) async {
+        final String? imageUrl = uploadEntity.photo;
+        if (imageUrl == null || imageUrl.isEmpty) return;
+
+        try {
+          final result = await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
+          
+          result.fold(
+            (failure) {
+               if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+            },
+            (_) {
+            }, 
+          );
+        } catch (e, stackTrace) {
+          printFirebaseError(e, stackTrace);
+          if (!isClosed) emit(MessegeGroupActionError(error: e.toString()));
+        }
+      },
+    );
+  }
+
 bool _isMenuOpen = false;
   bool get isMenuOpen => _isMenuOpen; 
   
@@ -88,8 +140,7 @@ bool _isMenuOpen = false;
     _isMenuOpen = !_isMenuOpen;
     
     if (state is MessegeGroupLoaded) {
-       final currentMessages = (state as MessegeGroupLoaded).messages;
-       emit(MessegeGroupLoaded(messages: List.from(currentMessages)));
+       emit((state as MessegeGroupLoaded).copyWith());
     } 
   }
 
