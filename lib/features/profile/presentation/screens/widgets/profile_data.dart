@@ -2,11 +2,11 @@ import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfileData extends StatelessWidget {
   const ProfileData({super.key, required this.title, required this.value});
@@ -39,15 +39,13 @@ class ProfileData extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.copy,
-                size: 20.sp,
-                color: context.color.textColor),
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: value)).then((_) {
-                showSnackBar(context,
-                    text:'$title${'copied_to_clipboard'.tr()}',
-                    color: ColorsDark.blueLight1);
-              });
+            icon: Icon(Icons.copy, size: 20.sp, color: context.color.textColor),
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: value));
+              Fluttertoast.showToast(
+                  msg: '${'copied_to_clipboard'.tr()} $value',
+                  backgroundColor: ColorsDark.blueLight1,
+                  textColor: ColorsDark.white);
             },
           ),
         ],

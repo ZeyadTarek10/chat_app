@@ -53,6 +53,7 @@ import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cub
 import 'package:chat_app/features/sign_up/data/data_sources/sign_up_remote_data_source.dart';
 import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_impl.dart';
 import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
+import 'package:chat_app/features/sign_up/domain/use_cases/google_login_use_case.dart';
 import 'package:chat_app/features/sign_up/domain/use_cases/sign_up_use_case.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:dio/dio.dart';
@@ -86,7 +87,8 @@ Future<void> getItInit() async {
   getIt.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: getIt()));
   getIt.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
-  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUseCase: getIt()));
+  getIt.registerFactory<SignUpCubit>(
+      () => SignUpCubit(signUpUseCase: getIt(), googleSignInUseCase: getIt(), cacheHelper: getIt()));
   getIt.registerFactory<MainCubit>(() => MainCubit());
   getIt.registerFactory<MoreCubit>(() => MoreCubit(cacheHelper: getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(
@@ -127,6 +129,8 @@ Future<void> getItInit() async {
       () => ForgetPasswordUseCase(repository: getIt()));
   getIt.registerLazySingleton<SignUpUseCase>(
       () => SignUpUseCase(repository: getIt()));
+  getIt.registerLazySingleton<GoogleSignInUseCase>(
+      () => GoogleSignInUseCase(signUpRepository: getIt()));
   getIt.registerLazySingleton<GetProfileUseCase>(
       () => GetProfileUseCase(profileRepositories: getIt()));
   getIt.registerLazySingleton<UpdateProfileUseCase>(

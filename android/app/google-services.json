@@ -12,7 +12,28 @@
           "package_name": "com.igentech.chatapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "72690865509-653pv42a6jkr8plqr9qb8dm6oonbv5aq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.igentech.chatapp",
+            "certificate_hash": "1a14277ea08d9883106e7ae1f06dae89885de489"
+          }
+        },
+        {
+          "client_id": "72690865509-jfsv2pjenjl6ispaip5e9fqtl1pl1hkq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.igentech.chatapp",
+            "certificate_hash": "ecb50d8abd1fd505c209bd97c593c1986834ff8b"
+          }
+        },
+        {
+          "client_id": "72690865509-j798ohl0icd3upj89c6fgtjbf0mnqumr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA2b2k4WppMI3fEMJ4yni8_ddeaLvTt8_Q"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72690865509-j798ohl0icd3upj89c6fgtjbf0mnqumr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "72690865509-fp129bihah1sh4raiu1uq3e3nae7hmm5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.igentech.chatapp"
+              }
+            }
+          ]
         }
       }
     }

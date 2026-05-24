@@ -25,8 +25,8 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
           duration: 400,
           child: ListTile(
             leading: CircleAvatar(
-              radius: 26.r,
-              backgroundColor: Colors.grey[200],
+              radius: 22.r,
+              backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
               child: (member['image'] != null && member['image']!.isNotEmpty)
                   ? ClipOval(
                       child: CachedNetworkImage(
@@ -40,7 +40,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                                 ? member['name'][0].toUpperCase()
                                 : '',
                             textStyle: TextStyle(
-                                color: ColorsLight.black, fontSize: 20.sp),
+                                color: ColorsLight.white, fontSize: 20.sp),
                           ),
                         ),
                         errorWidget: (context, url, error) => Center(
@@ -49,7 +49,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                                 ? member['name'][0].toUpperCase()
                                 : '',
                             textStyle: TextStyle(
-                                color: ColorsLight.black, fontSize: 20.sp),
+                                color: ColorsLight.white, fontSize: 20.sp),
                           ),
                         ),
                       ),
@@ -59,7 +59,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                           ? member['name'][0].toUpperCase()
                           : '',
                       textStyle:
-                          TextStyle(color: ColorsLight.black, fontSize: 20.sp),
+                          TextStyle(color: ColorsLight.white, fontSize: 20.sp),
                     ),
             ),
             title: CustomTextWidget(

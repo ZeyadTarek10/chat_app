@@ -118,5 +118,9 @@
     "photo": "Photo",
     "group_members": "Group Members",
     "member":"Member",
-    "admin":"Admin"
+    "admin":"Admin",
+    "permissions_denied": "Permissions Denied",
+    "allow_access_to_gallery_and_photos": "Allow access to gallery and photos",
+    "settings": "Settings",
+    "failed_to_logout": "Failed to logout"
 }

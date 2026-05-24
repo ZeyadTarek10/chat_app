@@ -42,36 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
     loginCubit.passwordController.dispose();
   }
 
-//   Future<void> signInWithGoogle(BuildContext context) async {
-//   try {
-//     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//     if (googleUser == null) return;
-
-//     final GoogleSignInAuthentication googleAuth =
-//         await googleUser.authentication;
-
-//     final credential = GoogleAuthProvider.credential(
-//       accessToken: googleAuth.accessToken,
-//       idToken: googleAuth.idToken,
-//     );
-
-//     UserCredential userCredential =
-//         await FirebaseAuth.instance.signInWithCredential(credential);
-
-//     User? user = userCredential.user;
-
-//     if (user != null && (user.displayName == null || user.displayName!.isEmpty)) {
-//       await user.updateDisplayName(googleUser.displayName ?? "New User");
-//       await user.reload();
-//       user = FirebaseAuth.instance.currentUser;
-//     }
-
-//     Navigator.pushReplacementNamed(context, '/home');
-//   } catch (e) {
-//     buildAwesomeDialogError('Error', 'Google Sign-In failed: $e', context);
-//   }
-// }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
@@ -151,8 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (loginCubit.formKey.currentState!.validate()) {
                               loginCubit.signInUser(
                                   email: loginCubit.emailController.text.trim(),
-                                  password: loginCubit.passwordController.text.trim(),
-                                  isKeepMeSignedIn: loginCubit.isKeepMeSignedIn);
+                                  password:
+                                      loginCubit.passwordController.text.trim(),
+                                  isKeepMeSignedIn:
+                                      loginCubit.isKeepMeSignedIn);
                             }
                           },
                           height: 50.h,

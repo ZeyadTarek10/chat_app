@@ -17,3 +17,11 @@ final class SignUpFailure extends SignUpState {
   SignUpFailure({required this.errorMessage});
 }
 
+final class GoogleSignInInitial extends SignUpState {}
+final class GoogleSignInLoading extends SignUpState {}
+final class GoogleSignInSuccess extends SignUpState {}
+final class GoogleSignInFailure extends SignUpState {
+  final String errorMessage;
+  GoogleSignInFailure({required this.errorMessage});
+}
+

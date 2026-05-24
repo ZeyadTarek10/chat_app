@@ -1,4 +1,6 @@
 import 'package:chat_app/injection_container.dart';
+import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -36,17 +38,17 @@ class PickImageUtils {
       context: getIt<GlobalKey<NavigatorState>>().currentState!.context,
       builder: (context) {
         return CupertinoAlertDialog(
-          title: const Text('Permissions Denied'),
-          content: const Text('Allow access to gallery and photos'),
+          title: CustomTextWidget(text: 'permissions_denied'.tr()),
+          content: CustomTextWidget(text: 'allow_access_to_gallery_and_photos'.tr()),
           actions: <CupertinoDialogAction>[
             CupertinoDialogAction(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: CustomTextWidget(text: 'cancel'.tr()),
             ),
-            const CupertinoDialogAction(
+            CupertinoDialogAction(
               isDefaultAction: true,
               onPressed: openAppSettings,
-              child: Text('Settings'),
+              child: CustomTextWidget(text: 'settings'.tr()),
             ),
           ],
         );

@@ -118,5 +118,9 @@
     "photo": "صورة",
     "group_members": "اعضاء الجروب",
     "member": "عضو",
-    "admin": "مشرف المجموعة"
+    "admin": "مشرف المجموعة",
+    "permissions_denied": "تم رفض الصلاحيات",
+    "allow_access_to_gallery_and_photos": "السماح بالوصول إلى المعرض والصور",
+    "settings": "الإعدادات",
+    "failed_to_logout": "فشل تسجيل الخروج"
 }

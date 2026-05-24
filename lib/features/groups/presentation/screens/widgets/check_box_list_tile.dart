@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
-import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckBoxListTile extends StatelessWidget {
   const CheckBoxListTile({
@@ -34,15 +35,35 @@ class CheckBoxListTile extends StatelessWidget {
             text: contact['phone'],
             textStyle: TextStyle(color: context.color.textColor)),
         secondary: CircleAvatar(
-          backgroundColor: ColorsDark.blueDark.withOpacity(0.5),
-          backgroundImage: imageUrl.isNotEmpty ? NetworkImage(imageUrl) : null,
-          child: imageUrl.isEmpty
-              ? CustomTextWidget(
-                  text: initial,
-                  textStyle: TextStyle(
-                      color: ColorsDark.white,
-                      fontWeight: FontDetails.boldFontWeight))
-              : null,
+          radius: 22.r,
+          backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+          child: (imageUrl.isNotEmpty)
+            ? ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  width: 52.r,
+                  height: 52.r,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Center(
+                    child: CustomTextWidget(
+                      text: contact['name'].isNotEmpty ? contact['name'][0].toUpperCase() : '',
+                      textStyle:
+                          TextStyle(color: ColorsLight.white, fontSize: 20.sp),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Center(
+                    child: CustomTextWidget(
+                      text: contact['name'].isNotEmpty ? contact['name'][0].toUpperCase() : '',
+                      textStyle:
+                          TextStyle(color: ColorsLight.white, fontSize: 20.sp),
+                    ),
+                  ),
+                ),
+              )
+            : CustomTextWidget(
+                text: contact['name'].isNotEmpty ? contact['name'][0].toUpperCase() : '',
+                textStyle: TextStyle(color: ColorsLight.white, fontSize: 20.sp),
+              ),
         ),
         onChanged: (val) {
           cubit.toggleContact(index, val ?? false);
