@@ -73,6 +73,27 @@ class MessageCubit extends Cubit<MessageState> {
     return DateFormat('hh:mm a').format(dateTime);
   }
 
+  String getChatDayHeader(DateTime messageDate) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
+
+  if (messageDay == today) {
+    return "today".tr();
+  } else if (messageDay == yesterday) {
+    return "yesterday".tr();
+  } else {
+    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
+  }
+}
+
+bool isSameDay(DateTime date1, DateTime date2) {
+  return date1.year == date2.year &&
+         date1.month == date2.month &&
+         date1.day == date2.day;
+}
+
   bool _isMenuOpen = false;
   bool issMenuOpen = false;
   bool get isMenuOpen => _isMenuOpen;

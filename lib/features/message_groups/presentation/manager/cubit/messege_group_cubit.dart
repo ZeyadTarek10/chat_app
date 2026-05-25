@@ -8,6 +8,7 @@ import 'package:chat_app/features/groups/domain/repositories/groups_repository.d
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,6 +61,35 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
       emit((state as MessegeGroupLoaded).copyWith(clearReply: true));
     }
   }
+
+  String formatMessageTime(DateTime? dateTime) {
+    if (dateTime == null) return "";
+
+    return DateFormat('hh:mm a').format(dateTime);
+  }
+
+  String getChatDayHeader(DateTime messageDate) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
+
+  if (messageDay == today) {
+    return "today".tr();
+  } else if (messageDay == yesterday) {
+    return "yesterday".tr();
+  } else {
+    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
+  }
+}
+
+bool isSameDay(DateTime date1, DateTime date2) {
+  return date1.year == date2.year &&
+         date1.month == date2.month &&
+         date1.day == date2.day;
+}
+
+
 
   Future<void> sendGroupTextMessage(String groupId) async {
     final text = controller.text.trim();

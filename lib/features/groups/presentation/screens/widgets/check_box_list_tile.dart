@@ -24,6 +24,9 @@ class CheckBoxListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String countryCode = contact['country_code'] ?? '+20';
+    String phone = contact['phone'] ?? '';
+    String fullPhone = '\u202A($countryCode) $phone\u202C';
     return CustomFadeInRight(
       duration: 400,
       child: CheckboxListTile(
@@ -32,7 +35,7 @@ class CheckBoxListTile extends StatelessWidget {
             text: contact['name'],
             textStyle: TextStyle(color: context.color.textColor)),
         subtitle: CustomTextWidget(
-            text: contact['phone'],
+            text: fullPhone,
             textStyle: TextStyle(color: context.color.textColor)),
         secondary: CircleAvatar(
           radius: 22.r,

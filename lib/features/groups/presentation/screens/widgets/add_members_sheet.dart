@@ -7,6 +7,7 @@ import 'package:chat_app/features/groups/presentation/screens/widgets/check_box_
 import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/buttons/elevated_btn_widget.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
+import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ class AddMembersSheet extends StatelessWidget {
     return BlocBuilder<GroupsCubit, GroupsState>(
       builder: (context, state) {
         var cubit = context.read<GroupsCubit>();
+        var displayedContacts = cubit.filteredContacts;
         return Container(
           color: context.color.navBarbg,
           height: MediaQuery.of(context).size.height * 0.8,
@@ -37,6 +39,24 @@ class AddMembersSheet extends StatelessWidget {
                         color: context.color.textColor)),
               ),
               SizedBox(height: 15.h),
+              CustomFadeInDown(
+                duration: 400,
+                child: CustomTextFormFieldWidget(
+                  withBorders: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'enter_your_name_or_phone'.tr();
+                    }
+                    return null;
+                  },
+                  hint: 'search'.tr(),
+                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  onChange: (value) {
+                    cubit.updateMemberSearchQuery(value);
+                  },
+                ),
+              ),
+              SizedBox(height: 15.h),
               Expanded(
                 child: state is GroupsUsersLoading
                     ? Lottie.asset("assets/lottie/Loading Dots Blue.json")
@@ -46,27 +66,35 @@ class AddMembersSheet extends StatelessWidget {
                                 text: "there_are_no_users_to_add".tr(),
                                 textStyle:
                                     TextStyle(color: context.color.textColor)))
-                        : ListView.builder(
-                            itemCount: cubit.contacts.length,
-                            itemBuilder: (context, index) {
-                              var contact = cubit.contacts[index];
+                        : displayedContacts.isEmpty
+                            ? Center(
+                                child: Lottie.asset(
+                                    'assets/lottie/non data found.json'))
+                            : ListView.builder(
+                                itemCount: displayedContacts.length,
+                                itemBuilder: (context, index) {
+                                  var contact = displayedContacts[index];
 
-                              String imageUrl = contact['image'] ?? "";
-                              String initial =
-                                  contact['name'].toString().trim().isNotEmpty
+                                  String imageUrl = contact['image'] ?? "";
+                                  String initial = contact['name']
+                                          .toString()
+                                          .trim()
+                                          .isNotEmpty
                                       ? contact['name']
                                           .toString()
                                           .trim()[0]
                                           .toUpperCase()
                                       : "?";
 
-                              return CheckBoxListTile(
-                                  contact: contact,
-                                  imageUrl: imageUrl,
-                                  initial: initial,
-                                  cubit: cubit, index: index,);
-                            },
-                          ),
+                                  return CheckBoxListTile(
+                                    contact: contact,
+                                    imageUrl: imageUrl,
+                                    initial: initial,
+                                    cubit: cubit,
+                                    index: cubit.contacts.indexOf(contact),
+                                  );
+                                },
+                              ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,4 +152,3 @@ class AddMembersSheet extends StatelessWidget {
     );
   }
 }
-

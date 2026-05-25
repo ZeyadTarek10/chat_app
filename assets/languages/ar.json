@@ -122,5 +122,6 @@
     "permissions_denied": "تم رفض الصلاحيات",
     "allow_access_to_gallery_and_photos": "السماح بالوصول إلى المعرض والصور",
     "settings": "الإعدادات",
-    "failed_to_logout": "فشل تسجيل الخروج"
+    "failed_to_logout": "فشل تسجيل الخروج",
+    "enter_your_name_or_phone": "ادخل اسمك او رقمك"
 }

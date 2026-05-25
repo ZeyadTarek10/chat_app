@@ -21,6 +21,9 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
       itemCount: cubit.selectedMembers.length,
       itemBuilder: (context, index) {
         var member = cubit.selectedMembers[index];
+        String countryCode = member['country_code'] ?? '+20';
+    String phone = member['phone'] ?? '';
+    String fullPhone = '\u202A($countryCode) $phone\u202C';
         return CustomFadeInRight(
           duration: 400,
           child: ListTile(
@@ -66,7 +69,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                 text: member['name']!,
                 textStyle: TextStyle(color: context.color.textColor)),
             subtitle: CustomTextWidget(
-                text: member['phone']!,
+                text: fullPhone,
                 textStyle: TextStyle(color: context.color.textColor)),
             trailing: Container(
               height: 35.h,

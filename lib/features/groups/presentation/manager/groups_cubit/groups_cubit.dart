@@ -65,12 +65,31 @@ class GroupsCubit extends Cubit<GroupsState> {
   String timeOnly = DateFormat('hh:mm a').format(dateTime);
 
   if (messageDay == today) {
-    return "today • $timeOnly".tr();
+    return "${'today'.tr()} • $timeOnly";
   } else if (messageDay == yesterday) {
-    return "yesterday • $timeOnly".tr();
+    return "${'yesterday'.tr()} • $timeOnly";
   } else {
     return DateFormat('dd MMM • hh:mm a').format(dateTime);
   }
+}
+
+String memberSearchQuery = '';
+
+void updateMemberSearchQuery(String query) {
+  memberSearchQuery = query.toLowerCase();
+  emit(GroupsSearchUpdatedState()); 
+}
+
+List<Map<String, dynamic>> get filteredContacts {
+  if (memberSearchQuery.isEmpty) {
+    return contacts;
+  }
+  return contacts.where((contact) {
+    final name = (contact['name'] ?? '').toString().toLowerCase();
+    final phone = (contact['phone'] ?? '').toString().toLowerCase();
+    
+    return name.contains(memberSearchQuery) || phone.contains(memberSearchQuery);
+  }).toList();
 }
 
   Future<void> submitGroup() async {
