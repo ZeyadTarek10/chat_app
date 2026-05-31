@@ -52,7 +52,7 @@ class SignUpRepositoryImpl extends SignUpRepository {
       );
       return right(userModel);
     } catch (e, stackTrace) {
-      printFirebaseError(stackTrace);
+      printFirebaseError(e, stackTrace);
       return left(ServerFailure(e.toString()));
     }
   }

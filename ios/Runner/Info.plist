@@ -77,5 +77,20 @@
 		<string>Used to connect to Firebase services</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>GIDClientID</key>
+		<string>72690865509-fp129bihah1sh4raiu1uq3e3nae7hmm5.apps.googleusercontent.com</string>
+		<key>GIDServerClientID</key>
+		<string>72690865509-j798ohl0icd3upj89c6fgtjbf0mnqumr.apps.googleusercontent.com</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.72690865509-fp129bihah1sh4raiu1uq3e3nae7hmm5</string>
+				</array>
+			</dict>
+		</array>
 	</dict>
 </plist>

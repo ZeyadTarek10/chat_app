@@ -19,29 +19,29 @@ class GoogleSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
-        if (state is SignUpLoading || state is GoogleSignInLoading){
+        void dismissLoadingDialog() {
+          final navigator = Navigator.of(context, rootNavigator: true);
+          if (navigator.canPop()) navigator.pop();
+        }
+
+        if (state is SignUpLoading || state is GoogleSignInLoading) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => const CustomLoading(), 
+            useRootNavigator: true,
+            builder: (context) => const CustomLoading(),
           );
         } else if (state is SignUpSuccess || state is GoogleSignInSuccess) {
-          if (GoRouter.of(context).canPop()) {
-            GoRouter.of(context).pop();
-          }
+          dismissLoadingDialog();
           showSnackBar(context,
               text: 'signed_in_successfuly'.tr(), color: Colors.green);
           GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is GoogleSignInFailure) {
-          if (GoRouter.of(context).canPop()) {
-            GoRouter.of(context).pop();
-          }
+          dismissLoadingDialog();
           showSnackBar(context,
               text: state.errorMessage, color: ColorsLight.error);
         } else if (state is SignUpFailure) {
-          if (GoRouter.of(context).canPop()) {
-            GoRouter.of(context).pop();
-          }
+          dismissLoadingDialog();
           showSnackBar(context,
               text: state.errorMessage, color: ColorsLight.error);
         }

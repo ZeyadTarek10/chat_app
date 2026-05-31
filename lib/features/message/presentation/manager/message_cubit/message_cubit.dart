@@ -196,20 +196,35 @@ bool isSameDay(DateTime date1, DateTime date2) {
     toggleMenu();
 
     if (state is MessageLoadedState) {
-      emit((state as MessageLoadedState).copyWith(clearReply: true));
+      emit((state as MessageLoadedState).copyWith(
+        clearReply: true,
+        pendingImagePath: pickedFile.path,
+      ));
     }
 
-    emit(MessageActionLoadingState());
+    _scrollToBottom();
 
     final uploadResult = await uploadImageUseCase.call(pickedFile);
 
-    uploadResult.fold(
-      (failure) {
-        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+    await uploadResult.fold(
+      (failure) async {
+        if (!isClosed) {
+          if (state is MessageLoadedState) {
+            emit((state as MessageLoadedState)
+                .copyWith(clearPendingImage: true));
+          }
+          emit(MessageActionErrorState(errMsg: failure.massage));
+        }
       },
       (uploadEntity) async {
         final String? imageUrl = uploadEntity.photo;
-        if (imageUrl == null || imageUrl.isEmpty) return;
+        if (imageUrl == null || imageUrl.isEmpty) {
+          if (!isClosed && state is MessageLoadedState) {
+            emit((state as MessageLoadedState)
+                .copyWith(clearPendingImage: true));
+          }
+          return;
+        }
 
         String msgId = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -225,6 +240,11 @@ bool isSameDay(DateTime date1, DateTime date2) {
         );
 
         await sendMessage(newImageMessage, roomId);
+
+        if (!isClosed && state is MessageLoadedState) {
+          emit((state as MessageLoadedState)
+              .copyWith(clearPendingImage: true));
+        }
       },
     );
   }

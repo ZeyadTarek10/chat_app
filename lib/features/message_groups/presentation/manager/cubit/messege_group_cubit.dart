@@ -127,37 +127,62 @@ bool isSameDay(DateTime date1, DateTime date2) {
     final XFile? pickedFile = await PickImageUtils().pickImage(source);
     if (pickedFile == null) return;
 
-    toggleMenu(); 
+    toggleMenu();
 
     if (state is MessegeGroupLoaded) {
-       emit((state as MessegeGroupLoaded).copyWith(clearReply: true));
+      emit((state as MessegeGroupLoaded).copyWith(
+        clearReply: true,
+        pendingImagePath: pickedFile.path,
+      ));
     }
 
-    emit(MessegeGroupActionLoading());
+    if (controller0.hasClients) {
+      controller0.animateTo(0,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    }
 
     final uploadResult = await uploadImageUseCase.call(pickedFile);
-    
-    uploadResult.fold(
-      (failure) {
-        if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+
+    await uploadResult.fold(
+      (failure) async {
+        if (!isClosed) {
+          if (state is MessegeGroupLoaded) {
+            emit((state as MessegeGroupLoaded)
+                .copyWith(clearPendingImage: true));
+          }
+          emit(MessegeGroupActionError(error: failure.massage));
+        }
       },
       (uploadEntity) async {
         final String? imageUrl = uploadEntity.photo;
-        if (imageUrl == null || imageUrl.isEmpty) return;
+        if (imageUrl == null || imageUrl.isEmpty) {
+          if (!isClosed && state is MessegeGroupLoaded) {
+            emit((state as MessegeGroupLoaded)
+                .copyWith(clearPendingImage: true));
+          }
+          return;
+        }
 
         try {
-          final result = await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
-          
+          final result =
+              await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
+
           result.fold(
             (failure) {
-               if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+              if (!isClosed) {
+                emit(MessegeGroupActionError(error: failure.massage));
+              }
             },
-            (_) {
-            }, 
+            (_) {},
           );
         } catch (e, stackTrace) {
           printFirebaseError(e, stackTrace);
           if (!isClosed) emit(MessegeGroupActionError(error: e.toString()));
+        }
+
+        if (!isClosed && state is MessegeGroupLoaded) {
+          emit((state as MessegeGroupLoaded)
+              .copyWith(clearPendingImage: true));
         }
       },
     );

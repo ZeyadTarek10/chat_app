@@ -55,6 +55,7 @@ import 'package:chat_app/features/sign_up/data/repositories/sign_up_repository_i
 import 'package:chat_app/features/sign_up/domain/repositories/sign_up_repository.dart';
 import 'package:chat_app/features/sign_up/domain/use_cases/google_login_use_case.dart';
 import 'package:chat_app/features/sign_up/domain/use_cases/sign_up_use_case.dart';
+import 'package:chat_app/core/services/google_sign_in_service.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -236,6 +237,7 @@ Future<void> getItInit() async {
   getIt.registerLazySingleton(() => CacheHelper());
   getIt.registerLazySingleton(() => UrlLauncherService());
   getIt.registerLazySingleton(() => PermissionService());
+  getIt.registerLazySingleton(() => GoogleSignInService());
   getIt.registerLazySingleton(() => AlertService());
   getIt.registerLazySingleton(() => PrettyDioLogger(
         request: true,
@@ -249,4 +251,6 @@ Future<void> getItInit() async {
         enabled: kDebugMode,
       ));
   getIt.registerLazySingleton(() => Dio());
+
+  await getIt<GoogleSignInService>().initialize();
 }

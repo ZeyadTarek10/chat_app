@@ -1,9 +1,10 @@
+import 'package:chat_app/core/services/google_sign_in_service.dart';
 import 'package:chat_app/features/sign_up/data/models/user_model.dart';
+import 'package:chat_app/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<UserModel> getUser();
@@ -43,12 +44,8 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   @override
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
-    try {
-        final GoogleSignIn googleSignIn = GoogleSignIn();
-        if (await googleSignIn.isSignedIn()) {
-          await googleSignIn.signOut();
-          await googleSignIn.disconnect();
-        }
+      try {
+        await getIt<GoogleSignInService>().signOut();
       } catch (googleError) {
         debugPrint('Google Error: $googleError');
       }

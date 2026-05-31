@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
+import 'package:chat_app/core/services/google_sign_in_service.dart';
+import 'package:chat_app/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 part 'more_state.dart';
 
@@ -43,11 +44,7 @@ class MoreCubit extends Cubit<MoreState> {
     try {
       await FirebaseAuth.instance.signOut();
       try {
-        final GoogleSignIn googleSignIn = GoogleSignIn();
-        if (await googleSignIn.isSignedIn()) {
-          await googleSignIn.signOut();
-          await googleSignIn.disconnect();
-        }
+        await getIt<GoogleSignInService>().signOut();
       } catch (googleError) {
         debugPrint('Google Error: $googleError');
       }

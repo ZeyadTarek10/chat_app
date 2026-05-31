@@ -10,18 +10,29 @@ final class MessageLoadedState extends MessageState {
   final List<MessageEntity> messages;
   final UserEntity? friendData;
   final MessageEntity? replyMessage;
-  MessageLoadedState({required this.messages, this.friendData, this.replyMessage});
+  final String? pendingImagePath;
+  MessageLoadedState({
+    required this.messages,
+    this.friendData,
+    this.replyMessage,
+    this.pendingImagePath,
+  });
 
   MessageLoadedState copyWith({
     List<MessageEntity>? messages,
     UserEntity? friendData,
     MessageEntity? replyMessage,
-    bool clearReply = false, 
+    bool clearReply = false,
+    String? pendingImagePath,
+    bool clearPendingImage = false,
   }) {
     return MessageLoadedState(
       messages: messages ?? this.messages,
       friendData: friendData ?? this.friendData,
       replyMessage: clearReply ? null : (replyMessage ?? this.replyMessage),
+      pendingImagePath: clearPendingImage
+          ? null
+          : (pendingImagePath ?? this.pendingImagePath),
     );
   }
 }

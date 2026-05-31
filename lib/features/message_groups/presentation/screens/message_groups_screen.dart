@@ -75,7 +75,7 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
               Expanded(
                   child: Stack(fit: StackFit.expand, children: [
                 if (state is MessegeGroupLoaded)
-                  if (state.messages.isEmpty)
+                  if (state.messages.isEmpty && state.pendingImagePath == null)
                     Center(
                         child: CustomTextWidget(
                       text: "start_chatting".tr(),
@@ -90,6 +90,7 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
                       messages: state.messages,
                       group: widget.group,
                       focusNode: focusNode,
+                      pendingImagePath: state.pendingImagePath,
                     )
                 else if (state is MessegeGroupError)
                   Center(child: CustomTextWidget(text: state.error))
