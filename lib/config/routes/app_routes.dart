@@ -63,8 +63,15 @@ class AppRoutes {
           pageBuilder: (context, state) {
             return fadeScaleTransitionPage(
               key: state.pageKey,
-              child: BlocProvider(
-                create: (context) => getIt<LoginCubit>(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt<LoginCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<SignUpCubit>(),
+                  ),
+                ],
                 child: const LoginScreen(),
               ),
             );

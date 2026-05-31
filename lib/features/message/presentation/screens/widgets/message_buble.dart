@@ -199,7 +199,7 @@ class MessageBubleForMe extends StatelessWidget {
                 ),
                 SizedBox(width: 4.w),
                 Icon(Icons.done_all,
-                    color: isRead ? ColorsDark.mainColor : ColorsDark.white,
+                    color: isRead ? ColorsDark.blueLight1 : ColorsDark.white,
                     size: FontDetails.fontSizeS),
               ],
             ),

@@ -20,3 +20,5 @@ class ChatsSearchToggled extends MainState {
   final bool isSearching;
   ChatsSearchToggled(this.isSearching);
 }
+
+class MainSearchUpdatedState extends MainState{}

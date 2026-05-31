@@ -29,9 +29,9 @@ String formatChatTime(DateTime? dateTime) {
   String timeOnly = DateFormat('hh:mm a').format(dateTime);
 
   if (messageDay == today) {
-    return "today • $timeOnly".tr();
+    return "${"today".tr()} • $timeOnly";
   } else if (messageDay == yesterday) {
-    return "yesterday • $timeOnly".tr();
+    return "${"yesterday".tr()} • $timeOnly";
   } else {
     return DateFormat('dd MMM • hh:mm a').format(dateTime);
   }

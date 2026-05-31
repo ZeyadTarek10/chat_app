@@ -8,6 +8,7 @@ import 'package:chat_app/features/groups/domain/repositories/groups_repository.d
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,6 +62,35 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     }
   }
 
+  String formatMessageTime(DateTime? dateTime) {
+    if (dateTime == null) return "";
+
+    return DateFormat('hh:mm a').format(dateTime);
+  }
+
+  String getChatDayHeader(DateTime messageDate) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
+
+  if (messageDay == today) {
+    return "today".tr();
+  } else if (messageDay == yesterday) {
+    return "yesterday".tr();
+  } else {
+    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
+  }
+}
+
+bool isSameDay(DateTime date1, DateTime date2) {
+  return date1.year == date2.year &&
+         date1.month == date2.month &&
+         date1.day == date2.day;
+}
+
+
+
   Future<void> sendGroupTextMessage(String groupId) async {
     final text = controller.text.trim();
     if (text.isEmpty) return;
@@ -97,37 +127,62 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     final XFile? pickedFile = await PickImageUtils().pickImage(source);
     if (pickedFile == null) return;
 
-    toggleMenu(); 
+    toggleMenu();
 
     if (state is MessegeGroupLoaded) {
-       emit((state as MessegeGroupLoaded).copyWith(clearReply: true));
+      emit((state as MessegeGroupLoaded).copyWith(
+        clearReply: true,
+        pendingImagePath: pickedFile.path,
+      ));
     }
 
-    emit(MessegeGroupActionLoading());
+    if (controller0.hasClients) {
+      controller0.animateTo(0,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    }
 
     final uploadResult = await uploadImageUseCase.call(pickedFile);
-    
-    uploadResult.fold(
-      (failure) {
-        if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+
+    await uploadResult.fold(
+      (failure) async {
+        if (!isClosed) {
+          if (state is MessegeGroupLoaded) {
+            emit((state as MessegeGroupLoaded)
+                .copyWith(clearPendingImage: true));
+          }
+          emit(MessegeGroupActionError(error: failure.massage));
+        }
       },
       (uploadEntity) async {
         final String? imageUrl = uploadEntity.photo;
-        if (imageUrl == null || imageUrl.isEmpty) return;
+        if (imageUrl == null || imageUrl.isEmpty) {
+          if (!isClosed && state is MessegeGroupLoaded) {
+            emit((state as MessegeGroupLoaded)
+                .copyWith(clearPendingImage: true));
+          }
+          return;
+        }
 
         try {
-          final result = await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
-          
+          final result =
+              await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
+
           result.fold(
             (failure) {
-               if (!isClosed) emit(MessegeGroupActionError(error: failure.massage));
+              if (!isClosed) {
+                emit(MessegeGroupActionError(error: failure.massage));
+              }
             },
-            (_) {
-            }, 
+            (_) {},
           );
         } catch (e, stackTrace) {
           printFirebaseError(e, stackTrace);
           if (!isClosed) emit(MessegeGroupActionError(error: e.toString()));
+        }
+
+        if (!isClosed && state is MessegeGroupLoaded) {
+          emit((state as MessegeGroupLoaded)
+              .copyWith(clearPendingImage: true));
         }
       },
     );

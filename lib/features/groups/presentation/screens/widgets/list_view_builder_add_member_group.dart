@@ -21,12 +21,15 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
       itemCount: cubit.selectedMembers.length,
       itemBuilder: (context, index) {
         var member = cubit.selectedMembers[index];
+        String countryCode = member['country_code'] ?? '+20';
+    String phone = member['phone'] ?? '';
+    String fullPhone = '\u202A($countryCode) $phone\u202C';
         return CustomFadeInRight(
           duration: 400,
           child: ListTile(
             leading: CircleAvatar(
-              radius: 26.r,
-              backgroundColor: Colors.grey[200],
+              radius: 22.r,
+              backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
               child: (member['image'] != null && member['image']!.isNotEmpty)
                   ? ClipOval(
                       child: CachedNetworkImage(
@@ -40,7 +43,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                                 ? member['name'][0].toUpperCase()
                                 : '',
                             textStyle: TextStyle(
-                                color: ColorsLight.black, fontSize: 20.sp),
+                                color: ColorsLight.white, fontSize: 20.sp),
                           ),
                         ),
                         errorWidget: (context, url, error) => Center(
@@ -49,7 +52,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                                 ? member['name'][0].toUpperCase()
                                 : '',
                             textStyle: TextStyle(
-                                color: ColorsLight.black, fontSize: 20.sp),
+                                color: ColorsLight.white, fontSize: 20.sp),
                           ),
                         ),
                       ),
@@ -59,14 +62,14 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
                           ? member['name'][0].toUpperCase()
                           : '',
                       textStyle:
-                          TextStyle(color: ColorsLight.black, fontSize: 20.sp),
+                          TextStyle(color: ColorsLight.white, fontSize: 20.sp),
                     ),
             ),
             title: CustomTextWidget(
                 text: member['name']!,
                 textStyle: TextStyle(color: context.color.textColor)),
             subtitle: CustomTextWidget(
-                text: member['phone']!,
+                text: fullPhone,
                 textStyle: TextStyle(color: context.color.textColor)),
             trailing: Container(
               height: 35.h,

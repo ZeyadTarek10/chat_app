@@ -27,7 +27,7 @@ class ChatsItem extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       leading: CircleAvatar(
-        radius: 26.r,
+        radius: 24.r,
         backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
         child: (image != null && image!.isNotEmpty)
             ? ClipOval(

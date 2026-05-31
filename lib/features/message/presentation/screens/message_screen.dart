@@ -74,6 +74,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       if (state is MessageLoadedState) {
                         final messages = state.messages;
                         final friendData = state.friendData;
+                        final pendingImagePath = state.pendingImagePath;
 
                         return Column(
                           children: [
@@ -82,7 +83,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                 userModel: friendData as UserModel,
                               ),
                             Expanded(
-                              child: messages.isEmpty
+                              child: messages.isEmpty && pendingImagePath == null
                                   ? WelcomeMessage(
                                       userModel: friendData as UserModel,
                                       roomId: widget.roomId,
@@ -92,6 +93,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                       messages: messages,
                                       widget: widget,
                                       focusNode: focusNode,
+                                      pendingImagePath: pendingImagePath,
                                     ),
                             ),
                           ],

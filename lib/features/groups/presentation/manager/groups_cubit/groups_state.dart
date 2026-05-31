@@ -19,3 +19,5 @@ final class GroupsLoaded extends GroupsState {
 }
 
 final class GroupsUsersLoading extends GroupsState {}
+
+final class GroupsSearchUpdatedState extends GroupsState {}

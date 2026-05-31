@@ -2,6 +2,7 @@ import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/features/chats/presentation/manager/get_chats_cubit/get_chats_cubit.dart';
 import 'package:chat_app/features/chats/presentation/screens/widgets/chat_item.dart';
+import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,6 +28,7 @@ class ChatsScreen extends StatelessWidget {
           if (chats.isEmpty) {
             return Center(
                 child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/lottie/Add Friend.json'),
                 CustomTextWidget(
@@ -35,11 +37,23 @@ class ChatsScreen extends StatelessWidget {
               ],
             ));
           }
+          final searchQuery =
+              context.watch<MainCubit>().searchQuery.toLowerCase();
+          final filteredChats = chats.where((chat) {
+            final name =
+                chat.friendName?.toLowerCase() ?? "unknown".tr().toLowerCase();
+            return name.contains(searchQuery);
+          }).toList();
+
+          if (filteredChats.isEmpty) {
+            return Center(
+                child: Lottie.asset('assets/lottie/non data found.json'));
+          }
           return ListView.builder(
-            itemCount: chats.length,
+            itemCount: filteredChats.length,
             padding: const EdgeInsets.only(top: 8, bottom: 20),
             itemBuilder: (context, index) {
-              final chat = chats[index];
+              final chat = filteredChats[index];
               final myUid = FirebaseAuth.instance.currentUser!.uid;
               final friendId = chat.members?.firstWhere(
                     (id) => id != myUid,

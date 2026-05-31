@@ -1,7 +1,9 @@
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchItemAppBar extends StatelessWidget {
@@ -27,6 +29,7 @@ class SearchItemAppBar extends StatelessWidget {
           prefixIcon: Icon(CupertinoIcons.search, color: ColorsLight.mainTextColor, size: 20.sp),
         ),
         onChanged: (value) {
+          context.read<MainCubit>().updateSearchQuery(value);
         },
       ),
     );

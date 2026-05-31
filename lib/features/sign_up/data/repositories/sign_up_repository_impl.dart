@@ -41,4 +41,19 @@ class SignUpRepositoryImpl extends SignUpRepository {
       return left(ServerFailure(e.toString()));
     }
   }
+
+   @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle(
+      {required String phone, required String countryCode}) async {
+    try {
+      final userModel = await remoteDataSource.signInWithGoogle(
+        phone: phone,
+        countryCode: countryCode,
+      );
+      return right(userModel);
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }

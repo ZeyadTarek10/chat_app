@@ -73,6 +73,27 @@ class MessageCubit extends Cubit<MessageState> {
     return DateFormat('hh:mm a').format(dateTime);
   }
 
+  String getChatDayHeader(DateTime messageDate) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
+
+  if (messageDay == today) {
+    return "today".tr();
+  } else if (messageDay == yesterday) {
+    return "yesterday".tr();
+  } else {
+    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
+  }
+}
+
+bool isSameDay(DateTime date1, DateTime date2) {
+  return date1.year == date2.year &&
+         date1.month == date2.month &&
+         date1.day == date2.day;
+}
+
   bool _isMenuOpen = false;
   bool issMenuOpen = false;
   bool get isMenuOpen => _isMenuOpen;
@@ -175,20 +196,35 @@ class MessageCubit extends Cubit<MessageState> {
     toggleMenu();
 
     if (state is MessageLoadedState) {
-      emit((state as MessageLoadedState).copyWith(clearReply: true));
+      emit((state as MessageLoadedState).copyWith(
+        clearReply: true,
+        pendingImagePath: pickedFile.path,
+      ));
     }
 
-    emit(MessageActionLoadingState());
+    _scrollToBottom();
 
     final uploadResult = await uploadImageUseCase.call(pickedFile);
 
-    uploadResult.fold(
-      (failure) {
-        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+    await uploadResult.fold(
+      (failure) async {
+        if (!isClosed) {
+          if (state is MessageLoadedState) {
+            emit((state as MessageLoadedState)
+                .copyWith(clearPendingImage: true));
+          }
+          emit(MessageActionErrorState(errMsg: failure.massage));
+        }
       },
       (uploadEntity) async {
         final String? imageUrl = uploadEntity.photo;
-        if (imageUrl == null || imageUrl.isEmpty) return;
+        if (imageUrl == null || imageUrl.isEmpty) {
+          if (!isClosed && state is MessageLoadedState) {
+            emit((state as MessageLoadedState)
+                .copyWith(clearPendingImage: true));
+          }
+          return;
+        }
 
         String msgId = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -204,6 +240,11 @@ class MessageCubit extends Cubit<MessageState> {
         );
 
         await sendMessage(newImageMessage, roomId);
+
+        if (!isClosed && state is MessageLoadedState) {
+          emit((state as MessageLoadedState)
+              .copyWith(clearPendingImage: true));
+        }
       },
     );
   }

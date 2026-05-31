@@ -24,11 +24,18 @@ class MainCubit extends Cubit<MainState> {
     emit(ChatsMenuState(isMenuOpen));
   }
 
+  String searchQuery = '';
+
+void updateSearchQuery(String query) {
+  searchQuery = query;
+  emit(MainSearchUpdatedState());
+}
+
   void toggleSearch() {
     isSearching = !isSearching;
-    emit(ChatsSearchToggled(isSearching));
     if (!isSearching) {
-      
-    }
+    searchQuery = ''; 
+  }
+    emit(ChatsSearchToggled(isSearching));
   }
 }
