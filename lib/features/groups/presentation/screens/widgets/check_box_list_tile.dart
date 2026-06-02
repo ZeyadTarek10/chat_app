@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class CheckBoxListTile extends StatelessWidget {
         value: contact['selected'],
         title: CustomTextWidget(
             text: contact['name'],
-            textStyle: TextStyle(color: context.color.textColor)),
+            textStyle: TextStyle(color: context.color.textColor, fontSize: FontDetails.fontSizeS, fontWeight: FontDetails.semiBoldFontWeight)),
         subtitle: CustomTextWidget(
             text: fullPhone,
             textStyle: TextStyle(color: context.color.textColor)),

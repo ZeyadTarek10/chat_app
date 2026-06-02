@@ -7,6 +7,7 @@ import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
 import 'package:chat_app/features/more/screens/widgets/dark_mode_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/language_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/log_out_more_screen.dart';
+import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MoreScreen extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
+            builder: (_) => const Center(child: CustomLoading()),
           );
         } else if (state is LogoutSuccess) {
           GoRouter.of(context).pop();

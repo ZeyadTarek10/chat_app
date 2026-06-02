@@ -18,7 +18,6 @@ class AddAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120.h,
       decoration: BoxDecoration(
         color: context.color.mainColor,
         image: const DecorationImage(
@@ -28,11 +27,11 @@ class AddAppBar extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(bottom: 10.h),
+          padding: EdgeInsets.only(top: 4.h, bottom: 12.h),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 8.h, left: 8.w, right: 8.w),
+                padding: EdgeInsets.only(left: 12.w, right: 12.w),
                 child: SizedBox(
                   width: 104.w,
                   child: Image.asset(

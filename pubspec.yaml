@@ -109,11 +109,11 @@ flutter:
         - asset: assets/fonts/arabic/cairo/Cairo-Regular.ttf
           weight: 400
     # English Font
-    - family: Roboto
+    - family: SF-Pro
       fonts:
-        - asset: assets/fonts/english/roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/english/sef_pro/SF-Pro-Rounded-Bold.otf
           weight: 700
-        - asset: assets/fonts/english/roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/english/sef_pro/SF-Pro-Rounded-Medium.otf
           weight: 500
-        - asset: assets/fonts/english/roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/english/sef_pro/SF-Pro-Rounded-Regular.otf
           weight: 400

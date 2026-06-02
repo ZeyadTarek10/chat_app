@@ -70,12 +70,12 @@ class MoreOptionsButton extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(CupertinoIcons.trash,
-                    color: ColorsLight.mainTextColor, size: 26),
+                    color: ColorsLight.mainTextColor, size: 20),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
-                  text: 'Delete chat'.tr(),
+                  text: 'delete_chat'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: ColorsLight.black,
                   ),
@@ -89,12 +89,12 @@ class MoreOptionsButton extends StatelessWidget {
             child: Row(
               children: [
                 Icon(CupertinoIcons.delete_left,
-                    color: ColorsLight.mainTextColor, size: 26.sp),
+                    color: ColorsLight.mainTextColor, size: 20.sp),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
-                  text: 'Delete messages'.tr(),
+                  text: 'delete_messages'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: ColorsLight.black,
                   ),

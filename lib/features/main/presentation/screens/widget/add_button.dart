@@ -61,12 +61,12 @@ class AddButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
-                const Icon(CupertinoIcons.person_add, color: ColorsLight.mainTextColor, size: 26),
+                Icon(CupertinoIcons.person_add, color: ColorsLight.mainTextColor, size: FontDetails.fontSizeL),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
                   text: 'add_friend'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: context.color.textColor,
                   ),
@@ -79,12 +79,12 @@ class AddButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
-                Icon(CupertinoIcons.group, color: ColorsLight.mainTextColor, size: 26.sp),
+                Icon(CupertinoIcons.group, color: ColorsLight.mainTextColor, size: FontDetails.fontSizeL),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
                   text: 'create_group'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: context.color.textColor,
                   ),

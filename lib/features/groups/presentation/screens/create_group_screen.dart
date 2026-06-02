@@ -37,18 +37,19 @@ class CreateGroupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 65.h,
         backgroundColor: context.color.mainColor,
         flexibleSpace: Image.asset(
           AppImages.bG,
           fit: BoxFit.cover,
         ),
         leading: Padding(
-          padding: EdgeInsets.only(bottom: 8.h),
+          padding: EdgeInsets.only(bottom: 12.h, left: 8.w, right: 8.w),
           child: GestureDetector(
             onTap: () => GoRouter.of(context).pop(),
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(8.r),
+                padding: EdgeInsets.all(5.r),
                 decoration: BoxDecoration(
                   color: ColorsDark.white.withOpacity(0.2),
                   shape: BoxShape.circle,
@@ -59,7 +60,7 @@ class CreateGroupScreen extends StatelessWidget {
           ),
         ),
         title: Padding(
-          padding: EdgeInsets.only(bottom: 8.h),
+          padding: EdgeInsets.only(bottom: 12.h),
           child: CustomTextWidget(
             text: 'create_group'.tr(),
             textStyle: TextStyle(
