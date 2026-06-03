@@ -28,7 +28,7 @@ class ChatsItem extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       leading: CircleAvatar(
         radius: 24.r,
-        backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+        backgroundColor: context.color.circleAvatarBackgroundColor,
         child: (image != null && image!.isNotEmpty)
             ? ClipOval(
                 child: CachedNetworkImage(

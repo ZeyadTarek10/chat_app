@@ -21,7 +21,7 @@ class UserResultSearchItem extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 26.r,
-          backgroundColor: Colors.grey[200],
+          backgroundColor: context.color.circleAvatarBackgroundColor,
           child: (user.profilePicUrl != null && user.profilePicUrl!.isNotEmpty)
               ? ClipOval(
                   child: CachedNetworkImage(
@@ -35,7 +35,7 @@ class UserResultSearchItem extends StatelessWidget {
                             ? user.name[0].toUpperCase()
                             : '',
                         textStyle: TextStyle(
-                            color: ColorsLight.black, fontSize: 20.sp),
+                            color: ColorsLight.white, fontSize: 20.sp),
                       ),
                     ),
                     errorWidget: (context, url, error) => Center(
@@ -44,7 +44,7 @@ class UserResultSearchItem extends StatelessWidget {
                             ? user.name[0].toUpperCase()
                             : '',
                         textStyle: TextStyle(
-                            color: ColorsLight.black, fontSize: 20.sp),
+                            color: ColorsLight.white, fontSize: 20.sp),
                       ),
                     ),
                   ),
@@ -52,7 +52,7 @@ class UserResultSearchItem extends StatelessWidget {
               : CustomTextWidget(
                   text: user.name.isNotEmpty ? user.name[0].toUpperCase() : '',
                   textStyle:
-                      TextStyle(color: ColorsLight.black, fontSize: 20.sp),
+                      TextStyle(color: ColorsLight.white, fontSize: 20.sp),
                 ),
         ),
         SizedBox(width: 15.w),

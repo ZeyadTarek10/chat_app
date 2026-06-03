@@ -12,6 +12,7 @@ class ColorsDark {
   static const Color googlebtnColor = Color(0xffF4F7FF);
   static const Color blueDark = Color(0xff0F4888);
   static const Color navBarDark = Color(0xff393A4C);
+  static const Color popupMenuDark = Color(0xff4A4B62);
   static const Color white = Color(0xFFffffff);
   static const Color black1 = Color(0xff353F54);
   static const Color black2 = Color(0xff222834);
@@ -26,7 +27,7 @@ class ColorsLight {
   static const Color pinkLight = Color(0xFFEE637A);
   static const Color pinkDark = Color(0xFF99162B);
   static const Color hintColor = Color(0x966D6D6D);
-  static const Color mainTextColor = Color(0xff808080);
+  static const Color mainTextColor = Color(0xff9A9BB1);
   static const Color red = Color(0xffD42A0F);
   static const Color error = Color(0xffcb0505);
   static const Color green = Color(0xff39A238);

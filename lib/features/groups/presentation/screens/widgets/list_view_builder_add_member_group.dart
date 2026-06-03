@@ -30,7 +30,7 @@ class ListViewBuilderAddMemberGroup extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               radius: 22.r,
-              backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+              backgroundColor: context.color.circleAvatarBackgroundColor,
               child: (member['image'] != null && member['image']!.isNotEmpty)
                   ? ClipOval(
                       child: CachedNetworkImage(

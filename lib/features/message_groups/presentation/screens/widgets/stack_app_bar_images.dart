@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
@@ -39,7 +40,7 @@ class StackAppBarImages extends StatelessWidget {
                 border: Border.all(color: ColorsDark.white, width: 2.w),
               ),
               child: CircleAvatar(
-                backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+                backgroundColor: context.color.circleAvatarBackgroundColor,
                 radius: 18.r,
                 child: hasFirstImage
                     ? ClipOval( 
@@ -89,7 +90,7 @@ class StackAppBarImages extends StatelessWidget {
                 border: Border.all(color: ColorsDark.white, width: 2.w),
               ),
               child: CircleAvatar(
-                backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+                backgroundColor: context.color.circleAvatarBackgroundColor,
                 radius: 18.r,
                 child: hasSecondImage
                     ? ClipOval(

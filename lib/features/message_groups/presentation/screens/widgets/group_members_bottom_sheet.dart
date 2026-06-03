@@ -42,36 +42,40 @@ class GroupMembersBottomSheet extends StatelessWidget {
             return ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
-                radius: 20.r,
-                backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
-                child: (memberImage.isNotEmpty)
-                    ? ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl: memberImage,
-                          width: 40.r,
-                          height: 40.r,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(
-                            child: CustomLoading()
-                          ),
-                          errorWidget: (context, url, error) => Center(
-                            child: CustomTextWidget(
-                              text: memberName.isNotEmpty
-                                  ? memberName[0].toUpperCase()
-                                  : '',
-                              textStyle: TextStyle(
-                                  color: ColorsLight.white, fontSize: 18.sp),
+                radius: 21.5.r,
+                backgroundColor: ColorsDark.white,
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: context.color.circleAvatarBackgroundColor,
+                  child: (memberImage.isNotEmpty)
+                      ? ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: memberImage,
+                            width: 40.r,
+                            height: 40.r,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CustomLoading()
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: CustomTextWidget(
+                                text: memberName.isNotEmpty
+                                    ? memberName[0].toUpperCase()
+                                    : '',
+                                textStyle: TextStyle(
+                                    color: ColorsLight.white, fontSize: 18.sp),
+                              ),
                             ),
                           ),
+                        )
+                      : CustomTextWidget(
+                          text: memberName.isNotEmpty
+                              ? memberName[0].toUpperCase()
+                              : '',
+                          textStyle: TextStyle(
+                              color: ColorsLight.white, fontSize: 18.sp),
                         ),
-                      )
-                    : CustomTextWidget(
-                        text: memberName.isNotEmpty
-                            ? memberName[0].toUpperCase()
-                            : '',
-                        textStyle: TextStyle(
-                            color: ColorsLight.white, fontSize: 18.sp),
-                      ),
+                ),
               ),
               title: CustomTextWidget(
                 text: memberName,

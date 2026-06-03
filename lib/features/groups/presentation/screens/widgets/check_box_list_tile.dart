@@ -40,7 +40,7 @@ class CheckBoxListTile extends StatelessWidget {
             textStyle: TextStyle(color: context.color.textColor)),
         secondary: CircleAvatar(
           radius: 22.r,
-          backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+          backgroundColor: context.color.circleAvatarBackgroundColor,
           child: (imageUrl.isNotEmpty)
             ? ClipOval(
                 child: CachedNetworkImage(

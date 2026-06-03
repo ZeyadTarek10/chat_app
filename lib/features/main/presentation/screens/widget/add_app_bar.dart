@@ -64,3 +64,42 @@ class AddAppBar extends StatelessWidget {
     );
   }
 }
+
+
+class AppBarMore extends StatelessWidget {
+  const AppBarMore({
+    super.key,
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.color.mainColor,
+        image: const DecorationImage(
+          image: AssetImage(AppImages.bG),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(top: 4.h, bottom: 12.h),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Align(
+              alignment: AlignmentDirectional.topStart,
+              child: SizedBox(
+                width: 104.w,
+                child: Image.asset(
+                  AppImages.appLogoImgHomeDark,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -61,7 +61,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 400,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.person_add,
-                  title: 'invite_friends'.tr(),
+                  title: 'invite_friends'.tr(context: context),
                   onTap: () {
                     final params = ShareParams(uri: Uri.parse('https://E-Chat.com'));
                     SharePlus.instance.share(params);
@@ -72,7 +72,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 450,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.group,
-                  title: 'joined_groups'.tr(),
+                  title: 'joined_groups'.tr(context: context),
                   onTap: () {},
                 ),
               ),
@@ -80,7 +80,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 600,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.square_stack_3d_down_right,
-                  title: 'about_app'.tr(),
+                  title: 'about_app'.tr(context: context),
                   onTap: () {},
                 ),
               ),
@@ -88,13 +88,14 @@ class MoreScreen extends StatelessWidget {
                 duration: 650,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.question_circle,
-                  title: 'help_center'.tr(),
+                  title: 'help_center'.tr(context: context),
                   onTap: () {},
                 ),
               ),
               CustomFadeInRight(
                 duration: 800,
                 child: LogOutMoreScreen(cubit: cubit)),
+              SizedBox(height: 20.h),
             ],
           ),
         );

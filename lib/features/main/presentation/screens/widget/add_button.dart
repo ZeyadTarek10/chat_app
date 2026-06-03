@@ -43,7 +43,7 @@ class AddButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        color: context.color.navBarbg,
+        color: context.color.popupMenu,
         elevation: 8,
         onOpened: () => cubit.toggleMenuState(true),
         onCanceled: () => cubit.toggleMenuState(false),

@@ -46,33 +46,38 @@ class GroupsScreen extends StatelessWidget {
             return Center(
                 child: Lottie.asset('assets/lottie/non data found.json'));
           }
-          return ListView.builder(
-            itemCount: filteredGroups.length,
-            padding: EdgeInsets.only(top: 8.r, bottom: 20.r),
-            itemBuilder: (context, index) {
-              final group = filteredGroups[index];
-
-              int currentUnreadCount = group.unreadCounts?[myUid] ?? 0;
-              return GestureDetector(
-                onTap: () {
-                  GoRouter.of(context)
-                      .push(AppRoutes.messageGroups, extra: group);
-                },
-                child: GroupsItem(
-                  name: group.name,
-                  message: group.lastMessage.isNotEmpty
-                      ? group.lastMessage
-                      : 'start_chatting'.tr(),
-                  time: context
-                      .read<GroupsCubit>()
-                      .formatGroupTime(group.lastMessageTime),
-                  unreadCount: currentUnreadCount,
-                  image: group.image,
-                  c: group.memberNames.length,
-                  memberNames: group.memberNames,
-                ),
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<GroupsCubit>().fetchGroups();
             },
+            child: ListView.builder(
+              itemCount: filteredGroups.length,
+              padding: EdgeInsets.only(top: 8.r, bottom: 20.r),
+              itemBuilder: (context, index) {
+                final group = filteredGroups[index];
+            
+                int currentUnreadCount = group.unreadCounts?[myUid] ?? 0;
+                return GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context)
+                        .push(AppRoutes.messageGroups, extra: group);
+                  },
+                  child: GroupsItem(
+                    name: group.name,
+                    message: group.lastMessage.isNotEmpty
+                        ? group.lastMessage
+                        : 'start_chatting'.tr(),
+                    time: context
+                        .read<GroupsCubit>()
+                        .formatGroupTime(group.lastMessageTime),
+                    unreadCount: currentUnreadCount,
+                    image: group.image,
+                    c: group.memberNames.length,
+                    memberNames: group.memberNames,
+                  ),
+                );
+              },
+            ),
           );
         } else if (state is GroupsError) {
           return Center(

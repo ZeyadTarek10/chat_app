@@ -13,11 +13,13 @@ class MyColor extends ThemeExtension<MyColor> {
     required this.textFormBorder,
     required this.textSplashColor,
     required this.navBarbg,
+    required this.popupMenu,
     required this.navBarSelectedTab,
     required this.containerShadow1,
     required this.containerShadow2,
     required this.containerLinear1,
     required this.containerLinear2,
+    required this.circleAvatarBackgroundColor,
   });
   final Color? mainColor;
   final Color? chatBackgroundColor;
@@ -29,11 +31,14 @@ class MyColor extends ThemeExtension<MyColor> {
   final Color? textFormBorder;
   final Color? textSplashColor;
   final Color? navBarbg;
+  final Color? popupMenu;
   final Color? navBarSelectedTab;
   final Color? containerShadow1;
   final Color? containerShadow2;
   final Color? containerLinear1;
   final Color? containerLinear2;
+  final Color? circleAvatarBackgroundColor;
+
 
   @override
   ThemeExtension<MyColor> copyWith({
@@ -49,6 +54,7 @@ class MyColor extends ThemeExtension<MyColor> {
     Color? containerShadow2,
     Color? containerLinear1,
     Color? containerLinear2,
+    Color? circleAvatarBackgroundColor,
   }) {
     return MyColor(
       mainColor: mainColor,
@@ -66,6 +72,8 @@ class MyColor extends ThemeExtension<MyColor> {
       containerShadow2: containerShadow2,
       containerLinear1: containerLinear1,
       containerLinear2: containerLinear2,
+      popupMenu: popupMenu,
+      circleAvatarBackgroundColor: circleAvatarBackgroundColor,
     );
   }
 
@@ -91,6 +99,8 @@ class MyColor extends ThemeExtension<MyColor> {
       containerShadow2: containerShadow2,
       containerLinear1: containerLinear1,
       containerLinear2: containerLinear2,
+      popupMenu: popupMenu,
+      circleAvatarBackgroundColor: circleAvatarBackgroundColor,
     );
   }
 
@@ -110,6 +120,8 @@ class MyColor extends ThemeExtension<MyColor> {
     containerShadow2: ColorsDark.black2,
     containerLinear1: ColorsDark.black1,
     containerLinear2: ColorsDark.black2,
+    popupMenu: ColorsDark.popupMenuDark,
+    circleAvatarBackgroundColor: ColorsDark.blueDark,
   );
   static const MyColor light = MyColor(
     mainColor: ColorsLight.mainColor,
@@ -127,5 +139,7 @@ class MyColor extends ThemeExtension<MyColor> {
     containerShadow2: ColorsLight.white,
     containerLinear1: ColorsLight.pinkDark,
     containerLinear2: ColorsLight.pinkLight,
+    popupMenu: ColorsLight.mainColor,
+    circleAvatarBackgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
   );
 }
