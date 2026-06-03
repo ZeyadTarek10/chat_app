@@ -56,12 +56,16 @@ class MoreOptionsButton extends StatelessWidget {
         onCanceled: () => cubit.toggleMenuState(false),
         onSelected: (value) {
           cubit.toggleMenuState(false);
-          if (value == 'Delete chat') {
-            cubit.deleteRoom(roomId: roomId);
-            GoRouter.of(context).pushReplacement(AppRoutes.home);
-          } else if (value == 'Delete messages') {
-            cubit.clearChat(roomId: roomId);
-          }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (value == 'Delete chat') {
+              cubit.deleteRoom(roomId: roomId);
+              if (context.mounted) {
+                GoRouter.of(context).pushReplacement(AppRoutes.home);
+              }
+            } else if (value == 'Delete messages') {
+              cubit.clearChat(roomId: roomId);
+            }
+          });
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(

@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 class LanguageSwitcher extends StatelessWidget {
   const LanguageSwitcher({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<Locale>(
-      icon: const Icon(Icons.language),
-      tooltip: 'language'.tr(),
-      onSelected: (Locale locale) {
-        context.setLocale(locale);
-      },
-      itemBuilder: (BuildContext context) => [
+  Future<void> _showLanguageMenu(BuildContext context) async {
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final RenderBox overlay =
+        Navigator.of(context).overlay!.context.findRenderObject() as RenderBox;
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(
+        button.localToGlobal(Offset.zero, ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero),
+            ancestor: overlay),
+      ),
+      Offset.zero & overlay.size,
+    );
+
+    final selected = await showMenu<Locale>(
+      context: context,
+      position: position,
+      items: [
         PopupMenuItem<Locale>(
           value: const Locale('en'),
           child: Row(
@@ -45,6 +53,21 @@ class LanguageSwitcher extends StatelessWidget {
         ),
       ],
     );
+
+    if (selected != null && context.mounted) {
+      await context.setLocale(selected);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (innerContext) => IconButton(
+        icon: const Icon(Icons.language),
+        tooltip: 'language'.tr(),
+        onPressed: () => _showLanguageMenu(innerContext),
+      ),
+    );
   }
 }
 
@@ -54,7 +77,7 @@ class LanguageToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
-    
+
     return ElevatedButton.icon(
       onPressed: () {
         if (isArabic) {
@@ -75,7 +98,7 @@ class LanguageTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
-    
+
     return TextButton(
       onPressed: () {
         if (isArabic) {

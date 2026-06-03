@@ -49,11 +49,14 @@ class AddButton extends StatelessWidget {
         onCanceled: () => cubit.toggleMenuState(false),
         onSelected: (value) {
           cubit.toggleMenuState(false);
-          if (value == 'add_friend') {
-            GoRouter.of(context).push(AppRoutes.addChats);
-          } else if (value == 'create_group') {
-            GoRouter.of(context).push(AppRoutes.addGroups);
-          }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!context.mounted) return;
+            if (value == 'add_friend') {
+              GoRouter.of(context).push(AppRoutes.addChats);
+            } else if (value == 'create_group') {
+              GoRouter.of(context).push(AppRoutes.addGroups);
+            }
+          });
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
