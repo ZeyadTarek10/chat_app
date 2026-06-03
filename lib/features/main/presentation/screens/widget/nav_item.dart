@@ -73,7 +73,7 @@ class NavItem extends StatelessWidget {
                       ? FontDetails.semiBoldFontWeight
                       : FontDetails.mediumFontWeight,
                 ),
-              ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.1),
+              ).animate(target: isSelected ? 1 : 0).scaleXY(end: 1.06),
             ],
           ),
         ),

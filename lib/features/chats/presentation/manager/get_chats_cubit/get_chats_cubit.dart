@@ -14,7 +14,7 @@ part 'get_chats_state.dart';
 
 class GetChatsCubit extends Cubit<GetChatsState> {
   final GetChatsUseCase getChatsUseCase;
-  StreamSubscription? chatSubscription;
+  // StreamSubscription? chatSubscription;
 
   GetChatsCubit({required this.getChatsUseCase}) : super(GetChatsInitial());
 
@@ -55,8 +55,9 @@ String formatChatTime(DateTime? dateTime) {
       return;
     }
 
-    await chatSubscription?.cancel();
-    chatSubscription = getChatsUseCase.call().listen((eitherResult) {
+    // await chatSubscription?.cancel();
+    // chatSubscription = getChatsUseCase.call().listen((eitherResult) {
+    getChatsUseCase.call().listen((eitherResult) {
       eitherResult.fold(
         (failure) async {
           if (failure.massage.contains('permission-denied')) {
@@ -96,9 +97,9 @@ String formatChatTime(DateTime? dateTime) {
     await getIt<CacheHelper>().saveData(key: 'isLoggedIn', val: false);
   }
 
-  @override
-  Future<void> close() {
-    chatSubscription?.cancel();
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   chatSubscription?.cancel();
+  //   return super.close();
+  // }
 }

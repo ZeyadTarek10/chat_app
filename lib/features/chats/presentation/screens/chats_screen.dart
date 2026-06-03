@@ -49,38 +49,43 @@ class ChatsScreen extends StatelessWidget {
             return Center(
                 child: Lottie.asset('assets/lottie/non data found.json'));
           }
-          return ListView.builder(
-            itemCount: filteredChats.length,
-            padding: const EdgeInsets.only(top: 8, bottom: 20),
-            itemBuilder: (context, index) {
-              final chat = filteredChats[index];
-              final myUid = FirebaseAuth.instance.currentUser!.uid;
-              final friendId = chat.members?.firstWhere(
-                    (id) => id != myUid,
-                    orElse: () => "",
-                  ) ??
-                  "";
-
-              return GestureDetector(
-                onTap: () {
-                  GoRouter.of(context).push(
-                    AppRoutes.message,
-                    extra: {
-                      'friendId': friendId,
-                      'roomId': chat.id,
-                    },
-                  );
-                },
-                child: ChatsItem(
-                  name: chat.friendName ?? "unknown".tr(),
-                  image: chat.friendImage,
-                  message: chat.lastMessage ?? '',
-                  time: BlocProvider.of<GetChatsCubit>(context)
-                      .formatChatTime(chat.lastMessageTime),
-                  unreadCount: chat.unreadCount ?? 0,
-                ),
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              await context.read<GetChatsCubit>().fetchChats();
             },
+            child: ListView.builder(
+              itemCount: filteredChats.length,
+              padding: const EdgeInsets.only(top: 8, bottom: 20),
+              itemBuilder: (context, index) {
+                final chat = filteredChats[index];
+                final myUid = FirebaseAuth.instance.currentUser!.uid;
+                final friendId = chat.members?.firstWhere(
+                      (id) => id != myUid,
+                      orElse: () => "",
+                    ) ??
+                    "";
+
+                return GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRoutes.message,
+                      extra: {
+                        'friendId': friendId,
+                        'roomId': chat.id,
+                      },
+                    );
+                  },
+                  child: ChatsItem(
+                    name: chat.friendName ?? "unknown".tr(),
+                    image: chat.friendImage,
+                    message: chat.lastMessage ?? '',
+                    time: BlocProvider.of<GetChatsCubit>(context)
+                        .formatChatTime(chat.lastMessageTime),
+                    unreadCount: chat.unreadCount ?? 0,
+                  ),
+                );
+              },
+            ),
           );
         }
 

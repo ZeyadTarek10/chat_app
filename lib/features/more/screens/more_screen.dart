@@ -7,6 +7,7 @@ import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
 import 'package:chat_app/features/more/screens/widgets/dark_mode_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/language_more_screen.dart';
 import 'package:chat_app/features/more/screens/widgets/log_out_more_screen.dart';
+import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MoreScreen extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
+            builder: (_) => const Center(child: CustomLoading()),
           );
         } else if (state is LogoutSuccess) {
           GoRouter.of(context).pop();
@@ -60,7 +61,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 400,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.person_add,
-                  title: 'invite_friends'.tr(),
+                  title: 'invite_friends'.tr(context: context),
                   onTap: () {
                     final params = ShareParams(uri: Uri.parse('https://E-Chat.com'));
                     SharePlus.instance.share(params);
@@ -71,7 +72,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 450,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.group,
-                  title: 'joined_groups'.tr(),
+                  title: 'joined_groups'.tr(context: context),
                   onTap: () {},
                 ),
               ),
@@ -79,7 +80,7 @@ class MoreScreen extends StatelessWidget {
                 duration: 600,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.square_stack_3d_down_right,
-                  title: 'about_app'.tr(),
+                  title: 'about_app'.tr(context: context),
                   onTap: () {},
                 ),
               ),
@@ -87,13 +88,14 @@ class MoreScreen extends StatelessWidget {
                 duration: 650,
                 child: CustomMoreTile(
                   icon: CupertinoIcons.question_circle,
-                  title: 'help_center'.tr(),
+                  title: 'help_center'.tr(context: context),
                   onTap: () {},
                 ),
               ),
               CustomFadeInRight(
                 duration: 800,
                 child: LogOutMoreScreen(cubit: cubit)),
+              SizedBox(height: 20.h),
             ],
           ),
         );

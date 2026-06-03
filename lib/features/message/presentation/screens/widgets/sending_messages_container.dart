@@ -41,7 +41,7 @@ class SendingMessagesContainer extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                     margin: EdgeInsets.only(bottom: 8.h),
                     decoration: BoxDecoration(
-                      color: ColorsDark.white.withOpacity(0.1),
+                      color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border(
                         left: BorderSide(

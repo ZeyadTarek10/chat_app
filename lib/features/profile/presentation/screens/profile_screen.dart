@@ -97,6 +97,7 @@ class ProfileScreen extends StatelessWidget {
                       duration: 400, child: EditProfileButton(user: user)),
                   SizedBox(height: 12.h),
                   const CustomFadeInUp(duration: 800, child: LogOutProfile()),
+                  SizedBox(height: 12.h),
                 ],
               ),
             ),

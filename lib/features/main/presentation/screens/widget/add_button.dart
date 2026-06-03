@@ -43,17 +43,20 @@ class AddButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        color: context.color.navBarbg,
+        color: context.color.popupMenu,
         elevation: 8,
         onOpened: () => cubit.toggleMenuState(true),
         onCanceled: () => cubit.toggleMenuState(false),
         onSelected: (value) {
           cubit.toggleMenuState(false);
-          if (value == 'add_friend') {
-            GoRouter.of(context).push(AppRoutes.addChats);
-          } else if (value == 'create_group') {
-            GoRouter.of(context).push(AppRoutes.addGroups);
-          }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!context.mounted) return;
+            if (value == 'add_friend') {
+              GoRouter.of(context).push(AppRoutes.addChats);
+            } else if (value == 'create_group') {
+              GoRouter.of(context).push(AppRoutes.addGroups);
+            }
+          });
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
@@ -61,12 +64,12 @@ class AddButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
-                const Icon(CupertinoIcons.person_add, color: ColorsLight.mainTextColor, size: 26),
+                Icon(CupertinoIcons.person_add, color: ColorsLight.mainTextColor, size: FontDetails.fontSizeL),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
                   text: 'add_friend'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: context.color.textColor,
                   ),
@@ -79,12 +82,12 @@ class AddButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             child: Row(
               children: [
-                Icon(CupertinoIcons.group, color: ColorsLight.mainTextColor, size: 26.sp),
+                Icon(CupertinoIcons.group, color: ColorsLight.mainTextColor, size: FontDetails.fontSizeL),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
                   text: 'create_group'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
                     color: context.color.textColor,
                   ),

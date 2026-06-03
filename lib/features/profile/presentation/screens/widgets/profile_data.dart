@@ -44,7 +44,7 @@ class ProfileData extends StatelessWidget {
               await Clipboard.setData(ClipboardData(text: value));
               Fluttertoast.showToast(
                   msg: '${'copied_to_clipboard'.tr()} $value',
-                  backgroundColor: ColorsDark.blueLight1,
+                  backgroundColor: ColorsLight.green,
                   textColor: ColorsDark.white);
             },
           ),

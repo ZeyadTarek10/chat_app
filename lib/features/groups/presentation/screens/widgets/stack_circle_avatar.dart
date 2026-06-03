@@ -1,3 +1,4 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
@@ -37,7 +38,7 @@ class StackCircleAvatar extends StatelessWidget {
             if (index == 2 && totalCount > 3) {
               return Positioned(
                 left: index * overlapFactor,
-                child: _buildAvatarBadge(avatarSize, totalCount - 2),
+                child: _buildAvatarBadge(avatarSize, totalCount - 2, context),
               );
             }
 
@@ -54,7 +55,7 @@ class StackCircleAvatar extends StatelessWidget {
                 ),
                 child: CircleAvatar(
                   radius: avatarSize / 2,
-                  backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+                  backgroundColor: context.color.circleAvatarBackgroundColor,
                   child: url.isNotEmpty
                       ? ClipOval(
                           child: CachedNetworkImage(
@@ -66,7 +67,7 @@ class StackCircleAvatar extends StatelessWidget {
                               child: CustomTextWidget(
                                 text: initial,
                                 textStyle: TextStyle(
-                                  color: ColorsDark.white,
+                                  color: context.color.textColor,
                                   fontSize: 14.sp,
                                   fontWeight: FontDetails.boldFontWeight,
                                 ),
@@ -101,7 +102,7 @@ class StackCircleAvatar extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatarBadge(double size, int extraCount) {
+  Widget _buildAvatarBadge(double size, int extraCount, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -109,12 +110,12 @@ class StackCircleAvatar extends StatelessWidget {
       ),
       child: CircleAvatar(
         radius: size / 2,
-        backgroundColor: Colors.grey[200],
+        backgroundColor: context.color.popupMenu,
         child: CustomTextWidget(
           text: '+$extraCount',
           textStyle: TextStyle(
             fontSize: 12.sp,
-            color: ColorsLight.black,
+            color: context.color.textColor,
             fontWeight: FontDetails.boldFontWeight,
           ),
         ),

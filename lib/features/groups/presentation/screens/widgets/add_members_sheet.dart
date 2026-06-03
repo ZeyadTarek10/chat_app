@@ -110,11 +110,14 @@ class AddMembersSheet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30.r)),
                         ),
                         onPressed: () => Navigator.pop(context),
-                        btnWidth: 60.w,
-                        btnHeight: 60.h,
+                        btnWidth: 50.w,
+                        btnHeight: 50.h,
                         text: 'cancel'.tr(),
                         textStyle: TextStyle(
-                            color: ColorsDark.blueLight2, fontSize: 16.sp),
+                            color: ColorsDark.blueLight2, 
+                            fontSize: FontDetails.fontSizeS,
+                            fontWeight: FontDetails.boldFontWeight,
+                        ),
                       ),
                     ),
                   ),
@@ -129,12 +132,12 @@ class AddMembersSheet extends StatelessWidget {
                           cubit.confirmSelection();
                           Navigator.pop(context);
                         },
-                        height: 60.h,
+                        height: 50.h,
                         width: double.infinity.w,
                         child: CustomTextWidget(
                           text: 'add'.tr(),
                           textStyle: TextStyle(
-                            fontSize: FontDetails.fontSizeM,
+                            fontSize: FontDetails.fontSizeS,
                             color: ColorsDark.white,
                             fontWeight: FontDetails.boldFontWeight,
                           ),

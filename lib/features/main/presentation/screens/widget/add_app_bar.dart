@@ -18,7 +18,6 @@ class AddAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120.h,
       decoration: BoxDecoration(
         color: context.color.mainColor,
         image: const DecorationImage(
@@ -28,11 +27,11 @@ class AddAppBar extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(bottom: 10.h),
+          padding: EdgeInsets.only(top: 4.h, bottom: 12.h),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 8.h, left: 8.w, right: 8.w),
+                padding: EdgeInsets.only(left: 12.w, right: 12.w),
                 child: SizedBox(
                   width: 104.w,
                   child: Image.asset(
@@ -59,6 +58,45 @@ class AddAppBar extends StatelessWidget {
               AddButton(cubit: cubit),
               SizedBox(width: 8.w),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class AppBarMore extends StatelessWidget {
+  const AppBarMore({
+    super.key,
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.color.mainColor,
+        image: const DecorationImage(
+          image: AssetImage(AppImages.bG),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(top: 4.h, bottom: 12.h),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Align(
+              alignment: AlignmentDirectional.topStart,
+              child: SizedBox(
+                width: 104.w,
+                child: Image.asset(
+                  AppImages.appLogoImgHomeDark,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           ),
         ),
       ),

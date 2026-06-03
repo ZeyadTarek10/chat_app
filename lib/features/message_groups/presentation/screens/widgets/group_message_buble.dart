@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -35,19 +36,23 @@ class GroupMessageBuble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 16, end: 60, bottom: 16),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: FontDetails.fontSizeS,
-            backgroundImage:
-                avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
-            backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
-            child: avatarUrl.isEmpty
-                ? CustomTextWidget(
-                    text: text.isNotEmpty ? text[0].toUpperCase() : "",
-                    textStyle: const TextStyle(color: ColorsDark.white),
-                  )
-                : null,
+            radius: 15.5.r,
+            backgroundColor: ColorsDark.white,
+            child: CircleAvatar(
+              radius: FontDetails.fontSizeS,
+              backgroundImage:
+                  avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
+              backgroundColor: context.color.circleAvatarBackgroundColor,
+              child: avatarUrl.isEmpty
+                  ? CustomTextWidget(
+                      text: text.isNotEmpty ? text[0].toUpperCase() : "",
+                      textStyle: const TextStyle(color: ColorsDark.white),
+                    )
+                  : null,
+            ),
           ),
           SizedBox(width: 8.w),
           Expanded(
@@ -72,10 +77,10 @@ class GroupMessageBuble extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ColorsDark.white,
                     borderRadius: BorderRadiusDirectional.only(
-                      topStart: Radius.circular(16.r),
+                      topStart: Radius.circular(4.r),
                       topEnd: Radius.circular(16.r),
                       bottomEnd: Radius.circular(16.r),
-                      bottomStart: Radius.circular(4.r),
+                      bottomStart: Radius.circular(16.r),
                     ),
                   ),
                   child: Column(

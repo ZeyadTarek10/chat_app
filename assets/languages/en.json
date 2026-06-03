@@ -123,5 +123,7 @@
     "allow_access_to_gallery_and_photos": "Allow access to gallery and photos",
     "settings": "Settings",
     "failed_to_logout": "Failed to logout",
-    "enter_your_name_or_phone": "Enter your name or phone"
+    "enter_your_name_or_phone": "Enter your name or phone",
+    "delete_chat": "Delete chat",
+    "delete_messages": "Delete messages"
 }

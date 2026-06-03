@@ -23,7 +23,7 @@ class AppBarMessage2 extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 22.r,
-            backgroundColor: ColorsDark.backgroundColorCircleButtonblue3,
+            backgroundColor: context.color.circleAvatarBackgroundColor,
             child: (userModel.profilePicUrl != null &&
                     userModel.profilePicUrl!.isNotEmpty)
                 ? ClipOval(

@@ -26,7 +26,7 @@ class FontFamilyHelper {
   FontFamilyHelper._();
 
   static const String cairoArabic = 'Cairo';
-  static const String robotoEnglish = 'Roboto';
+  static const String sFProEnglish = 'SF-Pro';
 
   static String getLocalizedFontFamily(BuildContext context) {
     final currentLanguage = context.locale.languageCode; 
@@ -34,7 +34,7 @@ class FontFamilyHelper {
     if (currentLanguage == 'ar') {
       return cairoArabic;
     } else {
-      return robotoEnglish;
+      return sFProEnglish;
     }
   }
 }

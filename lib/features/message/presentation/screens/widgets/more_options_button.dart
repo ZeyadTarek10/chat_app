@@ -50,18 +50,22 @@ class MoreOptionsButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        color: context.color.navBarbg,
+        color: context.color.popupMenu,
         elevation: 8,
         onOpened: () => cubit.toggleMenuState(true),
         onCanceled: () => cubit.toggleMenuState(false),
         onSelected: (value) {
           cubit.toggleMenuState(false);
-          if (value == 'Delete chat') {
-            cubit.deleteRoom(roomId: roomId);
-            GoRouter.of(context).pushReplacement(AppRoutes.home);
-          } else if (value == 'Delete messages') {
-            cubit.clearChat(roomId: roomId);
-          }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (value == 'Delete chat') {
+              cubit.deleteRoom(roomId: roomId);
+              if (context.mounted) {
+                GoRouter.of(context).pushReplacement(AppRoutes.home);
+              }
+            } else if (value == 'Delete messages') {
+              cubit.clearChat(roomId: roomId);
+            }
+          });
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
@@ -70,14 +74,14 @@ class MoreOptionsButton extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(CupertinoIcons.trash,
-                    color: ColorsLight.mainTextColor, size: 26),
+                    color: ColorsLight.mainTextColor, size: 20),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
-                  text: 'Delete chat'.tr(),
+                  text: 'delete_chat'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
-                    color: ColorsLight.black,
+                    color: context.color.textColor,
                   ),
                 ),
               ],
@@ -89,14 +93,14 @@ class MoreOptionsButton extends StatelessWidget {
             child: Row(
               children: [
                 Icon(CupertinoIcons.delete_left,
-                    color: ColorsLight.mainTextColor, size: 26.sp),
+                    color: ColorsLight.mainTextColor, size: 20.sp),
                 SizedBox(width: 16.w),
                 CustomTextWidget(
-                  text: 'Delete messages'.tr(),
+                  text: 'delete_messages'.tr(),
                   textStyle: TextStyle(
-                    fontSize: FontDetails.fontSizeM,
+                    fontSize: FontDetails.fontSizeS,
                     fontWeight: FontDetails.semiBoldFontWeight,
-                    color: ColorsLight.black,
+                    color: context.color.textColor,
                   ),
                 ),
               ],
