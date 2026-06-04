@@ -11,6 +11,7 @@ class ColorsDark {
   static const Color addMemberButtonLightBlue =  Color(0xFFECF9FF);
   static const Color googlebtnColor = Color(0xffF4F7FF);
   static const Color blueDark = Color(0xff0F4888);
+  static const Color bublechat = Color(0xff1565C0);
   static const Color navBarDark = Color(0xff393A4C);
   static const Color popupMenuDark = Color(0xff4A4B62);
   static const Color white = Color(0xFFffffff);

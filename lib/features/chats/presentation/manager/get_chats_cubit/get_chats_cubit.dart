@@ -18,25 +18,6 @@ class GetChatsCubit extends Cubit<GetChatsState> {
 
   GetChatsCubit({required this.getChatsUseCase}) : super(GetChatsInitial());
 
-String formatChatTime(DateTime? dateTime) {
-  if (dateTime == null) return '';
-
-  DateTime now = DateTime.now();
-  DateTime today = DateTime(now.year, now.month, now.day);
-  DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
-  DateTime messageDay = DateTime(dateTime.year, dateTime.month, dateTime.day);
-
-  String timeOnly = DateFormat('hh:mm a').format(dateTime);
-
-  if (messageDay == today) {
-    return "${"today".tr()} • $timeOnly";
-  } else if (messageDay == yesterday) {
-    return "${"yesterday".tr()} • $timeOnly";
-  } else {
-    return DateFormat('dd MMM • hh:mm a').format(dateTime);
-  }
-}
-
   Future<void> fetchChats() async {
     emit(GetChatsLoading());
 

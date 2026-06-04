@@ -1,6 +1,7 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:chat_app/features/message/presentation/screens/message_screen.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/reply_message_widget.dart';
@@ -24,6 +25,16 @@ class SendingMessagesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final messageCubit = context.read<MessageCubit>();
+    MessageEntity getFormattedReply(MessageEntity reply) {
+    if (reply.type == "image") {
+      return reply.copyWith(message: "🖼 ${'photo'.tr()}");
+    } else if (reply.type == "location") {
+      return reply.copyWith(message: "📍 ${'location'.tr()}");
+    } else if (reply.type == "contact") {
+      return reply.copyWith(message: "👤 ${'contact'.tr()}");
+    }
+    return reply;
+  }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       color: context.color.mainColor,
@@ -41,7 +52,7 @@ class SendingMessagesContainer extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                     margin: EdgeInsets.only(bottom: 8.h),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: context.color.textColor!.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border(
                         left: BorderSide(
@@ -51,10 +62,7 @@ class SendingMessagesContainer extends StatelessWidget {
                       ),
                     ),
                     child: ReplyMessageWidget(
-                      message: state.replyMessage!.type == "image"
-                          ? state.replyMessage!
-                              .copyWith(message: "🖼 ${'photo'.tr()}")
-                          : state.replyMessage!,
+                      message: getFormattedReply(state.replyMessage!), 
                       friendName: state.friendData?.name ?? "friend".tr(),
                       onCancelReply: () => messageCubit.cancelReply(),
                     ),

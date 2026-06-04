@@ -1,3 +1,4 @@
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/features/message/data/models/message_model.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,7 +44,7 @@ class MessageGroupsRemoteDataSourceImpl implements MessageGroupsRemoteDataSource
       List<dynamic> members = data['members'] ?? [];
 
       Map<String, dynamic> updates = {
-        "last_message": type == "text" ? message : "📷 Image", 
+        "last_message": messagesModel.typeText, 
         "last_message_time": DateTime.now().millisecondsSinceEpoch.toString(),
       };
 

@@ -1,9 +1,11 @@
-import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
 import 'package:chat_app/config/app/upload_image/data/data_source/upload_image_remote_data_source.dart';
 import 'package:chat_app/config/app/upload_image/data/repositories/upload_image_repositories_impl.dart';
 import 'package:chat_app/config/app/upload_image/domain/repositories/upload_image_repositories.dart';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/manager/cubit/upload_image_cubit.dart';
+import 'package:chat_app/core/services/contact_service.dart';
+import 'package:chat_app/core/services/location_service.dart';
 import 'package:chat_app/features/Login/data/data_sources/login_remote_data_source.dart';
 import 'package:chat_app/features/Login/data/repositories/login_repository_impl.dart';
 import 'package:chat_app/features/Login/domain/repositories/login_repository.dart';
@@ -88,8 +90,10 @@ Future<void> getItInit() async {
   getIt.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: getIt()));
   getIt.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
-  getIt.registerFactory<SignUpCubit>(
-      () => SignUpCubit(signUpUseCase: getIt(), googleSignInUseCase: getIt(), cacheHelper: getIt()));
+  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(
+      signUpUseCase: getIt(),
+      googleSignInUseCase: getIt(),
+      cacheHelper: getIt()));
   getIt.registerFactory<MainCubit>(() => MainCubit());
   getIt.registerFactory<MoreCubit>(() => MoreCubit(cacheHelper: getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(
@@ -108,7 +112,9 @@ Future<void> getItInit() async {
       getUserByIdUseCase: getIt(),
       deleteRoomUseCase: getIt(),
       clearChatMessagesUseCase: getIt(),
-      uploadImageUseCase: getIt()));
+      uploadImageUseCase: getIt(),
+      locationService: getIt(),
+      contactService: getIt()));
   getIt.registerFactory<GroupsCubit>(() => GroupsCubit(
       createGroupsUseCase: getIt(),
       getGroupsUseCase: getIt(),
@@ -117,7 +123,7 @@ Future<void> getItInit() async {
       sendMessageUseCase: getIt(),
       repository: getIt(),
       uploadImageUseCase: getIt(),
-      groupsRepository: getIt()));
+      groupsRepository: getIt(), locationService: getIt(), contactService: getIt()));
   getIt.registerFactory<UploadImageCubit>(
       () => UploadImageCubit(featureUc: getIt()));
 
@@ -238,6 +244,8 @@ Future<void> getItInit() async {
   getIt.registerLazySingleton(() => UrlLauncherService());
   getIt.registerLazySingleton(() => PermissionService());
   getIt.registerLazySingleton(() => GoogleSignInService());
+  getIt.registerLazySingleton(() => LocationService());
+  getIt.registerLazySingleton(() => ContactService());
   getIt.registerLazySingleton(() => AlertService());
   getIt.registerLazySingleton(() => PrettyDioLogger(
         request: true,

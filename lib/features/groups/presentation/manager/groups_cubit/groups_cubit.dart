@@ -44,35 +44,6 @@ class GroupsCubit extends Cubit<GroupsState> {
     emit(GroupsUpdated());
   }
 
-  String formatGroupTime(String? date) {
-  if (date == null || date.isEmpty) return '';
-
-  DateTime dateTime;
-
-  int? millis = int.tryParse(date);
-  if (millis != null) {
-    dateTime = DateTime.fromMillisecondsSinceEpoch(millis);
-  } else {
-    dateTime = DateTime.tryParse(date) ?? DateTime.now();
-  }
-
-  DateTime now = DateTime.now();
-
-  DateTime today = DateTime(now.year, now.month, now.day);
-  DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
-  DateTime messageDay = DateTime(dateTime.year, dateTime.month, dateTime.day);
-
-  String timeOnly = DateFormat('hh:mm a').format(dateTime);
-
-  if (messageDay == today) {
-    return "${'today'.tr()} • $timeOnly";
-  } else if (messageDay == yesterday) {
-    return "${'yesterday'.tr()} • $timeOnly";
-  } else {
-    return DateFormat('dd MMM • hh:mm a').format(dateTime);
-  }
-}
-
 String memberSearchQuery = '';
 
 void updateMemberSearchQuery(String query) {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
@@ -44,14 +45,14 @@ class ListViewBuilderMessages extends StatelessWidget {
         final actualIndex = index - extraCount;
         final msg = messages[actualIndex];
         final time =
-            context.read<MessageCubit>().formatMessageTime(msg.createdAt);
+            DateHelper.formatMessageTime(msg.createdAt);
         bool showHeader = false;
         if (actualIndex == messages.length - 1) {
           showHeader = true;
         } else {
           final previousMessageTime = messages[actualIndex + 1].createdAt;
           if (msg.createdAt != null && previousMessageTime != null) {
-            if (!messageCubit.isSameDay(msg.createdAt!, previousMessageTime)) {
+            if (!DateHelper.isSameDay(msg.createdAt!, previousMessageTime)) {
               showHeader = true;
             }
           }
@@ -83,7 +84,7 @@ class ListViewBuilderMessages extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: CustomTextWidget(
-                    text: messageCubit.getChatDayHeader(msg.createdAt!),
+                    text: DateHelper.getChatDayHeader(msg.createdAt!),
                     textStyle: TextStyle(
                       fontSize: 12.sp,
                       color: ColorsLight.mainTextColor, 

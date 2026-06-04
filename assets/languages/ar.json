@@ -125,5 +125,12 @@
     "failed_to_logout": "فشل تسجيل الخروج",
     "enter_your_name_or_phone": "ادخل اسمك او رقمك",
     "delete_chat": "مسح الشات",
-    "delete_messages": "مسح الرسائل"
+    "delete_messages": "مسح الرسائل",
+    "access_to_the_site_has_been_denied": "تم رفض صلاحية الوصول للموقع",
+    "contact_without_a_name": "جهة اتصال بدون اسم",
+    "no_contact_selected": "لم يتم اختيار جهة اتصال",
+    "live_location": "الموقع الحالى",
+    "unknown_location": "موقع غير معروف",
+    "friend_added_successfully": "تم إضافة الصديق بنجاح",
+    "send_a_message": "أرسل رسالة"
 }

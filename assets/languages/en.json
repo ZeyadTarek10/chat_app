@@ -125,5 +125,12 @@
     "failed_to_logout": "Failed to logout",
     "enter_your_name_or_phone": "Enter your name or phone",
     "delete_chat": "Delete chat",
-    "delete_messages": "Delete messages"
+    "delete_messages": "Delete messages",
+    "access_to_the_site_has_been_denied":"Access to the site has been denied",
+    "contact_without_a_name": "Contact without a name",
+    "no_contact_selected": "No contact selected",
+    "live_location": "Live Location",
+    "unknown_location": "Unknown Location",
+    "friend_added_successfully": "Friend added successfully",
+    "send_a_message": "Send a message"
 }

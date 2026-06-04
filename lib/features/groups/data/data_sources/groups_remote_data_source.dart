@@ -67,9 +67,20 @@ class GroupsRemoteDataSourceImpl implements GroupsRemoteDataSource {
         .collection("groups")
         .where("members", arrayContains: myUid)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => GroupsModel.fromJson(doc.data()))
-            .toList());
+        .map((snapshot) {
+          List<GroupsModel> groups = snapshot.docs
+              .map((doc) => GroupsModel.fromJson(doc.data()))
+              .toList();
+
+          groups.sort((a, b) {
+            int timeA = int.tryParse(a.lastMessageTime) ?? 0;
+            int timeB = int.tryParse(b.lastMessageTime) ?? 0;
+            
+            return timeB.compareTo(timeA);
+          });
+
+          return groups;
+    });
   }
 
   @override

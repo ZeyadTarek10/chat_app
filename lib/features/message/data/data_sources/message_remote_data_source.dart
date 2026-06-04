@@ -1,3 +1,4 @@
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
 import 'package:chat_app/features/message/data/models/message_model.dart';
 import 'package:chat_app/features/sign_up/data/models/user_model.dart';
@@ -31,7 +32,7 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
 
       await firestore.collection("chats").doc(roomId).update({
         "last_message":
-            messageModel.type == "text" ? messageModel.message : "Image",
+            messageModel.typeText,
         "last_message_time":
             messageModel.createdAt ?? FieldValue.serverTimestamp(),
       });
@@ -83,7 +84,21 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
 
   @override
   Future<void> deleteRoom({required String roomId}) async {
-    await firestore.collection("chats").doc(roomId).delete();
+    try {
+      final messagesRef = firestore.collection("chats").doc(roomId).collection("messages");
+      final snapshots = await messagesRef.get();
+
+      WriteBatch batch = firestore.batch();
+      for (var doc in snapshots.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+
+      await firestore.collection("chats").doc(roomId).delete();
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
+      throw Exception(e.toString());
+    }
   }
 
    @override
@@ -99,7 +114,7 @@ class MessageRemoteDataSourceImpl implements MessageRemoteDataSource {
     await batch.commit();
 
     await firestore.collection("chats").doc(roomId).set({
-      "last_message": "Chat cleared", 
+      "last_message": " ", 
     }, SetOptions(merge: true));
     
   } catch (e, stackTrace) {
