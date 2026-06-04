@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -29,7 +30,7 @@ class LocationService {
 
     if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
       Position position = await Geolocator.getCurrentPosition();
-      String addressName = "Unknown Location"; 
+      String addressName = "unknown_location".tr(); 
       debugPrint("=============================================================Current Position: Lat=${position.latitude}, Lng=${position.longitude}");
 
       try {

@@ -43,7 +43,7 @@ class AttachmentMenu extends StatelessWidget {
                 cubit.sendImageMessage(roomId: roomId, friendId: friendId!, source: ImageSource.camera),),
               // IconOptions(icon: Icons.mic, label: 'record'.tr(), onPressed: () {  },),
               IconOptions(icon: Icons.person, label: 'contact'.tr(), onPressed: () { 
-                cubit.sendContactMessage(chatId: roomId, frindId: friendId!);
+                cubit.sendContactMessage(chatId: roomId, friendId: friendId!);
                },),
             ],
           ),
@@ -54,7 +54,7 @@ class AttachmentMenu extends StatelessWidget {
               IconOptions(icon: Icons.photo, label: 'gallery'.tr(), onPressed:() => 
                 cubit.sendImageMessage(roomId: roomId, friendId: friendId!, source: ImageSource.gallery),),
               IconOptions(icon: Icons.location_on, label: 'my_location'.tr(), onPressed: () {
-                  cubit.sendLocationMessage(chatId: roomId, frindId: friendId!);
+                  cubit.sendLocationMessage(chatId: roomId, friendId: friendId!);
                 },),
               // IconOptions(icon: Icons.insert_drive_file, label: 'document'.tr(), onPressed: () {  },),
             ],

@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
+import 'package:chat_app/core/mixins/attachment_sender_mixin.dart';
 import 'package:chat_app/core/services/contact_service.dart';
 import 'package:chat_app/core/services/location_service.dart';
 import 'package:chat_app/features/groups/domain/repositories/groups_repository.dart';
@@ -17,14 +16,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 part 'messege_group_state.dart';
 
-class MessegeGroupCubit extends Cubit<MessegeGroupState> {
+class MessegeGroupCubit extends Cubit<MessegeGroupState> with AttachmentSenderMixin{
   final SendGroupMessageUseCase sendMessageUseCase;
   final MessageGroupsRepository repository;
   final GroupsRepository groupsRepository;
   final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
   final UploadImageUseCase uploadImageUseCase;
+  @override
   final LocationService locationService;
+  @override
   final ContactService contactService;
 
   StreamSubscription? _messagesSubscription;
@@ -184,11 +185,9 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     toggleMenu();
 
     try {
-      final position = await locationService.getCurrentLocation();
+      final locationData = await buildLocationPayload();;
 
-      if (position != null) {
-        String locationData = jsonEncode(position);
-
+      if (locationData != null) {
         cancelReply();
         if (controller0.hasClients) {
           controller0.animateTo(0,
@@ -226,16 +225,9 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     toggleMenu();
 
     try {
-      final contact = await contactService.pickContact();
+      final contactData = await buildContactPayload();
 
-      if (contact != null && contact.phones.isNotEmpty) {
-        String contactName =
-            (contact.displayName ?? "contact_without_a_name".tr()).trim();
-        String contactPhone = contact.phones.first.number;
-
-        String contactData =
-            '{"name": "$contactName", "phone": "$contactPhone"}';
-
+      if (contactData != null) {
         cancelReply();
         if (controller0.hasClients) {
           controller0.animateTo(0,

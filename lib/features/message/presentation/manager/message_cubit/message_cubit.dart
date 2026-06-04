@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
+import 'package:chat_app/core/mixins/attachment_sender_mixin.dart';
 import 'package:chat_app/core/services/contact_service.dart';
 import 'package:chat_app/core/services/location_service.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart';
 
 part 'message_state.dart';
 
-class MessageCubit extends Cubit<MessageState> {
+class MessageCubit extends Cubit<MessageState> with AttachmentSenderMixin {
   final GetMessagesUseCase getMessagesUseCase;
   final SendMessageUseCase sendMessageUseCase;
   final ReadMessageUseCase readMessageUseCase;
@@ -28,7 +28,9 @@ class MessageCubit extends Cubit<MessageState> {
   final ClearChatMessagesUseCase clearChatMessagesUseCase;
   final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
+  @override
   final LocationService locationService;
+  @override
   final ContactService contactService;
 
   UserEntity? friendModel;
@@ -229,7 +231,7 @@ class MessageCubit extends Cubit<MessageState> {
   }
 
   Future<void> sendLocationMessage(
-      {required String chatId, required String frindId}) async {
+      {required String chatId, required String friendId}) async {
     final currentState = state;
 
     MessageEntity? currentReply;
@@ -240,17 +242,16 @@ class MessageCubit extends Cubit<MessageState> {
     toggleMenu();
 
     try {
-      final position = await locationService.getCurrentLocation();
+      final locationData = await buildLocationPayload();
 
-      if (position != null) {
-        String locationData = jsonEncode(position);
+      if (locationData != null) {
         String msgId = DateTime.now().millisecondsSinceEpoch.toString();
 
         final newMessage = MessageEntity(
           id: msgId,
           message: locationData,
           createdAt: DateTime.now(),
-          toId: frindId,
+          toId: friendId,
           fromId: FirebaseAuth.instance.currentUser!.uid,
           type: "location",
           read: "",
@@ -273,7 +274,7 @@ class MessageCubit extends Cubit<MessageState> {
   }
 
   Future<void> sendContactMessage(
-      {required String chatId, required String frindId}) async {
+      {required String chatId, required String friendId}) async {
     final currentState = state;
     MessageEntity? currentReply;
 
@@ -284,22 +285,16 @@ class MessageCubit extends Cubit<MessageState> {
     toggleMenu();
 
     try {
-      final contact = await contactService.pickContact();
+      final contactData = await buildContactPayload();
 
-      if (contact != null && contact.phones.isNotEmpty) {
-        String contactName =
-            (contact.displayName ?? "contact_without_a_name".tr()).trim();
-        String contactPhone = contact.phones.first.number;
-
-        String contactData =
-            '{"name": "$contactName", "phone": "$contactPhone"}';
+      if (contactData != null) {
         String msgId = DateTime.now().millisecondsSinceEpoch.toString();
 
         final newMessage = MessageEntity(
           id: msgId,
           message: contactData,
           createdAt: DateTime.now(),
-          toId: frindId,
+          toId: friendId,
           fromId: FirebaseAuth.instance.currentUser!.uid,
           type: "contact",
           read: "",

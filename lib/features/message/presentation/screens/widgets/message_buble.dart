@@ -114,7 +114,7 @@ class MessageBubleForMe extends StatelessWidget {
         margin: const EdgeInsetsDirectional.only(
             end: 16, start: 60, bottom: 12),
         decoration: BoxDecoration(
-          color: const Color(0xff1565C0),
+          color: ColorsDark.bublechat,
           borderRadius: BorderRadiusDirectional.only(
             topStart: Radius.circular(16.r),
             topEnd: Radius.circular(16.r),

@@ -8,7 +8,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class MessageContent extends StatelessWidget {
   final String type;
   final String message;
@@ -52,9 +51,9 @@ class MessageContent extends StatelessWidget {
         locData = {'lat': '0', 'lng': '0', 'address': "unknown_location".tr()};
       }
 
-      final String lat = locData['lat']!;
-      final String lng = locData['lng']!;
-      final String address = locData['address']!;
+      final String lat = locData['lat'] ?? '0';
+      final String lng = locData['lng'] ?? '0';
+      final String address = locData['address'] ?? "unknown_location".tr();
 
       return GestureDetector(
         onTap: () => UrlLauncherService().openMap(lat, lng),
@@ -62,14 +61,16 @@ class MessageContent extends StatelessWidget {
           width: 220.w,
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
-            color: isMe ? Colors.white.withOpacity(0.15) : Colors.grey.withOpacity(0.2),
+            color: isMe
+                ? ColorsDark.white.withOpacity(0.15)
+                : Colors.grey.withOpacity(0.2),
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Row(
             children: [
               const CircleAvatar(
                 backgroundColor: Colors.redAccent,
-                child: Icon(Icons.location_on, color: Colors.white),
+                child: Icon(Icons.location_on, color: ColorsDark.white),
               ),
               SizedBox(width: 8.w),
               Expanded(
@@ -110,16 +111,16 @@ class MessageContent extends StatelessWidget {
         width: 230.w,
         padding: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
-          color: isMe ? Colors.white.withOpacity(0.15) : Colors.grey.shade100,
+          color: isMe ? ColorsDark.white.withOpacity(0.15) : Colors.grey.shade100,
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: isMe ? Colors.white : ColorsDark.blueLight1,
+              backgroundColor: isMe ? ColorsDark.white : ColorsDark.blueLight1,
               child: Icon(
                 Icons.person,
-                color: isMe ? const Color(0xff1565C0) : Colors.white,
+                color: isMe ? ColorsDark.bublechat : ColorsDark.white,
               ),
             ),
             SizedBox(width: 8.w),
@@ -146,12 +147,12 @@ class MessageContent extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: Icon(
-                Icons.call,
-                color: isMe ? ColorsLight.white : ColorsDark.blueLight1,
-              ),
-              onPressed: () => UrlLauncherService().callPhone(contactData['phone'] ?? "")
-            )
+                icon: Icon(
+                  Icons.call,
+                  color: isMe ? ColorsLight.white : ColorsDark.blueLight1,
+                ),
+                onPressed: () =>
+                    UrlLauncherService().callPhone(contactData['phone'] ?? ""))
           ],
         ),
       );
