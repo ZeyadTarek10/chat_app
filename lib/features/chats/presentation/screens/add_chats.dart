@@ -79,6 +79,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
         listener: (context, state) {
           if (state is CreateChatsSuccessState) {
             GoRouter.of(context).pushReplacement(AppRoutes.home);
+            showSnackBar(context, text: 'friend_added_successfully'.tr(), color: ColorsLight.green);
           } else if (state is CreateChatsErrorState) {
             showSnackBar(context, text: state.errMsg, color: ColorsLight.error);
           }

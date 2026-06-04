@@ -1,5 +1,8 @@
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/groups_item.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
@@ -47,6 +50,8 @@ class GroupsScreen extends StatelessWidget {
                 child: Lottie.asset('assets/lottie/non data found.json'));
           }
           return RefreshIndicator(
+            backgroundColor: context.color.navBarbg,
+            color: ColorsDark.blueLight2,
             onRefresh: () async {
               context.read<GroupsCubit>().fetchGroups();
             },
@@ -55,7 +60,7 @@ class GroupsScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 8.r, bottom: 20.r),
               itemBuilder: (context, index) {
                 final group = filteredGroups[index];
-            
+
                 int currentUnreadCount = group.unreadCounts?[myUid] ?? 0;
                 return GestureDetector(
                   onTap: () {
@@ -67,9 +72,7 @@ class GroupsScreen extends StatelessWidget {
                     message: group.lastMessage.isNotEmpty
                         ? group.lastMessage
                         : 'start_chatting'.tr(),
-                    time: context
-                        .read<GroupsCubit>()
-                        .formatGroupTime(group.lastMessageTime),
+                    time: DateHelper.formatGroupTime(group.lastMessageTime),
                     unreadCount: currentUnreadCount,
                     image: group.image,
                     c: group.memberNames.length,

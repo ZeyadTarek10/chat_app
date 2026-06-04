@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
+import 'package:chat_app/core/services/contact_service.dart';
+import 'package:chat_app/core/services/location_service.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/domain/use_cases/delete_room_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
@@ -25,6 +28,8 @@ class MessageCubit extends Cubit<MessageState> {
   final ClearChatMessagesUseCase clearChatMessagesUseCase;
   final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
+  final LocationService locationService;
+  final ContactService contactService;
 
   UserEntity? friendModel;
 
@@ -40,6 +45,8 @@ class MessageCubit extends Cubit<MessageState> {
     required this.deleteRoomUseCase,
     required this.clearChatMessagesUseCase,
     required this.uploadImageUseCase,
+    required this.locationService,
+    required this.contactService,
   }) : super(MessageInitial());
 
   void getMessages(String roomId) {
@@ -66,33 +73,6 @@ class MessageCubit extends Cubit<MessageState> {
       }
     });
   }
-
-  String formatMessageTime(DateTime? dateTime) {
-    if (dateTime == null) return "";
-
-    return DateFormat('hh:mm a').format(dateTime);
-  }
-
-  String getChatDayHeader(DateTime messageDate) {
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
-  final yesterday = DateTime(now.year, now.month, now.day - 1);
-  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
-
-  if (messageDay == today) {
-    return "today".tr();
-  } else if (messageDay == yesterday) {
-    return "yesterday".tr();
-  } else {
-    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
-  }
-}
-
-bool isSameDay(DateTime date1, DateTime date2) {
-  return date1.year == date2.year &&
-         date1.month == date2.month &&
-         date1.day == date2.day;
-}
 
   bool _isMenuOpen = false;
   bool issMenuOpen = false;
@@ -242,11 +222,101 @@ bool isSameDay(DateTime date1, DateTime date2) {
         await sendMessage(newImageMessage, roomId);
 
         if (!isClosed && state is MessageLoadedState) {
-          emit((state as MessageLoadedState)
-              .copyWith(clearPendingImage: true));
+          emit((state as MessageLoadedState).copyWith(clearPendingImage: true));
         }
       },
     );
+  }
+
+  Future<void> sendLocationMessage(
+      {required String chatId, required String frindId}) async {
+    final currentState = state;
+
+    MessageEntity? currentReply;
+    if (state is MessageLoadedState) {
+      currentReply = (state as MessageLoadedState).replyMessage;
+    }
+
+    toggleMenu();
+
+    try {
+      final position = await locationService.getCurrentLocation();
+
+      if (position != null) {
+        String locationData = jsonEncode(position);
+        String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+
+        final newMessage = MessageEntity(
+          id: msgId,
+          message: locationData,
+          createdAt: DateTime.now(),
+          toId: frindId,
+          fromId: FirebaseAuth.instance.currentUser!.uid,
+          type: "location",
+          read: "",
+          replyMessage: currentReply,
+        );
+
+        cancelReply();
+        _scrollToBottom();
+
+        await sendMessage(newMessage, chatId);
+      } else {
+        emit(MessageActionErrorState(
+            errMsg: "access_to_the_site_has_been_denied".tr()));
+        if (currentState is MessageLoadedState) emit(currentState);
+      }
+    } catch (e) {
+      emit(MessageActionErrorState(errMsg: e.toString()));
+      if (currentState is MessageLoadedState) emit(currentState);
+    }
+  }
+
+  Future<void> sendContactMessage(
+      {required String chatId, required String frindId}) async {
+    final currentState = state;
+    MessageEntity? currentReply;
+
+    if (state is MessageLoadedState) {
+      currentReply = (state as MessageLoadedState).replyMessage;
+    }
+
+    toggleMenu();
+
+    try {
+      final contact = await contactService.pickContact();
+
+      if (contact != null && contact.phones.isNotEmpty) {
+        String contactName =
+            (contact.displayName ?? "contact_without_a_name".tr()).trim();
+        String contactPhone = contact.phones.first.number;
+
+        String contactData =
+            '{"name": "$contactName", "phone": "$contactPhone"}';
+        String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+
+        final newMessage = MessageEntity(
+          id: msgId,
+          message: contactData,
+          createdAt: DateTime.now(),
+          toId: frindId,
+          fromId: FirebaseAuth.instance.currentUser!.uid,
+          type: "contact",
+          read: "",
+          replyMessage: currentReply,
+        );
+
+        cancelReply();
+        _scrollToBottom();
+        await sendMessage(newMessage, chatId);
+      } else {
+        emit(MessageActionErrorState(errMsg: "no_contact_selected".tr()));
+        if (currentState is MessageLoadedState) emit(currentState);
+      }
+    } catch (e) {
+      emit(MessageActionErrorState(errMsg: e.toString()));
+      if (currentState is MessageLoadedState) emit(currentState);
+    }
   }
 
   void _scrollToBottom() {

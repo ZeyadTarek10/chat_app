@@ -1,3 +1,4 @@
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -129,10 +130,7 @@ class _MessageGroupsScreenState extends State<MessageGroupsScreen> {
                           children: [
                             Expanded(
                               child: ReplyMessageWidget(
-                                  message: currentReply.type == "image"
-                                      ? currentReply.copyWith(
-                                          message: "🖼 ${'photo'.tr()}")
-                                      : currentReply,
+                                  message: currentReply.toReplyDisplay,
                                   friendName: replySenderName,
                                   onCancelReply: () =>
                                       messegeGroupCubit.cancelReply()),

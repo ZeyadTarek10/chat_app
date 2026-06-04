@@ -1,4 +1,4 @@
-import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

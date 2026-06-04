@@ -1,5 +1,8 @@
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/features/chats/presentation/manager/get_chats_cubit/get_chats_cubit.dart';
 import 'package:chat_app/features/chats/presentation/screens/widgets/chat_item.dart';
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
@@ -50,6 +53,8 @@ class ChatsScreen extends StatelessWidget {
                 child: Lottie.asset('assets/lottie/non data found.json'));
           }
           return RefreshIndicator(
+            backgroundColor: context.color.navBarbg,
+            color: ColorsDark.blueLight2,
             onRefresh: () async {
               await context.read<GetChatsCubit>().fetchChats();
             },
@@ -79,8 +84,7 @@ class ChatsScreen extends StatelessWidget {
                     name: chat.friendName ?? "unknown".tr(),
                     image: chat.friendImage,
                     message: chat.lastMessage ?? '',
-                    time: BlocProvider.of<GetChatsCubit>(context)
-                        .formatChatTime(chat.lastMessageTime),
+                    time: DateHelper.formatChatTime(chat.lastMessageTime),
                     unreadCount: chat.unreadCount ?? 0,
                   ),
                 );

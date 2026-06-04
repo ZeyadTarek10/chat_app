@@ -1,9 +1,11 @@
-
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
+import 'package:chat_app/core/services/contact_service.dart';
+import 'package:chat_app/core/services/location_service.dart';
 import 'package:chat_app/features/groups/domain/repositories/groups_repository.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
@@ -17,33 +19,44 @@ part 'messege_group_state.dart';
 
 class MessegeGroupCubit extends Cubit<MessegeGroupState> {
   final SendGroupMessageUseCase sendMessageUseCase;
-  final MessageGroupsRepository repository; 
+  final MessageGroupsRepository repository;
   final GroupsRepository groupsRepository;
-   final TextEditingController controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   final ScrollController controller0 = ScrollController();
   final UploadImageUseCase uploadImageUseCase;
-  
+  final LocationService locationService;
+  final ContactService contactService;
+
   StreamSubscription? _messagesSubscription;
 
-  MessegeGroupCubit({ required this.sendMessageUseCase, required this.repository, required this.uploadImageUseCase, required this.groupsRepository}) : super(MessegeGroupInitial());
+  MessegeGroupCubit(
+      {required this.sendMessageUseCase,
+      required this.repository,
+      required this.uploadImageUseCase,
+      required this.groupsRepository,
+      required this.locationService,
+      required this.contactService})
+      : super(MessegeGroupInitial());
 
   void getMessages(String groupId) {
     _messagesSubscription?.cancel();
 
     groupsRepository.resetGroupUnreadCount(groupId);
-    
-    _messagesSubscription = repository.getGroupMessages(groupId).listen((result) {
+
+    _messagesSubscription =
+        repository.getGroupMessages(groupId).listen((result) {
       result.fold(
-        (failure) => emit(MessegeGroupError(error: failure.massage)), 
+        (failure) => emit(MessegeGroupError(error: failure.massage)),
         (messages) {
           final myUid = FirebaseAuth.instance.currentUser?.uid;
-          
+
           for (var msg in messages) {
-            if (msg.fromId != myUid && (msg.read == null || msg.read!.isEmpty)) {
-               repository.markMessageAsRead(groupId, msg.id!);
+            if (msg.fromId != myUid &&
+                (msg.read == null || msg.read!.isEmpty)) {
+              repository.markMessageAsRead(groupId, msg.id!);
             }
           }
-          
+
           emit(MessegeGroupLoaded(messages: messages));
         },
       );
@@ -62,35 +75,6 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> {
     }
   }
 
-  String formatMessageTime(DateTime? dateTime) {
-    if (dateTime == null) return "";
-
-    return DateFormat('hh:mm a').format(dateTime);
-  }
-
-  String getChatDayHeader(DateTime messageDate) {
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
-  final yesterday = DateTime(now.year, now.month, now.day - 1);
-  final messageDay = DateTime(messageDate.year, messageDate.month, messageDate.day);
-
-  if (messageDay == today) {
-    return "today".tr();
-  } else if (messageDay == yesterday) {
-    return "yesterday".tr();
-  } else {
-    return '${messageDate.day}/${messageDate.month}/${messageDate.year}';
-  }
-}
-
-bool isSameDay(DateTime date1, DateTime date2) {
-  return date1.year == date2.year &&
-         date1.month == date2.month &&
-         date1.day == date2.day;
-}
-
-
-
   Future<void> sendGroupTextMessage(String groupId) async {
     final text = controller.text.trim();
     if (text.isEmpty) return;
@@ -103,14 +87,16 @@ bool isSameDay(DateTime date1, DateTime date2) {
     controller.clear();
     cancelReply();
     if (controller0.hasClients) {
-      controller0.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+      controller0.animateTo(0,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     }
 
     try {
-      final result = await sendMessageUseCase(text, groupId, "text", currentReply);
+      final result =
+          await sendMessageUseCase(text, groupId, "text", currentReply);
       result.fold(
         (failure) => emit(MessegeGroupError(error: failure.massage)),
-        (_) {}, 
+        (_) {},
       );
     } catch (e, stackTrace) {
       printFirebaseError(e, stackTrace);
@@ -118,7 +104,8 @@ bool isSameDay(DateTime date1, DateTime date2) {
     }
   }
 
-  Future<void> sendGroupImageMessage({required String groupId, required ImageSource source}) async {
+  Future<void> sendGroupImageMessage(
+      {required String groupId, required ImageSource source}) async {
     MessageEntity? currentReply;
     if (state is MessegeGroupLoaded) {
       currentReply = (state as MessegeGroupLoaded).replyMessage;
@@ -164,8 +151,8 @@ bool isSameDay(DateTime date1, DateTime date2) {
         }
 
         try {
-          final result =
-              await sendMessageUseCase(imageUrl, groupId, "image", currentReply);
+          final result = await sendMessageUseCase(
+              imageUrl, groupId, "image", currentReply);
 
           result.fold(
             (failure) {
@@ -181,22 +168,109 @@ bool isSameDay(DateTime date1, DateTime date2) {
         }
 
         if (!isClosed && state is MessegeGroupLoaded) {
-          emit((state as MessegeGroupLoaded)
-              .copyWith(clearPendingImage: true));
+          emit((state as MessegeGroupLoaded).copyWith(clearPendingImage: true));
         }
       },
     );
   }
 
-bool _isMenuOpen = false;
-  bool get isMenuOpen => _isMenuOpen; 
-  
+  Future<void> sendGroupLocationMessage({required String groupId}) async {
+    final currentState = state;
+    MessageEntity? currentReply;
+    if (state is MessegeGroupLoaded) {
+      currentReply = (state as MessegeGroupLoaded).replyMessage;
+    }
+
+    toggleMenu();
+
+    try {
+      final position = await locationService.getCurrentLocation();
+
+      if (position != null) {
+        String locationData = jsonEncode(position);
+
+        cancelReply();
+        if (controller0.hasClients) {
+          controller0.animateTo(0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn);
+        }
+
+        final result = await sendMessageUseCase(
+            locationData, groupId, "location", currentReply);
+        result.fold(
+          (failure) {
+            emit(MessegeGroupActionError(error: failure.massage));
+            if (currentState is MessegeGroupLoaded) emit(currentState);
+          },
+          (_) {},
+        );
+      } else {
+        emit(MessegeGroupActionError(
+            error: "access_to_the_site_has_been_denied".tr()));
+        if (currentState is MessegeGroupLoaded) emit(currentState);
+      }
+    } catch (e) {
+      emit(MessegeGroupActionError(error: e.toString()));
+      if (currentState is MessegeGroupLoaded) emit(currentState);
+    }
+  }
+
+  Future<void> sendGroupContactMessage({required String groupId}) async {
+    final currentState = state;
+    MessageEntity? currentReply;
+    if (state is MessegeGroupLoaded) {
+      currentReply = (state as MessegeGroupLoaded).replyMessage;
+    }
+
+    toggleMenu();
+
+    try {
+      final contact = await contactService.pickContact();
+
+      if (contact != null && contact.phones.isNotEmpty) {
+        String contactName =
+            (contact.displayName ?? "contact_without_a_name".tr()).trim();
+        String contactPhone = contact.phones.first.number;
+
+        String contactData =
+            '{"name": "$contactName", "phone": "$contactPhone"}';
+
+        cancelReply();
+        if (controller0.hasClients) {
+          controller0.animateTo(0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn);
+        }
+
+        final result = await sendMessageUseCase(
+            contactData, groupId, "contact", currentReply);
+        result.fold(
+          (failure) {
+            emit(MessegeGroupActionError(error: failure.massage));
+            if (currentState is MessegeGroupLoaded) emit(currentState);
+          },
+          (_) {},
+        );
+      } else {
+        emit(MessegeGroupActionError(error: "no_contact_selected".tr()));
+        if (currentState is MessegeGroupLoaded) emit(currentState);
+      }
+    } catch (e) {
+      emit(MessegeGroupActionError(error: e.toString()));
+      if (currentState is MessegeGroupLoaded) emit(currentState);
+    }
+  }
+
+  bool _isMenuOpen = false;
+  bool get isMenuOpen => _isMenuOpen;
+
   void toggleMenu() {
     _isMenuOpen = !_isMenuOpen;
-    
+
     if (state is MessegeGroupLoaded) {
-       emit((state as MessegeGroupLoaded).copyWith());
-    } 
+      emit((state as MessegeGroupLoaded).copyWith());
+    }
   }
 
   @override

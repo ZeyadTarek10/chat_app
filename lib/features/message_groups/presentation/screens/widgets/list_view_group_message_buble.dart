@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
@@ -60,7 +61,7 @@ class ListViewGroupMessageBuble extends StatelessWidget {
         } else {
           final previousMessageTime = messages[actualIndex + 1].createdAt;
           if (msg.createdAt != null && previousMessageTime != null) {
-            if (!messegeGroupCubit.isSameDay(
+            if (!DateHelper.isSameDay(
                 msg.createdAt!, previousMessageTime)) {
               showHeader = true;
             }
@@ -137,7 +138,7 @@ class ListViewGroupMessageBuble extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: CustomTextWidget(
-                    text: messegeGroupCubit.getChatDayHeader(msg.createdAt!),
+                    text: DateHelper.getChatDayHeader(msg.createdAt!),
                     textStyle: TextStyle(
                       fontSize: 12.sp,
                       color: ColorsLight.mainTextColor,

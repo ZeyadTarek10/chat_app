@@ -1,4 +1,4 @@
-import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
 import 'package:chat_app/core/utils/font_details.dart';

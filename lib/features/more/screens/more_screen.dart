@@ -1,4 +1,4 @@
-import 'package:chat_app/config/app/cubit/app_cubit.dart';
+import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';

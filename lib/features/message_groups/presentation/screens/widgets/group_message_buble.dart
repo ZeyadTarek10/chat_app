@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
+import 'package:chat_app/features/message/presentation/screens/widgets/message_content.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/reply_message_widget.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -102,42 +102,17 @@ class GroupMessageBuble extends StatelessWidget {
                             ),
                           ),
                           child: ReplyMessageWidget(
-                            message: replyMessage!.type == "image"
-                                ? replyMessage!
-                                    .copyWith(message: "🖼 ${'photo'.tr()}")
-                                : replyMessage!,
+                            message: replyMessage!.toReplyDisplay,
                             friendName: replySenderName,
                           ),
                         ),
                         SizedBox(height: 8.h),
                       ],
-                      type == "image"
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(12.r),
-                              child: CachedNetworkImage(
-                                imageUrl: message,
-                                placeholder: (context, url) => SizedBox(
-                                  width: 150.w,
-                                  height: 150.h,
-                                  child: const Center(
-                                      child: CircularProgressIndicator(
-                                          color: ColorsDark.blueLight1)),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(
-                                        Icons.image_not_supported_outlined,
-                                        size: 50),
-                                width: 200.w,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : CustomTextWidget(
-                              text: message,
-                              textStyle: TextStyle(
-                                  color: ColorsLight.black,
-                                  fontSize: FontDetails.fontSizeS,
-                                  height: 1.3.h),
-                            ),
+                      MessageContent(
+                        type: type,
+                        message: message,
+                        isMe: false, 
+                      ),
                       SizedBox(height: 6.h),
                       CustomTextWidget(
                         text: time,
@@ -210,41 +185,17 @@ class GroupsMessageBubleForYou extends StatelessWidget {
                   ),
                 ),
                 child: ReplyMessageWidget(
-                  message: replyMessage!.type == "image"
-                      ? replyMessage!.copyWith(message: "🖼 ${'photo'.tr()}")
-                      : replyMessage!,
+                  message: replyMessage!.toReplyDisplay,
                   friendName: replySenderName,
                 ),
               ),
               SizedBox(height: 8.h),
             ],
-            type == "image"
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: CachedNetworkImage(
-                      imageUrl: message,
-                      placeholder: (context, url) => SizedBox(
-                        width: 150.w,
-                        height: 150.h,
-                        child: const Center(
-                            child: CircularProgressIndicator(
-                                color: ColorsDark.white)),
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 50,
-                          color: Colors.white),
-                      width: 200.w,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : CustomTextWidget(
-                    text: message,
-                    textStyle: TextStyle(
-                        color: ColorsDark.white,
-                        fontSize: FontDetails.fontSizeS,
-                        height: 1.3.h),
-                  ),
+            MessageContent(
+              type: type,
+              message: message,
+              isMe: true, 
+            ),
             SizedBox(height: 6.h),
             Row(
               mainAxisSize: MainAxisSize.min,

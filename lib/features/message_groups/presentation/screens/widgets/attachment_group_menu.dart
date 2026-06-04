@@ -41,10 +41,14 @@ class AttachmentGroupMenu extends StatelessWidget {
                 onPressed: () => cubit.sendGroupImageMessage(
                     groupId: groupId, source: ImageSource.camera),
               ),
+              // IconOptions(
+              //     icon: Icons.mic, label: 'record'.tr(), onPressed: () {}),
               IconOptions(
-                  icon: Icons.mic, label: 'record'.tr(), onPressed: () {}),
-              IconOptions(
-                  icon: Icons.person, label: 'contact'.tr(), onPressed: () {}),
+                  icon: Icons.person,
+                  label: 'contact'.tr(),
+                  onPressed: () {
+                    cubit.sendGroupContactMessage(groupId: groupId);
+                  }),
             ],
           ),
           SizedBox(height: 24.h),
@@ -60,11 +64,13 @@ class AttachmentGroupMenu extends StatelessWidget {
               IconOptions(
                   icon: Icons.location_on,
                   label: 'my_location'.tr(),
-                  onPressed: () {}),
-              IconOptions(
-                  icon: Icons.insert_drive_file,
-                  label: 'document'.tr(),
-                  onPressed: () {}),
+                  onPressed: () {
+                    cubit.sendGroupLocationMessage(groupId: groupId);
+                  }),
+              // IconOptions(
+              //     icon: Icons.insert_drive_file,
+              //     label: 'document'.tr(),
+              //     onPressed: () {}),
             ],
           ),
         ],

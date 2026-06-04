@@ -1,8 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
+import 'package:chat_app/features/message/presentation/screens/widgets/message_content.dart';
 import 'package:chat_app/features/message/presentation/screens/widgets/reply_message_widget.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,12 +17,13 @@ class MessageBuble extends StatelessWidget {
   final MessageEntity? replyMessage;
   final String type;
 
-  const MessageBuble(
-      {super.key,
-      required this.message,
-      required this.time,
-      required this.replyMessage,
-      required this.type});
+  const MessageBuble({
+    super.key,
+    required this.message,
+    required this.time,
+    required this.replyMessage,
+    required this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,8 @@ class MessageBuble extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        margin:
-            const EdgeInsetsDirectional.only(start: 16, end: 60, bottom: 12),
+        margin: const EdgeInsetsDirectional.only(
+            start: 16, end: 60, bottom: 12),
         decoration: BoxDecoration(
           color: ColorsDark.white,
           borderRadius: BorderRadiusDirectional.only(
@@ -58,39 +60,20 @@ class MessageBuble extends StatelessWidget {
                   ),
                 ),
                 child: ReplyMessageWidget(
-                  message: replyMessage!.type == "image"
-                      ? replyMessage!.copyWith(message: "🖼 ${'photo'.tr()}")
-                      : replyMessage!,
-                  friendName: context.read<MessageCubit>().friendModel?.name ??
-                      "Friend",
+                  message: replyMessage!.toReplyDisplay,
+                  friendName:
+                      context.read<MessageCubit>().friendModel?.name ?? "friend".tr(),
                 ),
               ),
               SizedBox(height: 8.h),
             ],
-            type == "image"
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: CachedNetworkImage(
-                      imageUrl: message,
-                      placeholder: (context, url) => SizedBox(
-                        width: 150.w,
-                        height: 150.h,
-                        child: const Center(
-                            child: CircularProgressIndicator(
-                                color: ColorsDark.blueLight1)),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.image_not_supported_outlined, size: 50),
-                      width: 200.w,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : CustomTextWidget(
-                    text: message,
-                    textStyle: TextStyle(
-                        color: ColorsLight.black,
-                        fontSize: FontDetails.fontSizeS),
-                  ),
+            
+            MessageContent(
+              type: type,
+              message: message,
+              isMe: false,
+            ),
+            
             SizedBox(height: 6.h),
             CustomTextWidget(
               text: time,
@@ -105,6 +88,7 @@ class MessageBuble extends StatelessWidget {
   }
 }
 
+
 class MessageBubleForMe extends StatelessWidget {
   final String message;
   final String time;
@@ -112,13 +96,14 @@ class MessageBubleForMe extends StatelessWidget {
   final String type;
   final MessageEntity? replyMessage;
 
-  const MessageBubleForMe(
-      {super.key,
-      required this.message,
-      required this.time,
-      required this.isRead,
-      required this.replyMessage,
-      required this.type});
+  const MessageBubleForMe({
+    super.key,
+    required this.message,
+    required this.time,
+    required this.isRead,
+    required this.replyMessage,
+    required this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +111,8 @@ class MessageBubleForMe extends StatelessWidget {
       alignment: AlignmentDirectional.centerEnd,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        margin:
-            const EdgeInsetsDirectional.only(end: 16, start: 60, bottom: 12),
+        margin: const EdgeInsetsDirectional.only(
+            end: 16, start: 60, bottom: 12),
         decoration: BoxDecoration(
           color: const Color(0xff1565C0),
           borderRadius: BorderRadiusDirectional.only(
@@ -155,39 +140,20 @@ class MessageBubleForMe extends StatelessWidget {
                   ),
                 ),
                 child: ReplyMessageWidget(
-                  message: replyMessage!.type == "image"
-                      ? replyMessage!.copyWith(message: "🖼 ${'photo'.tr()}")
-                      : replyMessage!,
-                  friendName: context.read<MessageCubit>().friendModel?.name ??
-                      "Friend",
+                  message: replyMessage!.toReplyDisplay,
+                  friendName:
+                      context.read<MessageCubit>().friendModel?.name ?? "friend".tr(),
                 ),
               ),
               SizedBox(height: 8.h),
             ],
-            type == "image"
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: CachedNetworkImage(
-                      imageUrl: message,
-                      placeholder: (context, url) => SizedBox(
-                        width: 150.w,
-                        height: 150.h,
-                        child: const Center(
-                            child: CircularProgressIndicator(
-                                color: ColorsDark.blueLight1)),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.image_not_supported_outlined, size: 50, color: ColorsLight.white,),
-                      width: 200.w,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : CustomTextWidget(
-                    text: message,
-                    textStyle: TextStyle(
-                        color: ColorsLight.white,
-                        fontSize: FontDetails.fontSizeS),
-                  ),
+            
+            MessageContent(
+              type: type,
+              message: message,
+              isMe: true,
+            ),
+            
             SizedBox(height: 6.h),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -195,7 +161,8 @@ class MessageBubleForMe extends StatelessWidget {
                 CustomTextWidget(
                   text: time,
                   textStyle: TextStyle(
-                      color: Colors.white70, fontSize: FontDetails.fontSizeXS),
+                      color: Colors.white70,
+                      fontSize: FontDetails.fontSizeXS),
                 ),
                 SizedBox(width: 4.w),
                 Icon(Icons.done_all,
