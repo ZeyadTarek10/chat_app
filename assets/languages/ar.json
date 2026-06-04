@@ -132,5 +132,7 @@
     "live_location": "الموقع الحالى",
     "unknown_location": "موقع غير معروف",
     "friend_added_successfully": "تم إضافة الصديق بنجاح",
-    "send_a_message": "أرسل رسالة"
+    "send_a_message": "أرسل رسالة",
+    "social_media": "وسائل التواصل الاجتماعي",
+    "trending": "الأكثر رواجاً"
 }
