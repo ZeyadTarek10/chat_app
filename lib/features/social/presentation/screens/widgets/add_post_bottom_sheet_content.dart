@@ -50,11 +50,11 @@ class AddPostBottomSheetContent extends StatelessWidget {
             children: [
               ActionItemAddPostBottomSheet(
                   onTap: () {}, icon: Icons.image_outlined, text: "photo".tr()),
-              SizedBox(width: 15.w),
-              ActionItemAddPostBottomSheet(
-                  onTap: () {},
-                  icon: Icons.location_on_outlined,
-                  text: "location".tr()),
+              // SizedBox(width: 15.w),
+              // ActionItemAddPostBottomSheet(
+              //     onTap: () {},
+              //     icon: Icons.location_on_outlined,
+              //     text: "location".tr()),
             ],
           ),
         ),
