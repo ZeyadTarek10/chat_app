@@ -55,6 +55,9 @@
     "dark_mode": "Dark Mode",
     "hide_chat_history": "Hide Chat History",
     "logout": "Logout",
+    "log_out_from_app":"Do you want to log out ?",
+    "yes":"Yes",
+    "no":"No",
     "mute_notification": "Mute Notification",
     "security": "Security",
     "custom_notification": "Custom Notification",
@@ -134,5 +137,9 @@
     "friend_added_successfully": "Friend added successfully",
     "send_a_message": "Send a message",
     "social_media": "Social Media",
-    "trending": "Trending"
+    "trending": "Trending",
+    "answer":"Answer",
+    "like": "Like",
+    "leave_a_comment": "Leave a comment",
+    "post": "Post"
 }

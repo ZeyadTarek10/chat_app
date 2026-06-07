@@ -1,4 +1,5 @@
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/core/widgets/user_dialogs.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/shared_widgets/buttons/custom_icon_btn.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,7 +16,16 @@ class LogOutProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomIconBtn(
       onPressed: () {
-        context.read<ProfileCubit>().logout();
+        CustomDialog.twoButtonDialog(
+            context: context,
+            textBody: 'log_out_from_app'.tr(),
+            textButton1: 'yes'.tr(),
+            textButton2: 'no'.tr(),
+            onPressed: () {
+              context.read<ProfileCubit>().logout();
+            },
+            isLoading: false
+        );
       },
       text: 'logout'.tr(),
       icon: Icon(Icons.logout, size: FontDetails.fontSizeL),

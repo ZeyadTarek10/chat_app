@@ -14,7 +14,7 @@ class TrendingSection extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.0.w),
         itemCount: 6,
         itemBuilder: (context, index) {
-          return const CircleAvatarTrindingSection();
+          return const CircleAvatarTrendingSection();
         },
       ),
     );

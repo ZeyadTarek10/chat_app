@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -66,8 +67,8 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           onEditingComplete: onEditingComplete,
           style: TextStyle(
             color: textColor ?? context.color.textColor,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: FontDetails.fontSizeS,
+            fontWeight: FontDetails.mediumFontWeight
           ),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,

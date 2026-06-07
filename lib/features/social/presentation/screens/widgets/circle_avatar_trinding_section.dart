@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CircleAvatarTrindingSection extends StatelessWidget {
-  const CircleAvatarTrindingSection({
+class CircleAvatarTrendingSection extends StatelessWidget {
+  const CircleAvatarTrendingSection({
     super.key,
   });
 
@@ -14,7 +14,7 @@ class CircleAvatarTrindingSection extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 4.0.w),
       child: CircleAvatar(
         radius: 37.r,
-        backgroundColor: ColorsDark.blueDark,
+        backgroundColor: context.color.circleAvatarBackgroundColor,
         child: CircleAvatar(
           radius: 35.r,
           backgroundImage: const CachedNetworkImageProvider(

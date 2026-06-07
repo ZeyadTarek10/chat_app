@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,12 +14,12 @@ class ListTilePostCard extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
-        backgroundColor: ColorsDark.blueDark,
-        radius: 22.sp,
+        backgroundColor: context.color.circleAvatarBackgroundColor,
+        radius: 22.r,
         child: CircleAvatar(
-          radius: 20.sp,
+          radius: 20.r,
           backgroundImage: const CachedNetworkImageProvider(
-              'https://i.pinimg.com/736x/58/77/e5/5877e5d5c7e1ec3d16d68212a9c5e376.jpg'),
+              'https://i.pinimg.com/736x/c1/97/44/c19744d6034277dc442ef3a4ae5ce297.jpg'),
         ),
       ),
       title: CustomTextWidget(
@@ -32,9 +31,9 @@ class ListTilePostCard extends StatelessWidget {
           text: 'Kolkata',
           textStyle: TextStyle(color: context.color.textColor)),
       trailing: IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.more_horiz,
-          color: ColorsLight.mainTextColor,
+          color: context.color.textColor,
         ),
         onPressed: () {},
       ),

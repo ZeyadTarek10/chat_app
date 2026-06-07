@@ -15,7 +15,7 @@ class PostCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const ListTilePostCard(),
-          const ImagPostCard(),
+          const ImagePostCard(),
           SizedBox(height: 12.h),
           const ActionPostCard(),
           Divider(height: 32.h, thickness: 1),
