@@ -5,13 +5,14 @@ class CustomTextWidget extends StatelessWidget {
   final TextAlign textAlign;
   final int? maxLines;
   final TextStyle? textStyle;
+  final bool? softWrap;
 
   const CustomTextWidget(
       {super.key,
       required this.text,
       this.textAlign = TextAlign.start,
       this.maxLines,
-      this.textStyle});
+      this.textStyle, this.softWrap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class CustomTextWidget extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines ?? 2,
       style: textStyle ?? Theme.of(context).textTheme.bodyMedium,
+      softWrap: softWrap,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/utils/font_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +25,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       required this.validator,
       this.prefixIcon,
       this.onEditingComplete,
-      this.focusNode});
+      this.focusNode, this.maxLength});
 
   final TextEditingController? controller;
   final String hint;
@@ -44,6 +45,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final void Function(String)? onChange;
   final void Function()? onEditingComplete;
   final FocusNode? focusNode;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          maxLength: maxLength,
           focusNode: focusNode,
           readOnly: readOnly,
           obscureText: obscureText,
@@ -66,8 +69,8 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           onEditingComplete: onEditingComplete,
           style: TextStyle(
             color: textColor ?? context.color.textColor,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: FontDetails.fontSizeS,
+            fontWeight: FontDetails.mediumFontWeight
           ),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,

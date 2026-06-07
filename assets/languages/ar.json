@@ -55,6 +55,9 @@
     "dark_mode": "الوضع الداكن",
     "hide_chat_history": "إخفاء سجل الدردشة",
     "logout": "تسجيل الخروج",
+    "log_out_from_app":"هل تريد تسجيل الخروج من حسابك ؟",
+    "yes":"نعم",
+    "no":"لا",
     "mute_notification": "كتم الإشعارات",
     "security": "الأمان",
     "custom_notification": "إشعارات مخصصة",
@@ -132,5 +135,14 @@
     "live_location": "الموقع الحالى",
     "unknown_location": "موقع غير معروف",
     "friend_added_successfully": "تم إضافة الصديق بنجاح",
-    "send_a_message": "أرسل رسالة"
+    "send_a_message": "أرسل رسالة",
+    "social_media": "التواصل الاجتماعي",
+    "trending": "الأكثر رواجاً",
+    "answer":"الرد",
+    "like": "اعجاب",
+    "leave_a_comment": "اكتب تعليقاً",
+    "post": "نشر",
+    "create_new_post": "اضف منشور جديد",
+    "Whats_on_your_mind": "بم تفكر؟",
+    "location": "موقع"
 }

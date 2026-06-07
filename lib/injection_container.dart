@@ -45,7 +45,7 @@ import 'package:chat_app/features/message_groups/data/repositories/message_group
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
 import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
-import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
+import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
 import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:chat_app/features/profile/domain/repositories/profile_repositories.dart';

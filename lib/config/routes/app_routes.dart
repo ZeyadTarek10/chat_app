@@ -18,10 +18,12 @@ import 'package:chat_app/features/message/presentation/manager/message_cubit/mes
 import 'package:chat_app/features/message/presentation/screens/message_screen.dart';
 import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/message_groups_screen.dart';
-import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
+import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
+import 'package:chat_app/features/post_details/presentation/screens/post_details_screen.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
+import 'package:chat_app/features/social/presentation/screens/social_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/onbording_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
 import 'package:chat_app/injection_container.dart';
@@ -45,6 +47,8 @@ class AppRoutes {
   static const String addChats = '/addChats';
   static const String addGroups = '/addGroups';
   static const String messageGroups = '/messageGroups';
+  static const String social = '/social';
+  static const String postDetails = '/postDetails';
 
   static final GoRouter router = GoRouter(
     initialLocation: _isLoggedIn ? AppRoutes.home : AppRoutes.splash,
@@ -177,6 +181,26 @@ class AppRoutes {
                   getIt<MessegeGroupCubit>()..getMessages(group.id),
               child: MessageGroupsScreen(group: group),
             ),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.social,
+        name: 'social',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+            key: state.pageKey,
+            child: const SocialScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.postDetails,
+        name: 'postDetails',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+            key: state.pageKey,
+            child: const PostDetailsScreen(),
           );
         },
       )

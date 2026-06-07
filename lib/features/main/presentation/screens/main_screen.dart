@@ -5,7 +5,8 @@ import 'package:chat_app/features/groups/presentation/screens/groups_screen.dart
 import 'package:chat_app/features/main/presentation/manager/main_cubit/main_cubit.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/custom_app_bar.dart';
 import 'package:chat_app/features/main/presentation/screens/widget/custom_bottom_nav_bar.dart';
-import 'package:chat_app/features/more/screens/more_screen.dart';
+import 'package:chat_app/features/main/presentation/screens/widget/social_floating_action_button.dart';
+import 'package:chat_app/features/more/presentation/screens/more_screen.dart';
 import 'package:chat_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,16 +39,18 @@ class _RootState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
-        int currentIndex = BlocProvider.of<MainCubit>(context).currentNavBar.index;
+        int currentIndex =
+            BlocProvider.of<MainCubit>(context).currentNavBar.index;
         return Scaffold(
           backgroundColor: context.color.mainColor,
           appBar: customNavBar(context),
           body: PageView(
             controller: controller,
             // physics: const NeverScrollableScrollPhysics(),
-            onPageChanged: (index){
+            onPageChanged: (index) {
               NavBarEnum selectedEnum = NavBarEnum.values[index];
-              BlocProvider.of<MainCubit>(context).selectedNavBarIcons(selectedEnum);
+              BlocProvider.of<MainCubit>(context)
+                  .selectedNavBarIcons(selectedEnum);
               controller.jumpToPage(index);
             },
             children: screens,
@@ -56,14 +59,16 @@ class _RootState extends State<MainScreen> {
             currentScreen: currentIndex,
             onTabTapped: (index) {
               NavBarEnum selectedEnum = NavBarEnum.values[index];
-              BlocProvider.of<MainCubit>(context).selectedNavBarIcons(selectedEnum);
+              BlocProvider.of<MainCubit>(context)
+                  .selectedNavBarIcons(selectedEnum);
               controller.jumpToPage(index);
             },
           ),
+          floatingActionButton: (currentIndex == 0 || currentIndex == 1)
+              ? const SocialFloatingActionButton()
+              : null,
         );
       },
     );
   }
 }
-
-

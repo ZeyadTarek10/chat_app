@@ -1,6 +1,6 @@
 import 'package:chat_app/core/utils/app_colors.dart';
-import 'package:chat_app/features/more/screens/manager/cubit/more_cubit.dart';
-import 'package:chat_app/features/more/screens/widgets/custom_more_tile.dart';
+import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
+import 'package:chat_app/features/more/presentation/screens/widgets/custom_more_tile.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
