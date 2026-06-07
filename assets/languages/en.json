@@ -141,5 +141,8 @@
     "answer":"Answer",
     "like": "Like",
     "leave_a_comment": "Leave a comment",
-    "post": "Post"
+    "post": "Post",
+    "create_new_post": "Create New Post",
+    "Whats_on_your_mind": "What's on your mind?",
+    "location": "Location"
 }

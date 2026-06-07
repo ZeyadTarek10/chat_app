@@ -25,7 +25,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       required this.validator,
       this.prefixIcon,
       this.onEditingComplete,
-      this.focusNode});
+      this.focusNode, this.maxLength});
 
   final TextEditingController? controller;
   final String hint;
@@ -45,6 +45,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   final void Function(String)? onChange;
   final void Function()? onEditingComplete;
   final FocusNode? focusNode;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          maxLength: maxLength,
           focusNode: focusNode,
           readOnly: readOnly,
           obscureText: obscureText,

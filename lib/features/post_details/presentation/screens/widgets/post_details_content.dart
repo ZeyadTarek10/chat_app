@@ -35,25 +35,11 @@ class PostDetailsContent extends StatelessWidget {
                   text:
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh pulvinar lectus ornare leo. Adipiscing ornare pellentesque aenean non. "),
               TextSpan(
-                  text: "#paris ",
+                  text: "#paris #france #iloveit",
                   style: const TextStyle(color: ColorsDark.blueLight2),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      debugPrint('#paris');
-                    }),
-              TextSpan(
-                  text: "#france ",
-                  style: const TextStyle(color: ColorsDark.blueLight2),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      debugPrint('#france');
-                    }),
-              TextSpan(
-                  text: "#iloveit",
-                  style: const TextStyle(color: ColorsDark.blueLight2),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      debugPrint('#iloveit');
+                      debugPrint('#paris #france #iloveit');
                     }),
             ],
           ),
