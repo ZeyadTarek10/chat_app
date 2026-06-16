@@ -4,6 +4,7 @@ import 'package:chat_app/shared_widgets/buttons/elevated_btn_widget.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 
 class CustomDialog {
@@ -57,7 +58,7 @@ class CustomDialog {
           SizedBox(height: 10.h, width: 1.w),
           CustomElevatedButtonWidget(
             onPressed: () {
-              Navigator.pop(context);
+              GoRouter.of(context).pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black, 

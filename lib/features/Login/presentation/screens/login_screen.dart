@@ -1,8 +1,9 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:chat_app/features/Login/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -54,15 +55,19 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         } else if (state is LoginSuccess) {
           GoRouter.of(context).pop();
-          showSnackBar(context,
-              text: 'signed_in_successfuly'.tr(), color: Colors.green);
+          AlertService().showAlert(
+              context: context,
+              subtitle: 'signed_in_successfuly'.tr(),
+              status: AlertStatus.success);
           GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is LoginFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
             GoRouter.of(context).pop();
           }
-          showSnackBar(context,
-              text: state.errorMessage, color: Colors.redAccent);
+          AlertService().showAlert(
+              context: context,
+              subtitle: state.errorMessage,
+              status: AlertStatus.error);
         }
       },
       builder: (context, state) {

@@ -1,3 +1,4 @@
+import 'package:chat_app/config/themes/message_entity_extension.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -25,16 +26,6 @@ class SendingMessagesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final messageCubit = context.read<MessageCubit>();
-    MessageEntity getFormattedReply(MessageEntity reply) {
-    if (reply.type == "image") {
-      return reply.copyWith(message: "🖼 ${'photo'.tr()}");
-    } else if (reply.type == "location") {
-      return reply.copyWith(message: "📍 ${'location'.tr()}");
-    } else if (reply.type == "contact") {
-      return reply.copyWith(message: "👤 ${'contact'.tr()}");
-    }
-    return reply;
-  }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       color: context.color.mainColor,
@@ -45,6 +36,7 @@ class SendingMessagesContainer extends StatelessWidget {
             buildWhen: (previous, current) => current is MessageLoadedState,
             builder: (context, state) {
               if (state is MessageLoadedState && state.replyMessage != null) {
+                final MessageEntity currentReply = state.replyMessage!;
                 return Padding(
                   padding: EdgeInsets.only(bottom: 8.h),
                   child: Container(
@@ -62,7 +54,7 @@ class SendingMessagesContainer extends StatelessWidget {
                       ),
                     ),
                     child: ReplyMessageWidget(
-                      message: getFormattedReply(state.replyMessage!), 
+                      message: currentReply.toReplyDisplay,
                       friendName: state.friendData?.name ?? "friend".tr(),
                       onCancelReply: () => messageCubit.cancelReply(),
                     ),

@@ -28,11 +28,15 @@ class ActionItemAddPostBottomSheet extends StatelessWidget {
           children: [
             Icon(icon, color: ColorsLight.mainTextColor, size: 20.sp),
             SizedBox(width: 5.w),
-            CustomTextWidget(
-              text: text,
-              textStyle: TextStyle(
-                  color: ColorsLight.mainTextColor,
-                  fontSize: FontDetails.fontSizeS),
+            Expanded(
+              child: CustomTextWidget(
+                text: text,
+                maxLines: 1,
+                textStyle: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                    color: ColorsLight.mainTextColor,
+                    fontSize: FontDetails.fontSizeS),
+              ),
             ),
           ],
         ),

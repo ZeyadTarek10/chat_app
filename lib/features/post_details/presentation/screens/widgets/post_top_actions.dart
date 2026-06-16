@@ -1,11 +1,13 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class PostTopActions extends StatelessWidget {
-  const PostTopActions({super.key});
+  final SocialEntity post;
+  const PostTopActions({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class PostTopActions extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(10.r),
                 decoration: BoxDecoration(
-                  color: context.color.mainColor,
+                  color: context.color.mainColor!.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Icon(
@@ -33,46 +35,25 @@ class PostTopActions extends StatelessWidget {
                 ),
               ),
             ),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-            //   decoration: BoxDecoration(
-            //     color: context.color.mainColor!.withOpacity(0.7),
-            //     borderRadius: BorderRadius.circular(8.r),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       ClipRRect(
-            //         borderRadius: BorderRadius.circular(2.r),
-            //         child: CachedNetworkImage(
-            //           imageUrl:
-            //               'https://i.pinimg.com/originals/e2/4c/af/e24caf13f6a603d4ed30fbca131bbc26.jpg',
-            //           width: 20.w,
-            //           height: 14.h,
-            //           fit: BoxFit.cover,
-            //           placeholder: (context, url) => SizedBox(
-            //             height: 14.h,
-            //             child: const Center(
-            //               child: CircularProgressIndicator(
-            //                 color: ColorsLight.mainTextColor,
-            //               ),
-            //             ),
-            //           ),
-            //           errorWidget: (context, url, error) => SizedBox(
-            //             height: 14.h,
-            //             child: const Icon(Icons.error, size: 14),
-            //           ),
-            //         ),
-            //       ),
-            //       SizedBox(width: 8.w),
-            //       CustomTextWidget(
-            //         text: "Paris, France",
+            // Flexible(
+            //   child: Container(
+            //     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            //     decoration: BoxDecoration(
+            //       color: context.color.chatBackgroundColor!.withOpacity(0.7),
+            //       borderRadius: BorderRadius.circular(8.r),
+            //     ),
+            //     child: Expanded(
+            //       child: CustomTextWidget(
+            //         text: DateHelper.getShortLocation(post.location), 
+            //         maxLines: 1,
             //         textStyle: TextStyle(
             //           fontSize: FontDetails.fontSizeS,
             //           fontWeight: FontDetails.semiBoldFontWeight,
             //           color: context.color.textColor,
+            //           overflow: TextOverflow.ellipsis,
             //         ),
             //       ),
-            //     ],
+            //     ),
             //   ),
             // ),
           ],

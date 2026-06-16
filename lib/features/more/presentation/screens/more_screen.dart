@@ -1,14 +1,14 @@
 import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
-import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
 import 'package:chat_app/features/more/presentation/screens/widgets/custom_more_tile.dart';
 import 'package:chat_app/features/more/presentation/screens/widgets/dark_mode_more_screen.dart';
 import 'package:chat_app/features/more/presentation/screens/widgets/language_more_screen.dart';
 import 'package:chat_app/features/more/presentation/screens/widgets/log_out_more_screen.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,10 +32,17 @@ class MoreScreen extends StatelessWidget {
           );
         } else if (state is LogoutSuccess) {
           GoRouter.of(context).pop();
+          AlertService().showAlert(
+              context: context,
+              subtitle: "loged_out_successfuly".tr(),
+              status: AlertStatus.success);
           GoRouter.of(context).pushReplacement(AppRoutes.login);
         } else if (state is LogoutFailure) {
           GoRouter.of(context).pop();
-          showSnackBar(context, text: state.errorMessage, color: ColorsLight.red);
+          AlertService().showAlert(
+              context: context,
+              subtitle: state.errorMessage,
+              status: AlertStatus.error);
         }
       },
       builder: (context, state) {

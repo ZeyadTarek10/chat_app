@@ -1,9 +1,10 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -52,21 +53,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         }
         if (state is ForgetPasswordSuccess) {
           GoRouter.of(context).pop();
-          showSnackBar(
-            context,
-            color: Colors.green,
-            text: 'password_reset_email_sent_successfully'.tr(),
-          );
+          AlertService().showAlert(
+                context: context,
+                subtitle: 'password_reset_email_sent_successfully'.tr(),
+                status: AlertStatus.success);
           GoRouter.of(context).pop();
         } else if (state is ForgetPasswordFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
             GoRouter.of(context).pop();
           }
-          showSnackBar(
-            context,
-            color: Colors.red,
-            text: state.errorMessage,
-          );
+          AlertService().showAlert(
+                context: context,
+                subtitle: state.errorMessage,
+                status: AlertStatus.error);
         }
       },
       builder: (context, state) {

@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CommentItem extends StatelessWidget {
   final String userName;
   final String comment;
-  final String imageUrl;
+  final String? imageUrl;
 
   const CommentItem({
     super.key,
@@ -28,7 +28,39 @@ class CommentItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 18.r,
-            backgroundImage: CachedNetworkImageProvider(imageUrl),
+            backgroundColor: context.color.circleAvatarBackgroundColor,
+            child: (imageUrl != null && imageUrl!.isNotEmpty)
+                ? ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl!,
+                      width: 52.r,
+                      height: 52.r,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Center(
+                        child: CustomTextWidget(
+                          text: userName.isNotEmpty
+                              ? userName[0].toUpperCase()
+                              : '',
+                          textStyle: TextStyle(
+                              color: ColorsLight.white, fontSize: 20.sp),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Center(
+                        child: CustomTextWidget(
+                          text: userName.isNotEmpty
+                              ? userName[0].toUpperCase()
+                              : '',
+                          textStyle: TextStyle(
+                              color: ColorsLight.white, fontSize: 20.sp),
+                        ),
+                      ),
+                    ),
+                  )
+                : CustomTextWidget(
+                    text: userName.isNotEmpty ? userName[0].toUpperCase() : '',
+                    textStyle:
+                        TextStyle(color: ColorsLight.white, fontSize: 20.sp),
+                  ),
           ),
           SizedBox(width: 12.w),
           Expanded(

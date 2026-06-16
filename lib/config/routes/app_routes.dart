@@ -19,11 +19,18 @@ import 'package:chat_app/features/message/presentation/screens/message_screen.da
 import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/message_groups/presentation/screens/message_groups_screen.dart';
 import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
+import 'package:chat_app/features/post_details/presentation/manager/comments_cubit/comments_cubit.dart';
 import 'package:chat_app/features/post_details/presentation/screens/post_details_screen.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
+import 'package:chat_app/features/social/domain/entities/social_entity.dart';
+import 'package:chat_app/features/social/domain/entities/story_entity.dart';
+import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
+import 'package:chat_app/features/social/presentation/manager/story_cubit/story_cubit.dart';
+import 'package:chat_app/features/social/presentation/screens/create_or_edit_story_screen.dart';
 import 'package:chat_app/features/social/presentation/screens/social_screen.dart';
+import 'package:chat_app/features/social/presentation/screens/story_viewer_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/onbording_screen.dart';
 import 'package:chat_app/features/splash/presentation/views/splash_screen.dart';
 import 'package:chat_app/injection_container.dart';
@@ -49,6 +56,8 @@ class AppRoutes {
   static const String messageGroups = '/messageGroups';
   static const String social = '/social';
   static const String postDetails = '/postDetails';
+  static const String viewsStory = '/viewsStory';
+  static const String createOrEditStory = '/createOrEditStory';
 
   static final GoRouter router = GoRouter(
     initialLocation: _isLoggedIn ? AppRoutes.home : AppRoutes.splash,
@@ -147,9 +156,18 @@ class AppRoutes {
 
             return fadeScaleTransitionPage(
               key: state.pageKey,
-              child: BlocProvider(
-                create: (context) =>
-                    getIt<MessageCubit>()..initChat(roomId, friendId),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) =>
+                        getIt<MessageCubit>()..initChat(roomId, friendId),
+                  ),
+                  BlocProvider(
+                  create: (context) => getIt<SocialCubit>()..fetchPosts(),
+                ),
+                 BlocProvider(
+                    create: (context) => getIt<StoryCubit>()..fetchStories())
+                ],
                 child: MessageScreen(
                   roomId: roomId,
                   friendId: friendId,
@@ -190,7 +208,19 @@ class AppRoutes {
         pageBuilder: (context, state) {
           return fadeScaleTransitionPage(
             key: state.pageKey,
-            child: const SocialScreen(),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => getIt<SocialCubit>()..fetchPosts(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<ProfileCubit>()..getUserData(),
+                ),
+                BlocProvider(
+                    create: (context) => getIt<StoryCubit>()..fetchStories())
+              ],
+              child: const SocialScreen(),
+            ),
           );
         },
       ),
@@ -198,12 +228,64 @@ class AppRoutes {
         path: AppRoutes.postDetails,
         name: 'postDetails',
         pageBuilder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final post = extraData['post'] as SocialEntity;
+          final socialCubit = extraData['cubit'] as SocialCubit;
           return fadeScaleTransitionPage(
             key: state.pageKey,
-            child: const PostDetailsScreen(),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider.value(
+                  value: socialCubit,
+                ),
+                BlocProvider(
+                  create: (context) => getIt<ProfileCubit>()..getUserData(),
+                ),
+                BlocProvider(
+                    create: (context) =>
+                        getIt<CommentsCubit>()..fetchComments(post.id)),
+              ],
+              child: PostDetailsScreen(
+                post: post,
+              ),
+            ),
           );
         },
-      )
+      ),
+      GoRoute(
+        path: AppRoutes.viewsStory,
+        name: 'viewsStory',
+        pageBuilder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final groupIndex = extraData['initialGroupIndex'] as int;
+          final storyCubit = extraData['cubit'] as StoryCubit;
+
+          return fadeScaleTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider.value(
+              value: storyCubit,
+              child: StoryViewerScreen(initialGroupIndex: groupIndex),
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.createOrEditStory,
+        name: 'createOrEditStory',
+        pageBuilder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final storyCubit = extraData['cubit'] as StoryCubit;
+          final storyToEdit = extraData['storyToEdit'] as StoryEntity?;
+
+          return fadeScaleTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider.value(
+              value: storyCubit,
+              child: CreateOrEditStoryScreen(storyToEdit: storyToEdit),
+            ),
+          );
+        },
+      ),
     ],
   );
 }

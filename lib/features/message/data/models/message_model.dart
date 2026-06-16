@@ -11,6 +11,7 @@ class MessageModel extends MessageEntity {
     required super.type,
     required super.read, 
     required super.replyMessage,
+    super.sharedPostId,
   });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
@@ -23,6 +24,7 @@ class MessageModel extends MessageEntity {
         fromId: json['from_id'],
         type: json['type']?? 'text',
         read: json['read'], 
+        sharedPostId: json['shared_post_id'],
         replyMessage: json['reply_message'] != null 
             ? MessageModel.fromJson(json['reply_message'] as Map<String, dynamic>) 
             : null,
@@ -36,6 +38,7 @@ class MessageModel extends MessageEntity {
         "type": type,
         "id": id,
         "read": read,
+        "shared_post_id": sharedPostId,
         "reply_message" : replyMessage != null ? {
           "id": replyMessage!.id,
           "message": replyMessage!.message,

@@ -1,9 +1,10 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
@@ -57,15 +58,19 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         } else if (state is SignUpSuccess) {
           GoRouter.of(context).pop();
-          showSnackBar(context,
-              text: 'signed_up_successfully'.tr(), color: Colors.green);
+          AlertService().showAlert(
+                context: context,
+                subtitle: 'signed_up_successfully'.tr(),
+                status: AlertStatus.success);
           GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is SignUpFailure) {
           if (ModalRoute.of(context)?.isCurrent != true) {
             GoRouter.of(context).pop();
           }
-          showSnackBar(context,
-              text: state.errorMessage, color: Colors.redAccent);
+          AlertService().showAlert(
+                context: context,
+                subtitle: state.errorMessage,
+                status: AlertStatus.error);
         }
       },
       builder: (context, state) {

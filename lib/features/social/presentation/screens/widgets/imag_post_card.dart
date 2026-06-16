@@ -4,28 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImagePostCard extends StatelessWidget {
-  const ImagePostCard({
-    super.key,
-  });
+  final String imageUrl;
+  const ImagePostCard({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16.0.r),
       child: CachedNetworkImage(
-        imageUrl: 'https://pic.i7lm.com/wp-content/uploads/2019/05/pexels-photo-338515.jpeg',
+        imageUrl: imageUrl,
         height: 200.h,
         width: double.infinity,
         fit: BoxFit.cover,
         placeholder: (context, url) => SizedBox(
           height: 200.h,
           child: const Center(
-            child: CircularProgressIndicator(color: ColorsLight.mainTextColor,),
+            child: CircularProgressIndicator(
+              color: ColorsLight.mainTextColor,
+            ),
           ),
         ),
         errorWidget: (context, url, error) => SizedBox(
           height: 200.h,
-          child: const Icon(Icons.error, size: 50),
+          child: const Icon(
+            Icons.photo_size_select_actual_outlined,
+            size: 50,
+            color: ColorsLight.mainTextColor,
+          ),
         ),
       ),
     );

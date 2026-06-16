@@ -1,6 +1,8 @@
 import 'package:chat_app/config/app/app_cubit/app_cubit.dart';
+import 'package:chat_app/config/app/connectivity_cubit/connectivity_cubit.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/core/helpers/shared_prefrences.dart';
+import 'package:chat_app/core/screens/no_network_screen.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,10 +21,17 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (_, child) {
-        return BlocProvider(
-          create: (context) => getIt<AppCubit>()
-            ..changeAppThemeMode('dark_mode',
-                sharedMode: CacheHelper().getData(key: 'mode') ?? false),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<AppCubit>()
+                ..changeAppThemeMode('dark_mode',
+                    sharedMode: CacheHelper().getData(key: 'mode') ?? false),
+            ),
+            BlocProvider(
+              create: (context) => getIt<ConnectivityCubit>(),
+            ),
+          ],
           child: BlocBuilder<AppCubit, AppState>(
             builder: (context, state) {
               final cubit = context.read<AppCubit>();
@@ -46,6 +55,32 @@ class MyApp extends StatelessWidget {
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
+                builder: (context, widget) {
+                  return GestureDetector(
+                    onTap: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    child: Scaffold(
+                      resizeToAvoidBottomInset: false, 
+                      body: Stack(
+                        children: [
+                          if (widget != null) widget,
+
+                          BlocBuilder<ConnectivityCubit, ConnectivityState>(
+                            builder: (context, netState) {
+                              if (netState is ConnectivityDisconnected) {
+                                return const Positioned.fill(
+                                  child: NoNetWorkScreen(),
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),

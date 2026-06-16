@@ -13,17 +13,17 @@ class PostFloatingButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: context.color.chatBackgroundColor,
+        color: context.color.mainColor,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: context.color.textColor!.withOpacity(0.03),
+            color: context.color.textColor!.withOpacity(0.09),
             blurRadius: 10,
             spreadRadius: 2,
           ),
         ],
       ),
-      child: Icon(icon, color: iconColor, size: 20.sp),
+      child: Icon(icon, color: iconColor, size: 24.sp),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
@@ -12,7 +14,6 @@ import 'package:chat_app/features/groups/presentation/screens/widgets/list_view_
 import 'package:chat_app/shared_widgets/custom_buttom_sheet.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,12 +76,16 @@ class CreateGroupScreen extends StatelessWidget {
       body: BlocConsumer<GroupsCubit, GroupsState>(
         listener: (context, state) {
           if (state is GroupsSuccess) {
-            showSnackBar(context,
-                text: "the_group_was_successfully_created".tr(),
-                color: ColorsLight.green);
+            AlertService().showAlert(
+                context: context,
+                subtitle: "the_group_was_successfully_created".tr(),
+                status: AlertStatus.success);
             GoRouter.of(context).pop();
           } else if (state is GroupsError) {
-            showSnackBar(context, text: state.error, color: ColorsLight.error);
+            AlertService().showAlert(
+                context: context,
+                subtitle: state.error,
+                status: AlertStatus.error);
           }
         },
         builder: (context, state) {

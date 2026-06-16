@@ -7,6 +7,7 @@ class MessageEntity {
   String? type;
   String? read;
   MessageEntity? replyMessage;
+  String? sharedPostId;
 
   MessageEntity({
     required this.id,
@@ -17,6 +18,7 @@ class MessageEntity {
     required this.type,
     required this.read,
     required this.replyMessage,
+    this.sharedPostId,
   });
 
   MessageEntity copyWith({String? message}) {
@@ -29,6 +31,7 @@ class MessageEntity {
       type: type,
       read: read,
       replyMessage: replyMessage,
+      sharedPostId: sharedPostId ?? this.sharedPostId,
     );
   }
 

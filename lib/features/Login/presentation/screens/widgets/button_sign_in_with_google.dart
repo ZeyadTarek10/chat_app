@@ -1,8 +1,9 @@
 import 'package:chat_app/config/routes/app_routes.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
@@ -33,17 +34,23 @@ class GoogleSignInButton extends StatelessWidget {
           );
         } else if (state is SignUpSuccess || state is GoogleSignInSuccess) {
           dismissLoadingDialog();
-          showSnackBar(context,
-              text: 'signed_in_successfuly'.tr(), color: Colors.green);
+          AlertService().showAlert(
+              context: context,
+              subtitle: 'signed_in_successfuly'.tr(),
+              status: AlertStatus.success);
           GoRouter.of(context).pushReplacement(AppRoutes.home);
         } else if (state is GoogleSignInFailure) {
           dismissLoadingDialog();
-          showSnackBar(context,
-              text: state.errorMessage, color: ColorsLight.error);
+          AlertService().showAlert(
+              context: context,
+              subtitle: state.errorMessage,
+              status: AlertStatus.error);
         } else if (state is SignUpFailure) {
           dismissLoadingDialog();
-          showSnackBar(context,
-              text: state.errorMessage, color: ColorsLight.error);
+          AlertService().showAlert(
+              context: context,
+              subtitle: state.errorMessage,
+              status: AlertStatus.error);
         }
       },
       child: OutlinedButton.icon(
