@@ -3,7 +3,7 @@ import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/post_card.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/post_card.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';

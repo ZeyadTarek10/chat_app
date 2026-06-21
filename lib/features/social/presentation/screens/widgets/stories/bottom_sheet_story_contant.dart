@@ -55,7 +55,7 @@ class BottomSheetStoryContant extends StatelessWidget {
         Divider(height: 30.h, thickness: 1.w),
         viewersDetails.isEmpty
             ?  Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.symmetric(vertical: 20.h),
                 child: Center(
                     child: CustomTextWidget(text: 'no_views_yet'.tr(),
                         textStyle: const TextStyle(color: ColorsLight.mainTextColor))),
@@ -79,8 +79,8 @@ class BottomSheetStoryContant extends StatelessWidget {
                           ? const Icon(Icons.person, color: Colors.grey)
                           : null,
                     ),
-                    title: Text(user.name,
-                        style: const TextStyle(
+                    title: CustomTextWidget(text: user.name,
+                        textStyle: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold)),
                     trailing: hasLiked
                         ? const Icon(Icons.favorite,

@@ -182,5 +182,17 @@
     "loading_error": "خطأ في التحميل",
     "the_story_has_been_updated_successfully": "تم تحديث الاستوري بنجاح",
     "the_story_was_posted_successfully": "تم نشر الاستوري بنجاح",
-    "the_story_has_been_deleted": "تم حذف الاستوري"
+    "the_story_has_been_deleted": "تم حذف الاستوري",
+    "post_from": "نشر من",
+    "no_posts_yet": "لا يوجد منشورات بعد",
+    "my_posts": "منشوراتى",
+    "posted": "نشر",
+    "just_now": "الآن",
+    "min_ago": "منذ د",
+    "hr_ago": "منذ س",
+    "d_ago": "منذ يوم",
+    "w_ago": "منذ اسبوع",
+    "mo_ago": "منذ شهر",
+    "y_ago": "منذ سنه"
+    
 }

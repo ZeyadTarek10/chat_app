@@ -91,7 +91,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
             AlertService().showAlert(
                 context: context,
                 subtitle: state.errMsg,
-                status: AlertStatus.success);
+                status: AlertStatus.error);
           }
         },
         builder: (context, state) {

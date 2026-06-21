@@ -2,74 +2,69 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
-import 'package:chat_app/features/chats/domain/entities/chats_entity.dart';
-import 'package:chat_app/features/chats/presentation/manager/get_chats_cubit/get_chats_cubit.dart';
-import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
+import 'package:chat_app/features/groups/domain/entities/groups_entity.dart';
+import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
+import 'package:chat_app/features/message_groups/presentation/manager/cubit/messege_group_cubit.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/post_send_button.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/post_send_button.dart';
 import 'package:chat_app/injection_container.dart';
-import 'package:chat_app/shared_widgets/custom_loading.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatsListSendPost extends StatelessWidget {
+class GroupsListSendPost extends StatelessWidget {
   final SocialEntity post;
-  const ChatsListSendPost({super.key, required this.post});
+  const GroupsListSendPost({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetChatsCubit, GetChatsState>(
+    return BlocBuilder<GroupsCubit, GroupsState>(
       builder: (context, state) {
-        if (state is GetChatsLoading) {
+        if (state is GroupsLoading) {
           return const Center(
-              child: CustomLoading());
+              child: CircularProgressIndicator(color: ColorsDark.blueLight1));
         }
 
-        if (state is GetChatsSuccess) {
-          final chatsList = state.chatsList;
+        if (state is GroupsLoaded) {
+          final groupsList = state.groups;
 
-          if (chatsList.isEmpty) {
+          if (groupsList.isEmpty) {
             return Center(
                 child: CustomTextWidget(
-                    text: "no_chats_found".tr(),
-                    textStyle: const TextStyle(color: ColorsLight.mainTextColor)));
+                    text: "no_groups_found".tr(),
+                    textStyle: const TextStyle(color: Colors.grey)));
           }
 
           return ListView.separated(
-            itemCount: chatsList.length,
+            itemCount: groupsList.length,
             separatorBuilder: (context, index) => SizedBox(height: 12.h),
             itemBuilder: (context, index) {
-              final ChatsEntity chat = chatsList[index];
+              final GroupsEntity group = groupsList[index];
 
-              final String roomId = chat.id ?? "";
-              final String friendName = chat.friendName ?? "unknown".tr();
-              final myUid = FirebaseAuth.instance.currentUser!.uid;
-              final friendId = chat.members
-                      ?.firstWhere((id) => id != myUid, orElse: () => "") ??
-                  "";
+              final String groupId = group.id;
+              final String groupName = group.name;
+              final String groupImage =
+                  (group.image.isNotEmpty) ? group.image.first : "";
 
               return Row(
                 children: [
                   CircleAvatar(
                     radius: 24.r,
                     backgroundColor: context.color.circleAvatarBackgroundColor,
-                    child: (chat.friendImage != null &&
-                            chat.friendImage!.isNotEmpty)
+                    child: (groupImage.isNotEmpty)
                         ? ClipOval(
                             child: CachedNetworkImage(
-                              imageUrl: chat.friendImage!,
+                              imageUrl: groupImage,
                               width: 52.r,
                               height: 52.r,
                               fit: BoxFit.cover,
                               placeholder: (context, url) => Center(
                                 child: CustomTextWidget(
-                                  text: friendName.isNotEmpty
-                                      ? friendName[0].toUpperCase()
+                                  text: groupName.isNotEmpty
+                                      ? groupName[0].toUpperCase()
                                       : '',
                                   textStyle: TextStyle(
                                       color: ColorsLight.white,
@@ -78,8 +73,8 @@ class ChatsListSendPost extends StatelessWidget {
                               ),
                               errorWidget: (context, url, error) => Center(
                                 child: CustomTextWidget(
-                                  text: friendName.isNotEmpty
-                                      ? friendName[0].toUpperCase()
+                                  text: groupName.isNotEmpty
+                                      ? groupName[0].toUpperCase()
                                       : '',
                                   textStyle: TextStyle(
                                       color: ColorsLight.white,
@@ -89,8 +84,8 @@ class ChatsListSendPost extends StatelessWidget {
                             ),
                           )
                         : CustomTextWidget(
-                            text: friendName.isNotEmpty
-                                ? friendName[0].toUpperCase()
+                            text: groupName.isNotEmpty
+                                ? groupName[0].toUpperCase()
                                 : '',
                             textStyle: TextStyle(
                                 color: ColorsLight.white, fontSize: 20.sp),
@@ -99,7 +94,7 @@ class ChatsListSendPost extends StatelessWidget {
                   SizedBox(width: 12.w),
                   Expanded(
                     child: CustomTextWidget(
-                      text: friendName,
+                      text: groupName,
                       textStyle: TextStyle(
                           fontSize: FontDetails.fontSizeS,
                           fontWeight: FontWeight.bold,
@@ -107,18 +102,18 @@ class ChatsListSendPost extends StatelessWidget {
                     ),
                   ),
                   BlocBuilder<SocialCubit, SocialState>(
-                    builder: (context, sentIds) {
+                    builder: (context, state) {
                       final sentIds = context.read<SocialCubit>().sentUserIds;
-                      final bool isSent = sentIds.contains(friendId);
+                      final bool isSent = sentIds.contains(groupId);
 
                       return PostSendButton(
                         isSent: isSent,
                         onSend: () async {
-                          context.read<SocialCubit>().markPostAsSent(friendId);
+                          context.read<SocialCubit>().markPostAsSent(groupId);
 
-                          await getIt<MessageCubit>().sendPostShareMessage(
-                            roomId: roomId,
-                            friendId: friendId,
+                          await getIt<MessegeGroupCubit>()
+                              .sendGroupPostShareMessage(
+                            groupId: groupId,
                             post: post,
                           );
                         },

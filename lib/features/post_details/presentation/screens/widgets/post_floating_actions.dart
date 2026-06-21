@@ -7,7 +7,7 @@ import 'package:chat_app/features/post_details/presentation/screens/widgets/post
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/share_post_bottom_sheet.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/share_post_bottom_sheet.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:chat_app/shared_widgets/custom_buttom_sheet.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';

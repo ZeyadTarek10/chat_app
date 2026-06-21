@@ -3,7 +3,7 @@ import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/core/widgets/user_dialogs.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/edit_post_bottom_sheet_content.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/add&edit_post/edit_post_bottom_sheet_content.dart';
 import 'package:chat_app/shared_widgets/custom_buttom_sheet.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -56,6 +56,7 @@ class SocialCubit extends Cubit<SocialState> {
 
   Future <void> fetchPosts() async {
     emit(SocialLoading());
+    await _postsSubscription?.cancel();
     _postsSubscription = getPostsUseCase().listen(
       (result) {
         result.fold(
@@ -136,7 +137,11 @@ class SocialCubit extends Cubit<SocialState> {
       (failure) => emit(
         SocialError(failure.massage),
       ),
-      (_) {},
+      (_) {
+        allPosts.removeWhere((p) => p.id == postId);
+        emit(SocialLoaded(List.from(allPosts)));
+        emit(SocialActionSuccess());
+      },
     );
   }
 

@@ -64,6 +64,32 @@ class DateHelper {
     return formatChatTime(dateTime); 
   }
 
+  static String formatTimeAgo(DateTime? dateTime) {
+    if (dateTime == null) return "recently".tr();
+
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return "just_now".tr(); 
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} ${"min_ago".tr()}"; 
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} ${"hr_ago".tr()}"; 
+    } else if (difference.inDays < 7) {
+      return "${difference.inDays} ${"days_ago".tr()}";
+    } else if (difference.inDays < 30) {
+      final weeks = (difference.inDays / 7).floor();
+      return "$weeks ${"w_ago".tr()}"; 
+    } else if (difference.inDays < 365) {
+      final months = (difference.inDays / 30).floor();
+      return "$months ${"mo_ago".tr()}"; 
+    } else {
+      final years = (difference.inDays / 365).floor();
+      return "$years ${"years_ago".tr()}"; 
+    }
+  }
+
   static String getShortLocation(String? fullAddress) {
     if (fullAddress == null || fullAddress.isEmpty) {
       return "";

@@ -171,7 +171,7 @@ Future<void> getItInit() async {
       deleteStoryUseCase: getIt(),
       updateStoryUseCase: getIt(),
       getStoryUseCase: getIt(),
-      uploadImageUseCase: getIt()));
+      uploadImageUseCase: getIt(), getUserUseCase: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(

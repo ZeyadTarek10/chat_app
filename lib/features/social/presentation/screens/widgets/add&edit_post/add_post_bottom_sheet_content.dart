@@ -7,7 +7,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/action_item_add_post_bottom_sheet.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/add&edit_post/action_item_add_post_bottom_sheet.dart';
 import 'package:chat_app/shared_widgets/buttons/custom_linear_btn.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';

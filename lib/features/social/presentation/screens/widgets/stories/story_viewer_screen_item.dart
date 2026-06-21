@@ -1,11 +1,11 @@
 import 'package:chat_app/features/social/domain/entities/story_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/story_cubit/story_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/icons_top_story_viewer.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/icons_top_story_viewer.dart';
 
-import 'package:chat_app/features/social/presentation/screens/widgets/linear_progress_indicator_story.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/reply_send_and_likes_story.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/show_me_views_and_likes_bottom_sheet_story.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/story_body_viewer_screen.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/linear_progress_indicator_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/reply_send_and_likes_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/show_me_views_and_likes_bottom_sheet_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/story_body_viewer_screen.dart';
 import 'package:flutter/material.dart';
 
 class StoryViewerScreenItem extends StatelessWidget {

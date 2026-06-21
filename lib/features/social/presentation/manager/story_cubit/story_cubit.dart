@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/core/enum/story_type_enum.dart';
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
+import 'package:chat_app/features/message/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:chat_app/features/social/domain/entities/story_entity.dart';
 import 'package:chat_app/features/social/domain/use_cases/add_story_use_case.dart';
@@ -21,7 +22,9 @@ class StoryCubit extends Cubit<StoryState> {
   final UpdateStoryUseCase updateStoryUseCase;
   final GetStoryUseCase getStoryUseCase;
   final UploadImageUseCase uploadImageUseCase;
-  final String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+  final GetUserByIdUseCase getUserUseCase;
+  final String currentUserId =
+      FirebaseAuth.instance.currentUser?.uid ?? "No authenticated user";
 
   StoryCubit({
     required this.addStoryUseCase,
@@ -29,10 +32,17 @@ class StoryCubit extends Cubit<StoryState> {
     required this.updateStoryUseCase,
     required this.getStoryUseCase,
     required this.uploadImageUseCase,
+    required this.getUserUseCase,
   }) : super(StoryInitial());
 
   XFile? currentDraftImage;
+  String? currentDraftImageUrl;
   int currentDraftColor = 0xFF000000;
+  final TextEditingController storyTextController = TextEditingController();
+  PageController? pageController;
+  AnimationController? animController;
+  final TextEditingController replyController = TextEditingController();
+  final FocusNode replyFocusNode = FocusNode();
 
   void updateStoryColor(int color) {
     currentDraftColor = color;
@@ -46,8 +56,16 @@ class StoryCubit extends Cubit<StoryState> {
         selectedImage: currentDraftImage, selectedColor: currentDraftColor));
   }
 
+  void deleteDraftImage() {
+    currentDraftImage = null;
+    currentDraftImageUrl = null;
+    emit(StoryDraftUpdated(
+        selectedImage: currentDraftImage, selectedColor: currentDraftColor));
+  }
+
   void clearImageOrColorStory() {
     currentDraftImage = null;
+    currentDraftImageUrl = null;
     currentDraftColor = 0xFF000000;
   }
 
@@ -61,17 +79,137 @@ class StoryCubit extends Cubit<StoryState> {
   }
 
   void initDraft(StoryEntity? storyToEdit) {
-  if (storyToEdit != null) {
-    currentDraftColor = storyToEdit.backgroundColor;
-    currentDraftImage = null; 
-    emit(StoryDraftUpdated(
-      selectedImage: currentDraftImage,
-      selectedColor: currentDraftColor,
-    ));
-  } else {
-    clearImageOrColorStory();
+    storyTextController.text = storyToEdit?.text ?? '';
+    if (storyToEdit != null) {
+      currentDraftColor = storyToEdit.backgroundColor;
+      currentDraftImage = null;
+      currentDraftImageUrl = storyToEdit.imageUrl;
+      emit(StoryDraftUpdated(
+        selectedImage: currentDraftImage,
+        selectedColor: currentDraftColor,
+      ));
+    } else {
+      clearImageOrColorStory();
+    }
   }
-}
+
+  void initStoryIndices(int groupIndex) {
+    if (state is StoryLoaded) {
+      emit((state as StoryLoaded).copyWith(
+        currentGroupIndex: groupIndex,
+        currentStoryIndex: 0,
+      ));
+    }
+  }
+
+  void recordCurrentStoryView() {
+    if (state is! StoryLoaded) return;
+    final currentState = state as StoryLoaded;
+    final groups = currentState.groupedStories;
+    final currentGroup = currentState.currentGroupIndex;
+    final currentStory = currentState.currentStoryIndex;
+
+    if (currentGroup < groups.length &&
+        currentStory < groups[currentGroup].stories.length) {
+      final story = groups[currentGroup].stories[currentStory];
+      markStoryAsViewed(story);
+    }
+  }
+
+  void nextStory() {
+    if (state is! StoryLoaded) return;
+    final currentState = state as StoryLoaded;
+    final groups = currentState.groupedStories;
+    int currentGroup = currentState.currentGroupIndex;
+    int currentStory = currentState.currentStoryIndex;
+
+    if (currentStory < groups[currentGroup].stories.length - 1) {
+      updateStoryIndex(currentGroup, currentStory + 1);
+      resetTimer();
+      recordCurrentStoryView();
+    } else if (currentGroup < groups.length - 1) {
+      updateStoryIndex(currentGroup + 1, 0);
+      pageController?.nextPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+      resetTimer();
+      recordCurrentStoryView();
+    } else {
+      emit(StoryFinished());
+      emit(currentState);
+    }
+  }
+
+  void previousStory() {
+    if (state is! StoryLoaded) return;
+    final currentState = state as StoryLoaded;
+    final groups = currentState.groupedStories;
+    int currentGroup = currentState.currentGroupIndex;
+    int currentStory = currentState.currentStoryIndex;
+
+    if (currentStory > 0) {
+      updateStoryIndex(currentGroup, currentStory - 1);
+      resetTimer();
+      recordCurrentStoryView();
+    } else if (currentGroup > 0) {
+      final prevGroup = currentGroup - 1;
+      updateStoryIndex(prevGroup, groups[prevGroup].stories.length - 1);
+      pageController?.previousPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+      resetTimer();
+      recordCurrentStoryView();
+    } else {
+      emit(StoryFinished());
+      emit(currentState);
+    }
+  }
+
+  void initControllers(TickerProvider vsync, int initialGroupIndex) {
+    if (state is StoryLoaded) {
+      emit((state as StoryLoaded).copyWith(
+        currentGroupIndex: initialGroupIndex,
+        currentStoryIndex: 0,
+      ));
+    }
+
+    disposeControllers();
+
+    pageController = PageController(initialPage: initialGroupIndex);
+    animController =
+        AnimationController(vsync: vsync, duration: const Duration(seconds: 5));
+
+    animController?.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        nextStory();
+      }
+    });
+
+    replyFocusNode.addListener(() {
+      if (replyFocusNode.hasFocus) {
+        animController?.stop();
+      } else {
+        animController?.forward();
+      }
+    });
+
+    animController?.forward();
+  }
+
+  void disposeControllers() {
+    animController?.stop();
+    animController?.dispose();
+    animController = null;
+
+    pageController?.dispose();
+    pageController = null;
+  }
+
+  void resetTimer() {
+    animController?.reset();
+    animController?.forward();
+  }
+
+  void pauseTimer() => animController?.stop();
+  void resumeTimer() => animController?.forward();
 
   Future<void> fetchStoryUsersDetails(List<String> viewerIds,
       List<String> likerIds, GetUserByIdUseCase getUserUseCase) async {
@@ -178,13 +316,15 @@ class StoryCubit extends Cubit<StoryState> {
       final result = await updateStoryUseCase(story: story);
       result.fold(
         (failure) => emit(StoryError(message: failure.massage)),
-        (_) => emit(StoryActionSuccess(message: "the_story_has_been_updated_successfully".tr())),
+        (_) => emit(StoryActionSuccess(
+            message: "the_story_has_been_updated_successfully".tr())),
       );
     } else {
       final result = await addStoryUseCase(story: story);
       result.fold(
         (failure) => emit(StoryError(message: failure.massage)),
-        (_) => emit(StoryActionSuccess(message: "the_story_was_posted_successfully".tr())),
+        (_) => emit(StoryActionSuccess(
+            message: "the_story_was_posted_successfully".tr())),
       );
     }
 
@@ -249,5 +389,47 @@ class StoryCubit extends Cubit<StoryState> {
     emit(StoryLoaded(groupedStories: newGroups));
 
     await updateStoryUseCase(story: updatedStory);
+  }
+
+  Future<String?> sendStoryReply({
+  required StoryEntity story,
+  required String replyText,
+  required MessageCubit messageCubit, 
+}) async {
+  if (replyText.isEmpty) return null;
+
+  String fetchedOwnerName = 'unknown'.tr();
+  final ownerResult = await getUserUseCase.call(story.userId);
+  ownerResult.fold(
+    (failure) => null,
+    (user) => fetchedOwnerName = user.name,
+  );
+
+  String fetchedMyName = 'me'.tr();
+  final myResult = await getUserUseCase.call(currentUserId);
+  myResult.fold(
+    (failure) => null,
+    (user) => fetchedMyName = user.name,
+  );
+
+  messageCubit.sendStoryReplyMessage(
+    friendId: story.userId,
+    messageText: replyText,
+    story: story,
+    myName: fetchedMyName,
+    storyOwnerName: fetchedOwnerName,
+  );
+
+  return fetchedOwnerName;
+}
+
+  @override
+  Future<void> close() {
+    storyTextController.dispose();
+    pageController?.dispose();
+    animController?.dispose();
+    replyController.dispose();
+    replyFocusNode.dispose();
+    return super.close();
   }
 }

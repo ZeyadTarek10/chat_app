@@ -64,3 +64,5 @@ class UserStoryGroup {
   final List<StoryEntity> stories;
   UserStoryGroup({required this.userId, required this.stories});
 }
+
+class StoryFinished extends StoryState {}

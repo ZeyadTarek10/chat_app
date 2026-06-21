@@ -5,10 +5,10 @@ import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/features/social/domain/entities/story_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/story_cubit/story_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/image_story.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/list_of_color_story.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/post_or_edit_button.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/upload_image_icons_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/image_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/list_of_color_story.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/post_or_edit_button.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/upload_image_icons_story.dart';
 import 'package:chat_app/shared_widgets/custom_text_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,32 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateOrEditStoryScreen extends StatefulWidget {
+class CreateOrEditStoryScreen extends StatelessWidget {
   final StoryEntity? storyToEdit;
   const CreateOrEditStoryScreen({super.key, this.storyToEdit});
-
-  @override
-  State<CreateOrEditStoryScreen> createState() =>
-      _CreateOrEditStoryScreenState();
-}
-
-class _CreateOrEditStoryScreenState extends State<CreateOrEditStoryScreen> {
-  late TextEditingController _textController;
-
-  @override
-  void initState() {
-    super.initState();
-    _textController =
-        TextEditingController(text: widget.storyToEdit?.text ?? '');
-
-    context.read<StoryCubit>().initDraft(widget.storyToEdit);
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +46,8 @@ class _CreateOrEditStoryScreenState extends State<CreateOrEditStoryScreen> {
         int selectedClr = cubit.currentDraftColor;
 
         final hasLocalImage = selectedImg != null;
-        final hasNetworkImage =
-            widget.storyToEdit?.imageUrl != null && !hasLocalImage;
+        String? draftImageUrl = cubit.currentDraftImageUrl;
+        final hasNetworkImage = draftImageUrl != null && !hasLocalImage;
         final hasAnyImage = hasLocalImage || hasNetworkImage;
 
         return Scaffold(
@@ -81,13 +58,13 @@ class _CreateOrEditStoryScreenState extends State<CreateOrEditStoryScreen> {
             iconTheme: const IconThemeData(color: ColorsDark.white),
             actions: [
               PostOrEditButton(
-                textController: _textController,
+                textController: cubit.storyTextController,
                 hasAnyImage: hasAnyImage,
                 cubit: cubit,
                 selectedImg: selectedImg,
                 hasNetworkImage: hasNetworkImage,
                 selectedClr: selectedClr,
-                storyToEdit: widget.storyToEdit,
+                storyToEdit: storyToEdit,
                 isLoading: state is StoryActionLoading,
               ),
             ],
@@ -102,14 +79,14 @@ class _CreateOrEditStoryScreenState extends State<CreateOrEditStoryScreen> {
                         Image.file(File(selectedImg.path), fit: BoxFit.cover)),
               if (hasNetworkImage)
                 Positioned.fill(
-                  child: ImageStory(imageUrl: widget.storyToEdit!.imageUrl!),
+                  child: ImageStory(imageUrl: cubit.currentDraftImageUrl!),
                 ),
               if (hasAnyImage)
                 Positioned.fill(
                     child: Container(color: Colors.black.withOpacity(0.4))),
               Center(
                 child: CustomTextFormFieldWidget(
-                  controller: _textController,
+                  controller: cubit.storyTextController,
                   hint: "write_a_story".tr(),
                   textAlign: TextAlign.center,
                   withBorders: false,

@@ -4,6 +4,7 @@ import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/enum/alert_enum.dart';
 import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/edit_profile_button.dart';
@@ -11,6 +12,7 @@ import 'package:chat_app/features/profile/presentation/screens/widgets/edit_prof
 import 'package:chat_app/features/profile/presentation/screens/widgets/loading_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/logout_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/profile_data.dart';
+import 'package:chat_app/features/profile/presentation/screens/widgets/user_posts_section.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +48,9 @@ class ProfileScreen extends StatelessWidget {
           if (state is LogoutSuccess) {
             GoRouter.of(context).pushReplacement(AppRoutes.login);
             AlertService().showAlert(
-              context: context,
-              subtitle: "loged_out_successfuly".tr(),
-              status: AlertStatus.success);
+                context: context,
+                subtitle: "loged_out_successfuly".tr(),
+                status: AlertStatus.success);
           } else if (state is ProfileError) {
             AlertService().showAlert(
                 context: context,
@@ -111,7 +113,38 @@ class ProfileScreen extends StatelessWidget {
                       duration: 400, child: EditProfileButton(user: user)),
                   SizedBox(height: 12.h),
                   const CustomFadeInUp(duration: 800, child: LogOutProfile()),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 15.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: ColorsLight.mainTextColor.withOpacity(0.3),
+                          thickness: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w), 
+                        child: CustomTextWidget(
+                          text: "my_posts".tr(),
+                          textStyle: TextStyle(
+                            color: context.color.textColor,
+                            fontSize: FontDetails.fontSizeS,
+                            fontWeight: FontDetails.regularFontWeight,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: ColorsLight.mainTextColor.withOpacity(0.3),
+                          thickness: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15.h),
+                  UserPostsSection(userId: user.uid),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
@@ -121,3 +154,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+

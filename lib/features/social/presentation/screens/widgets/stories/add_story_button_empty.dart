@@ -15,10 +15,12 @@ class AddStoryButtonEmpty extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 4.0.w),
       child: GestureDetector(
         onTap: () {
+          final cubit = context.read<StoryCubit>();
+          cubit.initDraft(null);
           GoRouter.of(context).push(
             AppRoutes.createOrEditStory,
             extra: {
-              'cubit': context.read<StoryCubit>(),
+              'cubit': cubit,
               'storyToEdit': null,
             },
           );
@@ -32,4 +34,3 @@ class AddStoryButtonEmpty extends StatelessWidget {
     );
   }
 }
-

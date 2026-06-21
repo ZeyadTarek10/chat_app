@@ -40,7 +40,7 @@ class UploadImageIconsStory extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.delete, color: ColorsLight.error, size: 30.sp),
               onPressed: () {
-                cubit.updateStoryImage(null);
+                cubit.deleteDraftImage();
               }),
         ]
       ],

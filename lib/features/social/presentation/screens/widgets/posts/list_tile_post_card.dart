@@ -4,7 +4,7 @@ import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/popup_menu_button_post_card.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/popup_menu_button_post_card.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

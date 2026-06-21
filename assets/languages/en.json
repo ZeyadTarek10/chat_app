@@ -182,5 +182,16 @@
     "loading_error": "Loading error",
     "the_story_has_been_updated_successfully": "The story has been updated successfully",
     "the_story_was_posted_successfully": "The story was posted successfully",
-    "the_story_has_been_deleted": "The story has been deleted"
+    "the_story_has_been_deleted": "The story has been deleted",
+    "post_from": "Posted from",
+    "no_posts_yet": "No posts yet",
+    "my_posts": "My posts",
+    "posted": "Posted",
+    "just_now": "just now",
+    "min_ago": "min ago",
+    "hr_ago": "hr ago",
+    "d_ago": "d ago",
+    "w_ago": "w ago",
+    "mo_ago": "mo ago",
+    "y_ago": "y ago"
 }

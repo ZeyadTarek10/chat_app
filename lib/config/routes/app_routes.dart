@@ -128,6 +128,7 @@ class AppRoutes {
             BlocProvider(
                 create: (context) => getIt<GroupsCubit>()..fetchGroups()),
             BlocProvider(create: (context) => getIt<UploadImageCubit>()),
+            BlocProvider(create: (context) => getIt<SocialCubit>()..fetchPosts()),
           ],
           child: const MainScreen(),
         ),

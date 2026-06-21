@@ -13,7 +13,8 @@ class CircleAvatarTrendingGroup extends StatelessWidget {
   final bool isMyGroup;
   final int groupIndex;
 
-  const CircleAvatarTrendingGroup({super.key, 
+  const CircleAvatarTrendingGroup({
+    super.key,
     required this.group,
     required this.isMyGroup,
     required this.groupIndex,
@@ -29,14 +30,16 @@ class CircleAvatarTrendingGroup extends StatelessWidget {
 
     final borderColor = isMyGroup
         ? ColorsLight.mainTextColor
-        : (isCompletelyViewed ? ColorsLight.mainTextColor : ColorsDark.blueLight2);
+        : (isCompletelyViewed
+            ? ColorsLight.mainTextColor
+            : ColorsDark.blueLight2);
 
     return GestureDetector(
       onTap: () {
         GoRouter.of(context).push(
           AppRoutes.viewsStory,
           extra: {
-            'cubit': context.read<StoryCubit>(),
+            'cubit': cubit,
             'initialGroupIndex': groupIndex,
           },
         );
@@ -49,24 +52,43 @@ class CircleAvatarTrendingGroup extends StatelessWidget {
             CircleAvatar(
               radius: 37.r,
               backgroundColor: borderColor,
-              child: CircleAvatar(
-                radius: 35.r,
-                backgroundColor: Color(lastStory.backgroundColor),
-                backgroundImage: lastStory.imageUrl != null
-                    ? CachedNetworkImageProvider(lastStory.imageUrl!)
-                    : null,
-                child: lastStory.imageUrl == null && lastStory.text != null
-                    ? Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: CustomTextWidget(
-                          text: lastStory.text!,
-                          maxLines: 1,
-                          textStyle:
-                              TextStyle(fontSize: 10.sp, color: ColorsDark.white, 
-                              overflow: TextOverflow.ellipsis),
+              child: Container(
+                width: 70.r,
+                height: 70.r,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(lastStory.backgroundColor),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: lastStory.imageUrl != null
+                    ? CachedNetworkImage(
+                        imageUrl: lastStory.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.photo_size_select_actual_outlined,
+                          color: Colors.white54,
+                          size: 30,
+                        ),
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2),
                         ),
                       )
-                    : null,
+                    : (lastStory.text != null
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: CustomTextWidget(
+                                text: lastStory.text!,
+                                maxLines: 1,
+                                textStyle: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: ColorsDark.white,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          )
+                        : null),
               ),
             ),
             if (isMyGroup)
@@ -75,10 +97,12 @@ class CircleAvatarTrendingGroup extends StatelessWidget {
                 right: 0,
                 child: GestureDetector(
                   onTap: () {
+                    cubit.initDraft(null);
+
                     GoRouter.of(context).push(
                       AppRoutes.createOrEditStory,
                       extra: {
-                        'cubit': context.read<StoryCubit>(),
+                        'cubit': cubit,
                         'storyToEdit': null,
                       },
                     );

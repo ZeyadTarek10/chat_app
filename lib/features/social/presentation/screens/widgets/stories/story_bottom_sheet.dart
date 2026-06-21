@@ -2,7 +2,7 @@ import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
 import 'package:chat_app/features/social/domain/entities/story_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/story_cubit/story_cubit.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/bottom_sheet_story_contant.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/stories/bottom_sheet_story_contant.dart';
 import 'package:chat_app/injection_container.dart';
 import 'package:chat_app/shared_widgets/custom_buttom_sheet.dart';
 import 'package:chat_app/shared_widgets/custom_loading.dart';

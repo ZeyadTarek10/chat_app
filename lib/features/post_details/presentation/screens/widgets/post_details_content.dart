@@ -38,7 +38,7 @@ class PostDetailsContent extends StatelessWidget {
         SizedBox(height: 10.h),
         CustomTextWidget(
           text:
-              "Posted ${post.time != null ? "${post.time!.hour} hr ago" : "Recently"}",
+              "${'posted'.tr()} ${DateHelper.formatTimeAgo(post.time)}",
           textStyle:
               TextStyle(fontSize: 12.sp, color: ColorsLight.mainTextColor),
         ),

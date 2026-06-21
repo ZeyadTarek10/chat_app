@@ -1,9 +1,9 @@
 import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/action_post_card.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/imag_post_card.dart';
-import 'package:chat_app/features/social/presentation/screens/widgets/list_tile_post_card.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/action_post_card.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/imag_post_card.dart';
+import 'package:chat_app/features/social/presentation/screens/widgets/posts/list_tile_post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
