@@ -1,5 +1,7 @@
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/app_images.dart';
@@ -8,7 +10,6 @@ import 'package:chat_app/features/chats/presentation/manager/create_chats_cubit/
 import 'package:chat_app/features/chats/presentation/screens/widgets/search_content_area.dart';
 import 'package:chat_app/features/chats/presentation/screens/widgets/search_create_chate_text_field.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +46,12 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
       appBar: AppBar(
         toolbarHeight: 65.h,
         backgroundColor: context.color.mainColor,
-        flexibleSpace: Image.asset(AppImages.bG, fit: BoxFit.cover,),
+        flexibleSpace: Image.asset(
+          AppImages.bG,
+          fit: BoxFit.cover,
+        ),
         leading: Padding(
-          padding: EdgeInsets.only(bottom: 12.h, left: 8.w, right: 8.w),          
+          padding: EdgeInsets.only(bottom: 12.h, left: 8.w, right: 8.w),
           child: GestureDetector(
             onTap: () => GoRouter.of(context).pop(),
             child: Center(
@@ -79,9 +83,15 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
         listener: (context, state) {
           if (state is CreateChatsSuccessState) {
             GoRouter.of(context).pushReplacement(AppRoutes.home);
-            showSnackBar(context, text: 'friend_added_successfully'.tr(), color: ColorsLight.green);
+            AlertService().showAlert(
+                context: context,
+                subtitle: 'friend_added_successfully'.tr(),
+                status: AlertStatus.success);
           } else if (state is CreateChatsErrorState) {
-            showSnackBar(context, text: state.errMsg, color: ColorsLight.error);
+            AlertService().showAlert(
+                context: context,
+                subtitle: state.errMsg,
+                status: AlertStatus.error);
           }
         },
         builder: (context, state) {

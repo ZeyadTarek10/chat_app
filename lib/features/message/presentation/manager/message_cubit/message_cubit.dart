@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
@@ -12,6 +13,9 @@ import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
+import 'package:chat_app/features/social/domain/entities/social_entity.dart';
+import 'package:chat_app/features/social/domain/entities/story_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -314,6 +318,114 @@ class MessageCubit extends Cubit<MessageState> with AttachmentSenderMixin {
     }
   }
 
+  Future<void> sendPostShareMessage({
+    required String roomId,
+    required String friendId,
+    required SocialEntity post,
+  }) async {
+    final postPayload = jsonEncode({
+      "id": post.id,
+      "user_id": post.userId,
+      "user_name": post.userName,
+      "user_image": post.userImage ?? "",
+      "post_text": post.postText,
+      "post_image": post.postImage ?? "",
+      "location": post.location ?? "",
+      "likes_count": post.likesCount ?? 0,
+      "comments_count": post.commentsCount ?? 0,
+      "liked_by": post.likedBy,
+    });
+    String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+
+    final newMessage = MessageEntity(
+      id: msgId,
+      message: postPayload,
+      createdAt: DateTime.now(),
+      toId: friendId,
+      fromId: FirebaseAuth.instance.currentUser!.uid,
+      type: "post_share",
+      read: "",
+      replyMessage: null,
+    );
+
+    _scrollToBottom();
+
+    final result = await sendMessageUseCase.call(newMessage, roomId);
+    result.fold(
+      (failure) {
+        if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+      },
+      (_) {},
+    );
+  }
+
+ Future<void> sendStoryReplyMessage({
+    required String friendId, 
+    required String messageText,
+    required StoryEntity story,
+    required String myName, 
+    required String storyOwnerName,
+  }) async {
+    final storyPayload = jsonEncode({
+      'id': story.id,
+      'userId': story.userId,
+      'storyOwnerName': storyOwnerName, 
+      'senderName': myName,
+      'text': story.text,
+      'imageUrl': story.imageUrl,
+      "reply_text": messageText,
+    });
+
+    String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      List<String> members = [myUid, friendId]..sort((a, b) => a.compareTo(b));
+      String finalRoomId = members.join(); 
+
+      final chatDocRef = FirebaseFirestore.instance.collection('chats').doc(finalRoomId);
+      final chatDocSnapshot = await chatDocRef.get();
+
+      if (!chatDocSnapshot.exists) {
+        await chatDocRef.set({
+          'id': finalRoomId,
+          'members': members,
+          'lastMessage': 'story_reply'.tr(),
+          'lastMessageTime': DateTime.now().toIso8601String(), 
+          'createdAt': DateTime.now().toIso8601String(),
+        });
+      }
+
+      final newMessage = MessageEntity(
+        id: msgId,
+        message: storyPayload,
+        createdAt: DateTime.now(),
+        toId: friendId,
+        fromId: myUid,
+        type: "story_reply", 
+        read: "",
+        replyMessage: null,
+      );
+
+      _scrollToBottom();
+      
+      final result = await sendMessageUseCase.call(newMessage, finalRoomId);
+      result.fold(
+        (failure) {
+          if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+        },
+        (_) {
+          chatDocRef.update({
+            'lastMessage': 'story_reply'.tr(),
+            'lastMessageTime': DateTime.now().toIso8601String(),
+          });
+        },
+      );
+
+    } catch (e) {
+      if (!isClosed) emit(MessageActionErrorState(errMsg: e.toString()));
+    }
+  }
   void _scrollToBottom() {
     if (controller0.hasClients) {
       controller0.animateTo(

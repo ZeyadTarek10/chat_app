@@ -1,4 +1,8 @@
+import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
 class DateHelper {
   
@@ -59,4 +63,85 @@ class DateHelper {
 
     return formatChatTime(dateTime); 
   }
+
+  static String formatTimeAgo(DateTime? dateTime) {
+    if (dateTime == null) return "recently".tr();
+
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return "just_now".tr(); 
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} ${"min_ago".tr()}"; 
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} ${"hr_ago".tr()}"; 
+    } else if (difference.inDays < 7) {
+      return "${difference.inDays} ${"days_ago".tr()}";
+    } else if (difference.inDays < 30) {
+      final weeks = (difference.inDays / 7).floor();
+      return "$weeks ${"w_ago".tr()}"; 
+    } else if (difference.inDays < 365) {
+      final months = (difference.inDays / 30).floor();
+      return "$months ${"mo_ago".tr()}"; 
+    } else {
+      final years = (difference.inDays / 365).floor();
+      return "$years ${"years_ago".tr()}"; 
+    }
+  }
+
+  static String getShortLocation(String? fullAddress) {
+    if (fullAddress == null || fullAddress.isEmpty) {
+      return "";
+    }
+    
+    List<String> parts = fullAddress.split(',');
+    
+    if (parts.length >= 2) {
+      String country = parts.last.trim();
+      String city = parts[parts.length - 2].trim();
+      
+      return "$city, $country"; 
+    }
+    
+    return fullAddress;
+  }
+
+  static List<TextSpan> buildTextSpans(String text, BuildContext context) {
+    final List<TextSpan> spans = [];
+    final RegExp hashtagRegExp = RegExp(r'\#\w+');
+    final Iterable<RegExpMatch> matches = hashtagRegExp.allMatches(text);
+
+    int lastMatchEnd = 0;
+    for (final match in matches) {
+      final String normalText = text.substring(lastMatchEnd, match.start);
+      if (normalText.isNotEmpty) {
+        spans.add(TextSpan(
+            text: normalText,
+            style: TextStyle(color: context.color.textColor)));
+      }
+
+      final String hashtagText = match.group(0)!;
+      spans.add(
+        TextSpan(
+          text: hashtagText,
+          style: const TextStyle(color: ColorsDark.blueLight2),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              debugPrint('Tapped on: $hashtagText');
+            },
+        ),
+      );
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd < text.length) {
+      spans.add(TextSpan(
+          text: text.substring(lastMatchEnd),
+          style: TextStyle(color: context.color.textColor)));
+    }
+    return spans;
+  }
+
+  
 }

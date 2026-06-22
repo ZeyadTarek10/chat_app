@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:chat_app/config/app/upload_image/domain/use_cases/upload_image_use_case.dart';
 import 'package:chat_app/config/app/upload_image/presentation/screens/widgets/image_pick.dart';
 import 'package:chat_app/core/error/firebase_error_logger.dart';
@@ -9,6 +10,7 @@ import 'package:chat_app/features/groups/domain/repositories/groups_repository.d
 import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:chat_app/features/message_groups/domain/repositories/message_groups_repositories.dart';
 import 'package:chat_app/features/message_groups/domain/use_cases/send_group_massege_use_case.dart';
+import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -185,7 +187,7 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> with AttachmentSenderMi
     toggleMenu();
 
     try {
-      final locationData = await buildLocationPayload();;
+      final locationData = await buildLocationPayload();
 
       if (locationData != null) {
         cancelReply();
@@ -250,6 +252,57 @@ class MessegeGroupCubit extends Cubit<MessegeGroupState> with AttachmentSenderMi
       }
     } catch (e) {
       emit(MessegeGroupActionError(error: e.toString()));
+      if (currentState is MessegeGroupLoaded) emit(currentState);
+    }
+  }
+
+Future<void> sendGroupPostShareMessage({
+    required String groupId, 
+    required SocialEntity post,
+  }) async {
+    final currentState = state;
+    MessageEntity? currentReply;
+    
+    if (state is MessegeGroupLoaded) {
+      currentReply = (state as MessegeGroupLoaded).replyMessage;
+    }
+
+     final postPayload = jsonEncode({
+      "id": post.id,
+      "user_id": post.userId,
+      "user_name": post.userName,
+      "user_image": post.userImage ?? "",
+      "post_text": post.postText,
+      "post_image": post.postImage ?? "",
+      "location": post.location ?? "",
+      "likes_count": post.likesCount ?? 0,
+      "comments_count": post.commentsCount ?? 0,
+      "liked_by": post.likedBy,
+    });
+
+    cancelReply(); 
+    
+    if (controller0.hasClients) {
+      controller0.animateTo(0,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    }
+
+    try {
+      final result = await sendMessageUseCase(
+          postPayload, groupId, "post_share", currentReply);
+          
+      result.fold(
+        (failure) {
+          if (!isClosed) {
+            emit(MessegeGroupActionError(error: failure.massage));
+          }
+          if (currentState is MessegeGroupLoaded) emit(currentState);
+        },
+        (_) {},
+      );
+    } catch (e, stackTrace) {
+      printFirebaseError(e, stackTrace);
+      if (!isClosed) emit(MessegeGroupActionError(error: e.toString()));
       if (currentState is MessegeGroupLoaded) emit(currentState);
     }
   }

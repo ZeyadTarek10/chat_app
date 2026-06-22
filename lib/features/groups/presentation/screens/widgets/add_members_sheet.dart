@@ -1,6 +1,7 @@
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/features/groups/presentation/manager/groups_cubit/groups_cubit.dart';
 import 'package:chat_app/features/groups/presentation/screens/widgets/check_box_list_tile.dart';
@@ -59,7 +60,7 @@ class AddMembersSheet extends StatelessWidget {
               SizedBox(height: 15.h),
               Expanded(
                 child: state is GroupsUsersLoading
-                    ? Lottie.asset("assets/lottie/Loading Dots Blue.json")
+                    ? Lottie.asset(AppImages.loadingDotsBlue)
                     : cubit.contacts.isEmpty
                         ? Center(
                             child: CustomTextWidget(
@@ -69,7 +70,7 @@ class AddMembersSheet extends StatelessWidget {
                         : displayedContacts.isEmpty
                             ? Center(
                                 child: Lottie.asset(
-                                    'assets/lottie/non data found.json'))
+                                    AppImages.nonDataFound))
                             : ListView.builder(
                                 itemCount: displayedContacts.length,
                                 itemBuilder: (context, index) {

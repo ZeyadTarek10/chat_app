@@ -1,6 +1,8 @@
 import 'package:chat_app/config/app/upload_image/presentation/manager/cubit/upload_image_cubit.dart';
 import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
+import 'package:chat_app/core/enum/alert_enum.dart';
+import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/animate_do.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
@@ -10,8 +12,8 @@ import 'package:chat_app/features/profile/presentation/screens/widgets/edit_prof
 import 'package:chat_app/features/profile/presentation/screens/widgets/loading_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/logout_profile.dart';
 import 'package:chat_app/features/profile/presentation/screens/widgets/profile_data.dart';
+import 'package:chat_app/features/profile/presentation/screens/widgets/user_posts_section.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
-import 'package:chat_app/shared_widgets/show_snack_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,22 +26,36 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UploadImageCubit, UploadImageState>(
-    listener: (context, uploadState) {
-      if (uploadState is UploadImageStateSuccess) {
-        final newUrl = uploadState.uploadImageEntities.photo;
-        if (newUrl != null) {
-          BlocProvider.of<ProfileCubit>(context).updateProfilePicture(newUrl);
+      listener: (context, uploadState) {
+        if (uploadState is UploadImageStateSuccess) {
+          final newUrl = uploadState.uploadImageEntities.photo;
+          if (newUrl != null) {
+            BlocProvider.of<ProfileCubit>(context).updateProfilePicture(newUrl);
+          }
+          AlertService().showAlert(
+              context: context,
+              subtitle: "the_image_has_been_uploaded_successfully".tr(),
+              status: AlertStatus.success);
+        } else if (uploadState is UploadImageStateError) {
+          AlertService().showAlert(
+              context: context,
+              subtitle: uploadState.error,
+              status: AlertStatus.error);
         }
-      } else if (uploadState is UploadImageStateError) {
-        showSnackBar(context, text: uploadState.error, color: ColorsLight.red);
-      }
-    },
+      },
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is LogoutSuccess) {
             GoRouter.of(context).pushReplacement(AppRoutes.login);
+            AlertService().showAlert(
+                context: context,
+                subtitle: "loged_out_successfuly".tr(),
+                status: AlertStatus.success);
           } else if (state is ProfileError) {
-            showSnackBar(context, text: state.message, color: ColorsLight.red);
+            AlertService().showAlert(
+                context: context,
+                subtitle: state.message,
+                status: AlertStatus.error);
           }
         },
         builder: (context, state) {
@@ -97,7 +113,38 @@ class ProfileScreen extends StatelessWidget {
                       duration: 400, child: EditProfileButton(user: user)),
                   SizedBox(height: 12.h),
                   const CustomFadeInUp(duration: 800, child: LogOutProfile()),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 15.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: ColorsLight.mainTextColor.withOpacity(0.3),
+                          thickness: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w), 
+                        child: CustomTextWidget(
+                          text: "my_posts".tr(),
+                          textStyle: TextStyle(
+                            color: context.color.textColor,
+                            fontSize: FontDetails.fontSizeS,
+                            fontWeight: FontDetails.regularFontWeight,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: ColorsLight.mainTextColor.withOpacity(0.3),
+                          thickness: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15.h),
+                  UserPostsSection(userId: user.uid),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
@@ -107,3 +154,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+

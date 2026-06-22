@@ -2,7 +2,6 @@ import 'package:chat_app/features/message/domain/entities/message_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 extension MessageEntityExtension on MessageEntity {
-  
   MessageEntity get toReplyDisplay {
     if (type == "image") {
       return copyWith(message: "🖼 ${'photo'.tr()}");
@@ -10,8 +9,12 @@ extension MessageEntityExtension on MessageEntity {
       return copyWith(message: "📍 ${'location'.tr()}");
     } else if (type == "contact") {
       return copyWith(message: "👤 ${'contact'.tr()}");
+    } else if (type == "post_share") {
+      return copyWith(message: "🔄 ${'shared_post'.tr()}");
+    } else if (type == "story_reply") {
+      return copyWith(message: "story_reply".tr());
     }
-    return this; 
+    return this;
   }
 
   String get typeText {
@@ -22,9 +25,12 @@ extension MessageEntityExtension on MessageEntity {
         return "📍 ${'location'.tr()}";
       case "contact":
         return "👤 ${'contact'.tr()}";
+      case "post_share":
+        return "🔄 ${'shared_post'.tr()}";
+      case "story_reply":
+        return "story_reply".tr();
       default:
-        return message ?? "send_a_message".tr(); 
+        return message ?? "send_a_message".tr();
     }
   }
-  
 }

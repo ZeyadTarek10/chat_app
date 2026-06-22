@@ -2,6 +2,7 @@ import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/config/themes/app_theme.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
+import 'package:chat_app/core/utils/app_images.dart';
 import 'package:chat_app/core/utils/date_helper.dart';
 import 'package:chat_app/features/chats/presentation/manager/get_chats_cubit/get_chats_cubit.dart';
 import 'package:chat_app/features/chats/presentation/screens/widgets/chat_item.dart';
@@ -33,7 +34,7 @@ class ChatsScreen extends StatelessWidget {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Lottie.asset('assets/lottie/Add Friend.json'),
+                Lottie.asset(AppImages.addFrind),
                 CustomTextWidget(
                     text: "no_chats_yet_Add_a_friend".tr(),
                     textStyle: appTheme().textTheme.displayMedium),
@@ -50,7 +51,7 @@ class ChatsScreen extends StatelessWidget {
 
           if (filteredChats.isEmpty) {
             return Center(
-                child: Lottie.asset('assets/lottie/non data found.json'));
+                child: Lottie.asset(AppImages.nonDataFound));
           }
           return RefreshIndicator(
             backgroundColor: context.color.navBarbg,
