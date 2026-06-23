@@ -1,4 +1,5 @@
 {
+    "app_name": "إي-شات",
     "group_chatting": "المحادثات الجماعية",
     "connect_with_multiple_members_in_group_chats": "تواصل مع العديد من الأعضاء في المحادثات الجماعية.",
     "video_and_voice_calls": "مكالمات الفيديو والصوت",
@@ -193,6 +194,27 @@
     "d_ago": "منذ يوم",
     "w_ago": "منذ اسبوع",
     "mo_ago": "منذ شهر",
-    "y_ago": "منذ سنه"
-    
+    "y_ago": "منذ سنه",
+    "new_arrival": "أحدث المنتجات",
+    "hello": "اهلا",
+    "welcome_to_app": "مرحباً بك في لازا.",
+    "view_all": "شاهد الكل",
+    "add_product": "أضف منتج",
+    "upload_product_image": "ارفق صورة المنتج",
+    "product_title": "اسم المنتج",
+    "enter_product_name": "ادخل اسم المنتج",
+    "title_is_required": "الاسم مطلوب",
+    "price": "السعر",
+    "price_is_required": "السعر مطلوب",
+    "description": "الوصف",
+    "write_something_about_the_product": "اكتب بعض الاشياء عن الامنتج",
+    "description_is_required": "الوصف مطلوب",
+    "product_added_successfully": "المنتج انضاف بنجاح",
+    "total_price": "السعر الكلى",
+    "chat_with_me": "تواصل معى",
+    "read_more": "اقرأ المزيد",
+    "type": "النوع",
+    "type_is_required": "النوع مطلوب",
+    "e_g_mens_printed_Pullover_Hoodie": "مثال: بلوفر رجالى مطبوع",
+    "additional_images": "إضافة صور"
 }

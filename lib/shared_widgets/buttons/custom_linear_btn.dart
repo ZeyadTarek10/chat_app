@@ -7,13 +7,14 @@ class CustomLinearButton extends StatelessWidget {
     required this.child,
     this.height,
     this.width,
-    super.key,
+    super.key, this.radius,
   });
 
   final VoidCallback onPressed;
   final Widget child;
   final double? height;
   final double? width;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class CustomLinearButton extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(radius ?? 30),
         ),
         child: Center(child: child),
       ),
