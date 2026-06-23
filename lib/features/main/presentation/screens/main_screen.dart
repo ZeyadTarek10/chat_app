@@ -1,3 +1,4 @@
+import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/enum/nav_bar_enum.dart';
 import 'package:chat_app/features/chats/presentation/screens/chats_screen.dart';
@@ -10,6 +11,8 @@ import 'package:chat_app/features/more/presentation/screens/more_screen.dart';
 import 'package:chat_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -65,7 +68,26 @@ class _RootState extends State<MainScreen> {
             },
           ),
           floatingActionButton: (currentIndex == 0 || currentIndex == 1)
-              ? const SocialFloatingActionButton()
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SocialFloatingActionButton(
+                      icon: Icons.public,
+                      heroTag: 'social_fab_tag',
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRoutes.social);
+                      },
+                    ),
+                    SizedBox(height: 15.h),
+                    SocialFloatingActionButton(
+                        icon: Icons.production_quantity_limits,
+                        heroTag: 'products_fab_tag',
+                        onPressed: () {
+                          GoRouter.of(context).push(AppRoutes.products);
+                        })
+                  ],
+                )
               : null,
         );
       },

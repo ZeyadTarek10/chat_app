@@ -1,12 +1,13 @@
-import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/core/app_constants/context_ext.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class SocialFloatingActionButton extends StatelessWidget {
+  final IconData icon;
+  final void Function() onPressed;
+  final Object? heroTag;
   const SocialFloatingActionButton({
-    super.key,
+    super.key, required this.icon, required this.onPressed, this.heroTag,
   });
 
   @override
@@ -17,11 +18,10 @@ class SocialFloatingActionButton extends StatelessWidget {
       splashColor: context.color.textSplashColor,
       focusColor: context.color.textSplashColor,
       hoverColor: context.color.textSplashColor,
+      heroTag: heroTag,
       shape: const CircleBorder(),
-      onPressed: () {
-        GoRouter.of(context).push(AppRoutes.social);
-      },
-      child: const Icon(Icons.public),
+      onPressed: onPressed,
+      child: Icon(icon),
     );
   }
 }

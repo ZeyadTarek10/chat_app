@@ -53,6 +53,7 @@ import 'package:chat_app/features/post_details/domain/repositories/comments_repo
 import 'package:chat_app/features/post_details/domain/use_case/add_comment_usecase.dart';
 import 'package:chat_app/features/post_details/domain/use_case/get_comments_usecase.dart';
 import 'package:chat_app/features/post_details/presentation/manager/comments_cubit/comments_cubit.dart';
+import 'package:chat_app/features/products/presentation/manager/cubit/add_product_cubit.dart';
 import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:chat_app/features/profile/domain/repositories/profile_repositories.dart';
@@ -113,7 +114,8 @@ Future<void> getItInit() async {
   /// Blocs
   getIt.registerFactory<CatFactCubit>(() => CatFactCubit(featureUc: getIt()));
   getIt.registerFactory<AppCubit>(() => AppCubit());
-  getIt.registerFactory<ConnectivityCubit>(() => ConnectivityCubit(networkInfo: getIt()));
+  getIt.registerFactory<ConnectivityCubit>(
+      () => ConnectivityCubit(networkInfo: getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: getIt()));
   getIt.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgotPasswordUseCase: getIt()));
@@ -171,7 +173,9 @@ Future<void> getItInit() async {
       deleteStoryUseCase: getIt(),
       updateStoryUseCase: getIt(),
       getStoryUseCase: getIt(),
-      uploadImageUseCase: getIt(), getUserUseCase: getIt()));
+      uploadImageUseCase: getIt(),
+      getUserUseCase: getIt()));
+  getIt.registerFactory<AddProductCubit>(() => AddProductCubit());
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(

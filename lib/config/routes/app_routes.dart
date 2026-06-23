@@ -21,6 +21,10 @@ import 'package:chat_app/features/message_groups/presentation/screens/message_gr
 import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
 import 'package:chat_app/features/post_details/presentation/manager/comments_cubit/comments_cubit.dart';
 import 'package:chat_app/features/post_details/presentation/screens/post_details_screen.dart';
+import 'package:chat_app/features/products/presentation/manager/cubit/add_product_cubit.dart';
+import 'package:chat_app/features/products/presentation/screens/add_product_screen.dart';
+import 'package:chat_app/features/products/presentation/screens/product_details_screen.dart';
+import 'package:chat_app/features/products/presentation/screens/products_screen.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:chat_app/features/sign_up/presentation/screens/sign_up_screen.dart';
@@ -58,6 +62,9 @@ class AppRoutes {
   static const String postDetails = '/postDetails';
   static const String viewsStory = '/viewsStory';
   static const String createOrEditStory = '/createOrEditStory';
+  static const String products = '/products';
+  static const String addProduct = '/addProduct';
+  static const String productDetails = '/productDetails';
 
   static final GoRouter router = GoRouter(
     initialLocation: _isLoggedIn ? AppRoutes.home : AppRoutes.splash,
@@ -128,7 +135,8 @@ class AppRoutes {
             BlocProvider(
                 create: (context) => getIt<GroupsCubit>()..fetchGroups()),
             BlocProvider(create: (context) => getIt<UploadImageCubit>()),
-            BlocProvider(create: (context) => getIt<SocialCubit>()..fetchPosts()),
+            BlocProvider(
+                create: (context) => getIt<SocialCubit>()..fetchPosts()),
           ],
           child: const MainScreen(),
         ),
@@ -164,10 +172,10 @@ class AppRoutes {
                         getIt<MessageCubit>()..initChat(roomId, friendId),
                   ),
                   BlocProvider(
-                  create: (context) => getIt<SocialCubit>()..fetchPosts(),
-                ),
-                 BlocProvider(
-                    create: (context) => getIt<StoryCubit>()..fetchStories())
+                    create: (context) => getIt<SocialCubit>()..fetchPosts(),
+                  ),
+                  BlocProvider(
+                      create: (context) => getIt<StoryCubit>()..fetchStories())
                 ],
                 child: MessageScreen(
                   roomId: roomId,
@@ -287,6 +295,34 @@ class AppRoutes {
           );
         },
       ),
+      GoRoute(
+        path: AppRoutes.products,
+        name: 'products',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+              key: state.pageKey, child: const ProductsScreen());
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.addProduct,
+        name: 'addProduct',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) => getIt<AddProductCubit>(),
+                child: const AddProductScreen(),
+              ));
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.productDetails,
+        name: 'productDetails',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+              key: state.pageKey, child: const ProductDetailsScreen());
+        },
+      )
     ],
   );
 }
