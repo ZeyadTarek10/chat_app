@@ -216,5 +216,20 @@
     "type": "Type",
     "type_is_required": "Type is required",
     "e_g_mens_printed_Pullover_Hoodie": "e.g. Men's Printed Pullover Hoodie",
-    "additional_images": "Additional Images"
+    "additional_images": "Additional Images",
+    "product_updated_successfully": "Produc updated successfully",
+    "product_delete_successfully": "Product delete successfully",
+    "sold_out": "Sold out",
+    "there_are_no_products_currently": "There are no products currently",
+    "product_menu": "Product menu",
+    "my_products": "My products",
+    "my_favorites": "My favorites",
+    "edit_product": "Edit product",
+    "product_available": "Product available",
+    "product_sold_out": "Product sold out",
+    "no_favorite_products": "No favorite products",
+    "no_products_added": "No products added",
+    "product_share": "Product share",
+    "save_changes": "Save changes",
+    "please_upload_product_image": "Please upload product image"
 }

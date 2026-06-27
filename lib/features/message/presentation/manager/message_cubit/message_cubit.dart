@@ -12,6 +12,7 @@ import 'package:chat_app/features/message/domain/use_cases/delete_room_use_case.
 import 'package:chat_app/features/message/domain/use_cases/get_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/send_message_use_case.dart';
 import 'package:chat_app/features/message/domain/use_cases/read_message_use_case.dart';
+import 'package:chat_app/features/products/domain/entities/product_entity.dart';
 import 'package:chat_app/features/sign_up/domain/entities/user_entity.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:chat_app/features/social/domain/entities/story_entity.dart';
@@ -433,6 +434,76 @@ class MessageCubit extends Cubit<MessageState> with AttachmentSenderMixin {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
+    }
+  }
+
+Future<void> sendProductsMessage({
+    required String roomId,
+    required String friendId,
+    required ProductEntity product,
+  }) async {
+    final productPayload = jsonEncode({
+      "id": product.id,
+      "user_id": product.userId,
+      "product_image": product.productImage,
+      "product_gallary_image": product.productGallaryImage,
+      "product_title": product.productTitle,
+      "type": product.type ?? "",
+      "price": product.price,
+      "fav_count": product.favCount ?? 0,
+      "discription": product.discription ?? '',
+      "fav_by": product.favBy,
+      "time": product.time?.toIso8601String(), 
+    });
+    
+    String msgId = DateTime.now().millisecondsSinceEpoch.toString();
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+
+      final chatDocRef = FirebaseFirestore.instance.collection('chats').doc(roomId);
+      final chatDocSnapshot = await chatDocRef.get();
+
+
+      if (!chatDocSnapshot.exists) {
+        List<String> members = [myUid, friendId]..sort((a, b) => a.compareTo(b));
+        await chatDocRef.set({
+          'id': roomId,
+          'members': members,
+          'lastMessage': 'product_share'.tr(),
+          'lastMessageTime': DateTime.now().toIso8601String(), 
+          'createdAt': DateTime.now().toIso8601String(),
+        });
+      }
+
+
+      final newMessage = MessageEntity(
+        id: msgId,
+        message: productPayload,
+        createdAt: DateTime.now(),
+        toId: friendId,
+        fromId: myUid,
+        type: "product_share",
+        read: "",
+        replyMessage: null,
+      );
+
+      _scrollToBottom();
+
+      final result = await sendMessageUseCase.call(newMessage, roomId);
+      result.fold(
+        (failure) {
+          if (!isClosed) emit(MessageActionErrorState(errMsg: failure.massage));
+        },
+        (_) {
+          chatDocRef.update({
+            'lastMessage': 'product_share'.tr(),
+            'lastMessageTime': DateTime.now().toIso8601String(),
+          });
+        },
+      );
+    } catch (e) {
+      if (!isClosed) emit(MessageActionErrorState(errMsg: e.toString()));
     }
   }
 

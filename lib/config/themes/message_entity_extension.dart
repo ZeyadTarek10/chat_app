@@ -13,6 +13,8 @@ extension MessageEntityExtension on MessageEntity {
       return copyWith(message: "🔄 ${'shared_post'.tr()}");
     } else if (type == "story_reply") {
       return copyWith(message: "story_reply".tr());
+    } else if (type == "product_share") {
+      return copyWith(message: "product_share".tr());
     }
     return this;
   }
@@ -29,6 +31,8 @@ extension MessageEntityExtension on MessageEntity {
         return "🔄 ${'shared_post'.tr()}";
       case "story_reply":
         return "story_reply".tr();
+      case "product_share":
+        return "product_share".tr();
       default:
         return message ?? "send_a_message".tr();
     }

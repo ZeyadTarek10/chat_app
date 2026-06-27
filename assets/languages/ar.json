@@ -216,5 +216,20 @@
     "type": "النوع",
     "type_is_required": "النوع مطلوب",
     "e_g_mens_printed_Pullover_Hoodie": "مثال: بلوفر رجالى مطبوع",
-    "additional_images": "إضافة صور"
+    "additional_images": "إضافة صور",
+    "product_updated_successfully": "المنتج تم تعديله بنجاح",
+    "product_delete_successfully": "المنتج تم مسحه بنجاح",
+    "sold_out": "تم البيع",
+    "there_are_no_products_currently": "لا توجد منشورات حالياً",
+    "product_menu": "قائمة المنتجات",
+    "my_products": "منتجاتى",
+    "my_favorites": "مفضلاتى",
+    "edit_product": "تعديل المنتج",
+    "product_available": "المنتج متوفر",
+    "product_sold_out": "المنتج نفذ",
+    "no_favorite_products": "لا توجد منتجات مفضلة",
+    "no_products_added": "لم تتم إضافة منتجات",
+    "product_share": "منتج مشارك",
+    "save_changes": "حفظ التغييرات",
+    "please_upload_product_image": "من فضلك ارفق صورة المنتج"
 }

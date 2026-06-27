@@ -1,11 +1,11 @@
-import 'package:chat_app/config/routes/app_routes.dart';
 import 'package:chat_app/features/products/presentation/screens/widgets/products/circle_button_app_bar_products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAppBarProductsScreen extends StatelessWidget {
-  const CustomAppBarProductsScreen({super.key});
+  final VoidCallback onMenuTap;
+  const CustomAppBarProductsScreen({super.key, required this.onMenuTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,13 @@ class CustomAppBarProductsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CircleButtonAppBarProductsScreen(
-              icon: Icons.add,
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.addProduct);
-              }),
-          CircleButtonAppBarProductsScreen(
-              icon: Icons.arrow_forward_ios_outlined,
+              icon: Icons.arrow_back_ios_sharp,
               onTap: () {
                 GoRouter.of(context).pop();
               }),
+          CircleButtonAppBarProductsScreen(
+              icon: Icons.menu_open,
+              onTap: onMenuTap),
         ],
       ),
     );

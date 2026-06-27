@@ -53,7 +53,15 @@ import 'package:chat_app/features/post_details/domain/repositories/comments_repo
 import 'package:chat_app/features/post_details/domain/use_case/add_comment_usecase.dart';
 import 'package:chat_app/features/post_details/domain/use_case/get_comments_usecase.dart';
 import 'package:chat_app/features/post_details/presentation/manager/comments_cubit/comments_cubit.dart';
-import 'package:chat_app/features/products/presentation/manager/cubit/add_product_cubit.dart';
+import 'package:chat_app/features/products/data/data_source/product_remote_data_source.dart';
+import 'package:chat_app/features/products/data/repositories/product_repositories_impl.dart';
+import 'package:chat_app/features/products/domain/repositories/product_repositories.dart';
+import 'package:chat_app/features/products/domain/use_cases/add_product_use_case.dart';
+import 'package:chat_app/features/products/domain/use_cases/delete_product_use_case.dart';
+import 'package:chat_app/features/products/domain/use_cases/fav_product_use_case.dart';
+import 'package:chat_app/features/products/domain/use_cases/get_product_use_case.dart';
+import 'package:chat_app/features/products/domain/use_cases/update_product_use_case.dart';
+import 'package:chat_app/features/products/presentation/manager/add_cubit/product_cubit.dart';
 import 'package:chat_app/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:chat_app/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:chat_app/features/profile/domain/repositories/profile_repositories.dart';
@@ -175,7 +183,13 @@ Future<void> getItInit() async {
       getStoryUseCase: getIt(),
       uploadImageUseCase: getIt(),
       getUserUseCase: getIt()));
-  getIt.registerFactory<AddProductCubit>(() => AddProductCubit());
+  getIt.registerFactory<ProductCubit>(() => ProductCubit(
+      addProductUseCase: getIt(),
+      getProductUseCase: getIt(),
+      uploadImageUseCase: getIt(),
+      updateProductUseCase: getIt(),
+      favProductUseCase: getIt(),
+      deleteProductUseCase: getIt()));
 
   /// Use cases
   getIt.registerLazySingleton<FirstFeatureUc>(
@@ -248,6 +262,16 @@ Future<void> getItInit() async {
       () => UpdateStoryUseCase(storyRepository: getIt()));
   getIt.registerLazySingleton<GetStoryUseCase>(
       () => GetStoryUseCase(storyRepository: getIt()));
+  getIt.registerLazySingleton<AddProductUseCase>(
+      () => AddProductUseCase(productRepositories: getIt()));
+  getIt.registerLazySingleton<GetProductUseCase>(
+      () => GetProductUseCase(productRepositories: getIt()));
+  getIt.registerLazySingleton<UpdateProductUseCase>(
+      () => UpdateProductUseCase(productRepositories: getIt()));
+  getIt.registerLazySingleton<FavProductUseCase>(
+      () => FavProductUseCase(productRepositories: getIt()));
+  getIt.registerLazySingleton<DeleteProductUseCase>(
+      () => DeleteProductUseCase(productRepositories: getIt()));
 
   /// Repository
   getIt.registerLazySingleton<FirstFeatureRepository>(() =>
@@ -280,6 +304,8 @@ Future<void> getItInit() async {
       CommentsRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()));
   getIt.registerLazySingleton<StoryRepository>(() =>
       StoryRepositoryImpl(networkInfo: getIt(), remoteDataSource: getIt()));
+  getIt.registerLazySingleton<ProductRepositories>(() =>
+      ProductRepositoriesImpl(networkInfo: getIt(), remoteDataSource: getIt()));
 
   /// Data Sources
   getIt.registerLazySingleton<FirstFeatureRemoteDataSource>(
@@ -308,6 +334,8 @@ Future<void> getItInit() async {
       () => CommentsRemoteDataSourceImpl());
   getIt.registerLazySingleton<StoryRemoteDataSource>(
       () => StoryRemoteDataSourceImpl());
+  getIt.registerLazySingleton<ProductRemoteDataSource>(
+      () => ProductRemoteDataSourceImpl());
 
   /// Core
   getIt.registerLazySingleton<NetworkInfo>(
