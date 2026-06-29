@@ -7,6 +7,8 @@ import 'package:chat_app/core/services/alert_service.dart';
 import 'package:chat_app/core/services/url_launcher_service.dart';
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
+import 'package:chat_app/features/products/data/models/product_model.dart';
+import 'package:chat_app/features/products/presentation/manager/add_cubit/product_cubit.dart';
 import 'package:chat_app/features/social/data/models/social_model.dart';
 import 'package:chat_app/features/social/domain/entities/social_entity.dart';
 import 'package:chat_app/features/social/presentation/manager/social_cubit/social_cubit.dart';
@@ -455,6 +457,92 @@ class MessageContent extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      );
+      } else if (type == "product_share") {
+      Map<String, dynamic> productData = {};
+      try {
+        productData = jsonDecode(message);
+      } catch (e) {
+        productData = {"product_title": "Error loading product".tr()};
+      }
+
+      final String productTitle = productData['product_title'] ?? "";
+      final String productImage = productData['product_image'] ?? "";
+      final String productPrice = productData['price']?.toString() ?? "";
+
+      return GestureDetector(
+        onTap: () async {
+           ProductModel sharedProduct;
+           try {
+             sharedProduct = ProductModel.fromJson(productData);
+             final productCubit = getIt<ProductCubit>();
+             GoRouter.of(context).push(
+               AppRoutes.productDetails,
+               extra: {'product': sharedProduct, 'cubit': productCubit},
+             );
+           } catch (e) {
+             AlertService().showAlert(context: context, subtitle: "error_opening_product".tr(), status: AlertStatus.error);
+           }
+        },
+        child: Container(
+          width: 230.w,
+          padding: EdgeInsets.all(10.r),
+          decoration: BoxDecoration(
+            color: isMe ? ColorsDark.white.withOpacity(0.15) : Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: ColorsDark.blueLight1.withOpacity(0.3)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.shopping_bag_outlined, size: 16.sp, color: isMe ? Colors.white70 : Colors.grey),
+                  SizedBox(width: 4.w),
+                  CustomTextWidget(
+                    text: "product_share".tr(),
+                    textStyle: TextStyle(
+                      fontSize: FontDetails.fontSizeXS,
+                      fontWeight: FontWeight.bold,
+                      color: isMe ? Colors.white70 : Colors.grey.shade700,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.h),
+              if (productImage.isNotEmpty)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: CachedNetworkImage(
+                    imageUrl: productImage,
+                    height: 120.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      height: 120.h, color: Colors.grey.shade200,
+                      child: const Center(child: CircularProgressIndicator(color: ColorsDark.blueLight1)),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 40,
+                              color: ColorsLight.mainTextColor,
+                            ),
+                          ),
+                  ),
+              SizedBox(height: 8.h),
+              CustomTextWidget(
+                text: productTitle,
+                maxLines: 2,
+                textStyle: TextStyle(fontSize: FontDetails.fontSizeS, fontWeight: FontWeight.bold, color: isMe ? ColorsLight.white : ColorsLight.black),
+              ),
+              SizedBox(height: 4.h),
+              CustomTextWidget(
+                text: productPrice,
+                textStyle: TextStyle(fontSize: FontDetails.fontSizeS, color: ColorsDark.blueLight1, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       );

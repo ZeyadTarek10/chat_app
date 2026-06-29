@@ -1,18 +1,20 @@
 import 'package:chat_app/core/utils/app_colors.dart';
 import 'package:chat_app/core/utils/font_details.dart';
 import 'package:chat_app/shared_widgets/custom_text.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductImagePickerAddProductScreen extends StatelessWidget {
-  const ProductImagePickerAddProductScreen({super.key});
+  final void Function()? onTap;
+  final IconData? icon;
+  final String text;
+  const ProductImagePickerAddProductScreen({super.key, this.onTap, this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           width: double.infinity,
           height: 160.h,
@@ -26,11 +28,11 @@ class ProductImagePickerAddProductScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.add_photo_alternate_outlined,
+              Icon(icon,
                   size: 40.sp, color: ColorsLight.hintColor),
               SizedBox(height: 10.h),
               CustomTextWidget(
-                text: "upload_product_image".tr(),
+                text: text,
                 textStyle: TextStyle(
                     color: ColorsLight.hintColor,
                     fontWeight: FontDetails.mediumFontWeight),

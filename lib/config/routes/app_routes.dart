@@ -21,8 +21,11 @@ import 'package:chat_app/features/message_groups/presentation/screens/message_gr
 import 'package:chat_app/features/more/presentation/manager/more_cubit/more_cubit.dart';
 import 'package:chat_app/features/post_details/presentation/manager/comments_cubit/comments_cubit.dart';
 import 'package:chat_app/features/post_details/presentation/screens/post_details_screen.dart';
-import 'package:chat_app/features/products/presentation/manager/cubit/add_product_cubit.dart';
+import 'package:chat_app/features/products/domain/entities/product_entity.dart';
+import 'package:chat_app/features/products/presentation/manager/add_cubit/product_cubit.dart';
 import 'package:chat_app/features/products/presentation/screens/add_product_screen.dart';
+import 'package:chat_app/features/products/presentation/screens/favorite_products_screen.dart';
+import 'package:chat_app/features/products/presentation/screens/my_products_screen.dart';
 import 'package:chat_app/features/products/presentation/screens/product_details_screen.dart';
 import 'package:chat_app/features/products/presentation/screens/products_screen.dart';
 import 'package:chat_app/features/profile/presentation/manager/cubit/profile_cubit.dart';
@@ -65,6 +68,8 @@ class AppRoutes {
   static const String products = '/products';
   static const String addProduct = '/addProduct';
   static const String productDetails = '/productDetails';
+  static const String myProducts = '/myProducts';
+  static const String favProducts = '/favProducts';
 
   static final GoRouter router = GoRouter(
     initialLocation: _isLoggedIn ? AppRoutes.home : AppRoutes.splash,
@@ -175,7 +180,10 @@ class AppRoutes {
                     create: (context) => getIt<SocialCubit>()..fetchPosts(),
                   ),
                   BlocProvider(
-                      create: (context) => getIt<StoryCubit>()..fetchStories())
+                      create: (context) => getIt<StoryCubit>()..fetchStories()),
+                  BlocProvider(
+                      create: (context) =>
+                          getIt<ProductCubit>()..fetchProduct())
                 ],
                 child: MessageScreen(
                   roomId: roomId,
@@ -300,18 +308,37 @@ class AppRoutes {
         name: 'products',
         pageBuilder: (context, state) {
           return fadeScaleTransitionPage(
-              key: state.pageKey, child: const ProductsScreen());
+              key: state.pageKey,
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => getIt<ProductCubit>()..fetchProduct(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<ProfileCubit>()..getUserData(),
+                  ),
+                ],
+                child: const ProductsScreen(),
+              ));
         },
       ),
       GoRoute(
         path: AppRoutes.addProduct,
         name: 'addProduct',
         pageBuilder: (context, state) {
+          final productToEdit = state.extra as ProductEntity?;
           return fadeScaleTransitionPage(
               key: state.pageKey,
-              child: BlocProvider(
-                create: (context) => getIt<AddProductCubit>(),
-                child: const AddProductScreen(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(
+                    value: getIt<ProductCubit>(),
+                  ),
+                  BlocProvider.value(
+                    value: getIt<ProfileCubit>(),
+                  ),
+                ],
+                child: AddProductScreen(productToEdit: productToEdit),
               ));
         },
       ),
@@ -319,10 +346,48 @@ class AppRoutes {
         path: AppRoutes.productDetails,
         name: 'productDetails',
         pageBuilder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final product = extraData['product'] as ProductEntity;
+          final productCubit = extraData['cubit'] as ProductCubit;
           return fadeScaleTransitionPage(
-              key: state.pageKey, child: const ProductDetailsScreen());
+              key: state.pageKey,
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(
+                    value: productCubit,
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<ProfileCubit>()..getUserData(),
+                  ),
+                ],
+                child: ProductDetailsScreen(productEntity: product),
+              ));
         },
-      )
+      ),
+      GoRoute(
+        path: AppRoutes.myProducts,
+        name: 'myProducts',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) => getIt<ProductCubit>()..fetchProduct(),
+                child: const MyProductsScreen(),
+              ));
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.favProducts,
+        name: 'favProducts',
+        pageBuilder: (context, state) {
+          return fadeScaleTransitionPage(
+              key: state.pageKey,
+              child: BlocProvider(
+                create: (context) => getIt<ProductCubit>()..fetchProduct(),
+                child: const FavoriteProductsScreen(),
+              ));
+        },
+      ),
     ],
   );
 }
